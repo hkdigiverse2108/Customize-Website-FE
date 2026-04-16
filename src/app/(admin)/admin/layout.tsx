@@ -1,13 +1,18 @@
 "use client";
 
 import Header from "@/layout/header";
+import Sidebar from "@/layout/sidebar";
 import { ChildrenLayout } from "@/type";
+import { FC } from "react";
 
-const AdminLayout = ({ children }: ChildrenLayout) => {
+const AdminLayout: FC<ChildrenLayout> = ({ children }) => {
   return (
-    <div>
-      <Header />
-      {children}
+    <div className="flex">
+      <Sidebar />
+      <div className="flex-1">
+        <Header />
+        {children}
+      </div>
     </div>
   );
 };
