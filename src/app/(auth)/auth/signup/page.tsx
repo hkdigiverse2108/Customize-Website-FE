@@ -62,7 +62,7 @@ const Signup = () => {
                 <CommonValidationTextField className="custom-input" name="password" type="password" showPasswordToggle label="Password" placeholder="••••••••" required col={{ span: 24 }} />
               </Row>
 
-              <button type="submit" disabled={loading} className="w-full py-5 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
+              <button type="submit" disabled={loading} className="w-full py-2 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
                 {loading ? "Creating account..." : "Create Account"}
               </button>
             </Form>
