@@ -15,3 +15,9 @@ export type SelectOptionType = {
 };
 
 export type GridType = number | object | "auto" | "grow";
+
+export interface CommonProfileAvatarProps {
+  fullName?: string;
+  profileImage?: string;
+  className?: string;
+}

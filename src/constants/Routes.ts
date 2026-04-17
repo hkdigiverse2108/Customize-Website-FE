@@ -1,6 +1,6 @@
 export const ROUTES = {
   HOME: "/",
-  DASHBOARD: "/dashboard",
+  DASHBOARD: "/admin/dashboard",
   AUTH: {
     SIGNIN: "/auth/signin",
     VERIFY_OTP: "/auth/verify-otp",
