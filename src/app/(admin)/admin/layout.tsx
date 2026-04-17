@@ -2,16 +2,21 @@
 
 import Header from "@/layout/header";
 import Sidebar from "@/layout/sidebar";
+import { useAppSelector } from "@/store/hooks";
 import { ChildrenLayout } from "@/type";
 import { FC } from "react";
 
 const AdminLayout: FC<ChildrenLayout> = ({ children }) => {
+  const { isExpanded, isMobileOpen, isApplicationMenuOpen } = useAppSelector((state) => state.layout);
+
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="flex-1">
+    <div className="min-h-screen xl:flex overflow-hidden">
+      <div>
+        <Sidebar />
+      </div>
+      <div className={`flex-1 transition-all duration-300 ease-linear ${isApplicationMenuOpen ? "pt-30 xsm:pt-35" : "pt-16"} lg:pt-[78px] ${isExpanded ? "lg:ml-[290px]" : "lg:ml-[90px]"} ${isMobileOpen ? "ml-0" : ""}`}>
         <Header />
-        {children}
+        <div className="mx-auto">{children}</div>
       </div>
     </div>
   );
