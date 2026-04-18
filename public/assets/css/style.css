@@ -21,11 +21,12 @@
 
 @import "./layout.css";
 
+/* ========================== INPUT ========================== */
+
 .custom-input {
   @apply m-0;
 }
 
-/* 🔹 Common Input Style */
 .custom-input .ant-input-outlined,
 .custom-input .ant-input-password {
   @apply bg-gray-50 py-2 px-3 focus:outline-none focus:ring-1 focus:ring-gray-500/20 transition-all font-medium text-gray-900;
@@ -35,26 +36,49 @@
   @apply bg-transparent;
 }
 
-/* 🔹 Focus */
 .custom-input .ant-input-outlined:focus,
 .custom-input .ant-input-password:focus,
 .custom-input .ant-input-affix-wrapper-focused {
-  @apply border-1 border-gray-500;
+  @apply border border-gray-500;
 }
 
-/* 🔹 Remove default border */
 .custom-input .ant-input-affix-wrapper {
-  @apply shadow-none rounded-lg hover:border-1 hover:border-gray-500;
+  @apply shadow-none rounded-lg hover:border hover:border-gray-500;
 }
 
-/* 🔹 TextArea */
 .custom-input .ant-input {
   @apply resize-none;
 }
 
-/* 🔹 Label style */
 .custom-input .ant-form-item-label > label {
   @apply font-medium text-slate-700 dark:text-slate-300 ml-1;
+}
+
+/* ========================== BUTTON ========================== */
+
+.custom-btn {
+  @apply w-full py-2 bg-gray-500 text-white text-base font-semibold rounded-2xl shadow-lg! transition-all duration-200;
+}
+
+/* Hover */
+.custom-btn:hover {
+  @apply bg-gray-100! shadow-xl!;
+}
+
+/* Active click */
+.custom-btn:active {
+  @apply scale-[0.98];
+}
+
+/* Disabled */
+.custom-btn:disabled,
+.custom-btn.ant-btn-loading {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Remove default AntD shadow */
+.custom-btn.ant-btn-default {
+  @apply shadow-none;
 }
 
 /* 

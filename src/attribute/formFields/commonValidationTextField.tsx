@@ -1,28 +1,8 @@
+import { CommonValidationTextFieldProps } from "@/type";
 import { CloseOutlined } from "@ant-design/icons";
-import { Col, ColProps, Form, Input } from "antd";
+import { Col, Form, Input } from "antd";
 import { useField } from "formik";
-import { FC, FocusEvent, ReactNode, useCallback } from "react";
-
-export interface CommonValidationTextFieldProps {
-  label?: string;
-  name: string;
-  type?: string;
-  placeholder?: string;
-  required?: boolean;
-  autoComplete?: string;
-  clearable?: boolean;
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
-  showPasswordToggle?: boolean;
-  disabled?: boolean;
-  helperText?: string;
-  multiline?: boolean;
-  onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
-  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
-  maxDigits?: number;
-  className?: string;
-  col?: ColProps;
-}
+import { FC, FocusEvent, useCallback } from "react";
 
 export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ col, label, name, type = "text", placeholder, required, autoComplete = "off", clearable = false, startIcon, endIcon, showPasswordToggle = false, disabled, helperText, multiline, maxDigits, className, ...props }) => {
   const [field, meta, helpers] = useField(name);
@@ -72,7 +52,7 @@ export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ 
   };
 
   const input = (
-    <Form.Item required={required} validateStatus={meta.touched && meta.error ? "error" : ""} className={className} help={meta.touched && meta.error ? meta.error : helperText}>
+    <Form.Item required={required} validateStatus={meta.touched && meta.error ? "error" : ""} className={`custom-input ${className}`} help={meta.touched && meta.error ? meta.error : helperText}>
       <label className="block text-sm font-semibold text-gray-700 mb-2">
         {label} {required && <span className="text-red-500">*</span>}
       </label>

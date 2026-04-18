@@ -1,45 +1,27 @@
 "use client";
 
-import { CommonValidationTextField } from "@/attribute";
-import { Col, Row } from "antd";
-import { Formik, Form } from "formik";
+import { CommonButton, CommonValidationTextField } from "@/attribute";
+import { CommonNotification } from "@/attribute/notification";
+import { notification, Row } from "antd";
+import { Form, Formik } from "formik";
 import Link from "next/link";
-import React, { useState } from "react";
-import { CloseOutlined, UserOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
 const Signup = () => {
-  const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", password: "" });
-  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   //   const { login } = useAuth();
+  const [api, contextHolder] = notification.useNotification();
 
   const handleSubmit = async () => {
+    CommonNotification("success", "This is a success notification");
     // e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      //   const response = await api.request<any>("REGISTER", { body: formData });
-      //   if (response.status === 200) {
-      // login(response.data);
-      //   } else {
-      //     setError(response.message || "Failed to register. Please try again.");
-      //   }
-    } catch (err) {
-      setError("Something went wrong. Please check your connection.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    // setLoading(true);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 py-20 relative overflow-hidden">
       {/* Decorative Blur Background */}
+      {contextHolder}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gray-500/30 rounded-full blur-3xl -mr-32 -mt-32"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-gray-500/30 rounded-full blur-3xl -ml-32 -mb-32"></div>
 
@@ -56,15 +38,12 @@ const Signup = () => {
           <Formik initialValues={{ firstName: "", password: "" }} onSubmit={handleSubmit}>
             <Form className="space-y-6">
               <Row gutter={[16, 8]}>
-                <CommonValidationTextField className="custom-input" name="firstName" label="First Name" placeholder="John" required col={{ span: 12 }} />
-                <CommonValidationTextField className="custom-input" name="lastName" label="Last Name" placeholder="Doe" required col={{ span: 12 }} />
-                <CommonValidationTextField className="custom-input" name="email" label="Email Address" placeholder="john@example.com" required col={{ span: 24 }} />
-                <CommonValidationTextField className="custom-input" name="password" type="password" showPasswordToggle label="Password" placeholder="••••••••" required col={{ span: 24 }} />
+                <CommonValidationTextField name="firstName" label="First Name" placeholder="John" required col={{ span: 12 }} />
+                <CommonValidationTextField name="lastName" label="Last Name" placeholder="Doe" required col={{ span: 12 }} />
+                <CommonValidationTextField name="email" label="Email Address" placeholder="john@example.com" required col={{ span: 24 }} />
+                <CommonValidationTextField name="password" type="password" showPasswordToggle label="Password" placeholder="••••••••" required col={{ span: 24 }} />
               </Row>
-
-              <button type="submit" disabled={loading} className="w-full py-2 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
-                {loading ? "Creating account..." : "Create Account"}
-              </button>
+              <CommonButton title="Create Account" block htmlType="submit" />
             </Form>
           </Formik>
           <div className="mt-8 text-center text-gray-500 font-medium">
