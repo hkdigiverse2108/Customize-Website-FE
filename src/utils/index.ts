@@ -1,5 +1,10 @@
-import { STORAGE_KEYS } from "@/constants";
+export * from "./validationSchemas";
+export * from "./cookies";
+export * from "./noSsr";
+
+// import { STORAGE_KEYS } from "@/constants";
 import { GridType, Params, SelectOptionType } from "@/type";
+// import { cookies } from "next/headers";
 
 export const Stringify = (value: object): string => {
   try {
@@ -9,11 +14,9 @@ export const Stringify = (value: object): string => {
   }
 };
 
-// export const Storage = localStorage;
-
-// export const getToken = () => {
-//   const token = Storage.getItem(STORAGE_KEYS.TOKEN);
-//   return token;
+// export const getToken = async () => {
+//   const cookieStore = await cookies();
+//   return cookieStore.get(STORAGE_KEYS.TOKEN)?.value;
 // };
 
 export const CleanParams = (params?: Params): Params | undefined => {

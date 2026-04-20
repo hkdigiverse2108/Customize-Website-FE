@@ -17,7 +17,7 @@ export const CommonNotification = (type: AntdNotificationType, message: string, 
   });
 
   notification[type]({
-    message,
+    title: message,
     description,
     className: `custom-notification custom-notification-${type}`,
   });

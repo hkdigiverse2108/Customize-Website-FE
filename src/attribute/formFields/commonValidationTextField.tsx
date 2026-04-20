@@ -4,7 +4,7 @@ import { Col, Form, Input } from "antd";
 import { useField } from "formik";
 import { FC, FocusEvent, useCallback } from "react";
 
-export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ col, label, name, type = "text", placeholder, required, autoComplete = "off", clearable = false, startIcon, endIcon, showPasswordToggle = false, disabled, helperText, multiline, maxDigits, className, ...props }) => {
+export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ col, label, name, type = "text", placeholder, required, autoComplete = "off", clearable = false, startIcon, endIcon, showPasswordToggle = false, disabled, helperText, multiline, maxDigits, className, isOtp, ...props }) => {
   const [field, meta, helpers] = useField(name);
 
   const handleClear = useCallback(() => {
@@ -12,7 +12,7 @@ export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ 
   }, [helpers]);
 
   const handleChange = (e: any) => {
-    const value = e.target.value;
+    const value = e?.target?.value ?? e; // ✅ FIX
     helpers.setValue(value);
   };
 
@@ -39,7 +39,6 @@ export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ 
       field.onBlur(e);
       props.onBlur?.(e);
     },
-    prefix,
     suffix,
     ...(maxDigits && {
       count: {
@@ -59,9 +58,11 @@ export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ 
       {multiline ? (
         <Input.TextArea {...field} placeholder={placeholder} autoComplete={autoComplete} disabled={disabled} onChange={handleChange} /> //
       ) : showPasswordToggle ? (
-        <Input.Password {...commonProps} />
+        <Input.Password {...commonProps} prefix={prefix} />
+      ) : isOtp ? (
+        <Input.OTP {...commonProps} />
       ) : (
-        <Input {...commonProps} />
+        <Input {...commonProps} prefix={prefix} />
       )}
     </Form.Item>
   );

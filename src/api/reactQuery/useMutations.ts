@@ -1,3 +1,4 @@
+import { CommonNotification, ErrorMessage } from "@/attribute/notification";
 import { HTTP_STATUS } from "@/constants";
 import { CombinedErrorResponse } from "@/type";
 import { useMutation, useQueryClient, type InvalidateQueryFilters, type QueryKey, type UseMutationOptions } from "@tanstack/react-query";
@@ -26,7 +27,7 @@ export function useMutations<TInput, TResponse>(mutationKey: QueryKey, callback:
           // });
           break;
         default:
-          // ShowNotification(ErrorMessage(error), "error");
+          CommonNotification("error", ErrorMessage(error));
           break;
       }
     },

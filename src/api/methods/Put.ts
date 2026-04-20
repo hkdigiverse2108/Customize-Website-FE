@@ -1,14 +1,15 @@
+import { CommonNotification } from "@/attribute/notification";
 import { HTTP_STATUS } from "@/constants";
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 
 export async function Put<TInput, TResponse>(url: string, data?: TInput, isToken: boolean = true, isToast: boolean = true): Promise<TResponse> {
   // const authToken = getToken();
   const isFormData = data instanceof FormData;
-  // const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const config: AxiosRequestConfig = {
     method: "PUT",
-    // url: BASE_URL + url,
+    url: BASE_URL + url,
     headers: {
       // ...(isToken ? { Authorization: `Bearer ${authToken}` } : {}),
       ...(isFormData ? {} : { "Content-Type": "application/json" }),
@@ -20,7 +21,7 @@ export async function Put<TInput, TResponse>(url: string, data?: TInput, isToken
     const resData = response.data;
 
     if (response.status === HTTP_STATUS.OK) {
-      // isToast && ShowNotification(resData.message, "success");
+      isToast && CommonNotification("success", resData.message);
       return resData;
     } else {
       return null as TResponse;

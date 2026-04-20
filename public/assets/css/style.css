@@ -54,6 +54,22 @@
   @apply font-medium text-slate-700 dark:text-slate-300 ml-1;
 }
 
+/* Chrome, Safari, Edge */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #f9fafb inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
 /* ========================== BUTTON ========================== */
 
 .custom-btn {
@@ -81,6 +97,15 @@
   @apply shadow-none;
 }
 
+.custom-btn.ant-btn-default:disabled {
+  @apply bg-gray-200! text-black!;
+}
+
+/* ========================== NOTIFICATION ========================== */
+
+.ant-notification-notice-title {
+  @apply mb-0!;
+}
 /* 
 :root {
   --white: #ffffff;

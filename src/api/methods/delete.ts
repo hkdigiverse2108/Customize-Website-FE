@@ -1,14 +1,14 @@
-import { CommonNotification } from "@/attribute/notification";
+// import { CommonNotification } from "@/attribute/notification";
 import { HTTP_STATUS } from "@/constants";
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 
 export async function Delete<T, TInput>(url: string, data?: TInput): Promise<T> {
   // const authToken = getToken();
-  // const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const config: AxiosRequestConfig = {
     method: "DELETE",
-    // url: BASE_URL + url,
+    url: BASE_URL + url,
     headers: {
       // Authorization: `Bearer ${authToken}`,
     },
@@ -20,9 +20,7 @@ export async function Delete<T, TInput>(url: string, data?: TInput): Promise<T> 
     const resData = response.data;
 
     if (response.status === HTTP_STATUS.OK) {
-      // ShowNotification(resData.message, "success");
-      CommonNotification("success", resData.message);
-
+      // CommonNotification("success", resData.message);
       return resData;
     } else {
       return null as T;

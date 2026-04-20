@@ -1,27 +1,41 @@
 "use client";
 
 import { CommonButton, CommonValidationTextField } from "@/attribute";
-import { CommonNotification } from "@/attribute/notification";
-import { notification, Row } from "antd";
+import { Row } from "antd";
 import { Form, Formik } from "formik";
 import Link from "next/link";
-import { useState } from "react";
+import { Mutations } from "@/api";
+import { FormikHelpers } from "formik";
+import { SignupPayload } from "@/type";
+import { SignupSchema } from "@/utils";
+import { ACCOUNT_TYPE } from "@/data/enm";
+import { ROUTES } from "@/constants";
 
 const Signup = () => {
-  const [loading, setLoading] = useState(false);
-  //   const { login } = useAuth();
-  const [api, contextHolder] = notification.useNotification();
+  const { mutate: signup, isPending: isSignupLoading } = Mutations.useSignup();
 
-  const handleSubmit = async () => {
-    CommonNotification("success", "This is a success notification");
-    // e.preventDefault();
-    // setLoading(true);
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    role: ACCOUNT_TYPE.VENDOR,
+  };
+
+  const handleSubmit = async (values: SignupPayload, { resetForm }: FormikHelpers<SignupPayload>) => {
+    signup(
+      { ...values, email: values.email.toLowerCase() },
+      {
+        onSuccess: (response) => {
+          resetForm();
+        },
+      },
+    );
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 py-20 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50  px-4 py-20 relative overflow-hidden">
       {/* Decorative Blur Background */}
-      {contextHolder}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gray-500/30 rounded-full blur-3xl -mr-32 -mt-32"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-gray-500/30 rounded-full blur-3xl -ml-32 -mb-32"></div>
 
@@ -30,25 +44,25 @@ const Signup = () => {
           <Link href="/" className="text-3xl font-bold font-inter gradient-text tracking-tighter inline-block mb-4">
             CW
           </Link>
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Create an Account</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 ">Create an Account</h2>
           <p className="text-gray-500 font-medium">Join thousands of businesses growing with us.</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-900 shadow-2xl rounded-3xl border border-slate-100 dark:border-slate-800 p-10">
-          <Formik initialValues={{ firstName: "", password: "" }} onSubmit={handleSubmit}>
+        <div className="bg-white  shadow-2xl rounded-3xl border border-slate-100 -10">
+          <Formik<SignupPayload> initialValues={initialValues} validationSchema={SignupSchema} onSubmit={handleSubmit}>
             <Form className="space-y-6">
               <Row gutter={[16, 8]}>
-                <CommonValidationTextField name="firstName" label="First Name" placeholder="John" required col={{ span: 12 }} />
-                <CommonValidationTextField name="lastName" label="Last Name" placeholder="Doe" required col={{ span: 12 }} />
+                <CommonValidationTextField name="firstName" label="First Name" placeholder="John" required col={{ xs: 24, sm: 12 }} />
+                <CommonValidationTextField name="lastName" label="Last Name" placeholder="Doe" required col={{ xs: 24, sm: 12 }} />
                 <CommonValidationTextField name="email" label="Email Address" placeholder="john@example.com" required col={{ span: 24 }} />
                 <CommonValidationTextField name="password" type="password" showPasswordToggle label="Password" placeholder="••••••••" required col={{ span: 24 }} />
               </Row>
-              <CommonButton title="Create Account" block htmlType="submit" />
+              <CommonButton title="Create Account" block htmlType="submit" loading={isSignupLoading} />
             </Form>
           </Formik>
           <div className="mt-8 text-center text-gray-500 font-medium">
             Already have an account?{" "}
-            <Link href="/login" className="text-gray-600 hover:text-gray-900 font-bold underline underline-offset-4 decoration-gray-200">
+            <Link href={ROUTES.AUTH.LOGIN} className="text-gray-600 hover:text-gray-900 font-bold underline underline-offset-4 decoration-gray-200">
               Log in
             </Link>
           </div>

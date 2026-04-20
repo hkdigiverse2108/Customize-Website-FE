@@ -2,9 +2,11 @@ export const ROUTES = {
   HOME: "/",
   DASHBOARD: "/admin/dashboard",
   AUTH: {
-    SIGNIN: "/auth/signin",
+    SIGNUP: "/auth/signup",
+    LOGIN: "/auth/login",
     VERIFY_OTP: "/auth/verify-otp",
     RESET_PASSWORD: "/auth/reset-password",
+    FORGOT_PASSWORD: "/auth/forgot-password",
   },
   PRODUCT: {
     BASE: "/inventory/product",

@@ -1,5 +1,5 @@
 import { ImagePath } from "@/constants";
-import { NavItem, NavItems } from "@/date";
+import { NavItem, NavItems } from "@/data";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setIsHovered, setToggleMobileSidebar, setToggleSidebar } from "@/store/slices/LayoutSlice";
 import { useWindowWidth } from "@/utils/hook";
