@@ -48,7 +48,7 @@ const Signup = () => {
           <p className="text-gray-500 font-medium">Join thousands of businesses growing with us.</p>
         </div>
 
-        <div className="bg-white  shadow-2xl rounded-3xl border border-slate-100 -10">
+        <div className="bg-white  shadow-2xl rounded-3xl border border-slate-100 p-10">
           <Formik<SignupPayload> initialValues={initialValues} validationSchema={SignupSchema} onSubmit={handleSubmit}>
             <Form className="space-y-6">
               <Row gutter={[16, 8]}>
