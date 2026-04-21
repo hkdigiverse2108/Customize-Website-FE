@@ -59,7 +59,7 @@ const Login = () => {
                 Forgot password?
               </Link>
 
-              <CommonButton title="Create Account" block htmlType="submit" loading={isLoginLoading} />
+              <CommonButton title="Sign In" block htmlType="submit" loading={isLoginLoading} />
             </Form>
           </Formik>
 

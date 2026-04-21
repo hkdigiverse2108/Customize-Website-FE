@@ -71,7 +71,7 @@ const VerifyOtp = () => {
           router.push(ROUTES.AUTH.RESET_PASSWORD);
         } else {
           dispatch(setSignin(res.data));
-          router.push(res.data.user.role === ACCOUNT_TYPE.ADMIN ? ROUTES.ADMIN.DASHBOARD : ROUTES.VENDOR.DASHBOARD);
+          router.push(res.data.user.role === ACCOUNT_TYPE.ADMIN ? ROUTES.ADMIN.DASHBOARD : ROUTES.STORE.DASHBOARD);
           Cookie.remove(STORAGE_KEYS.EMAIL_OTP);
         }
         resetForm();

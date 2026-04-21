@@ -23,14 +23,14 @@ export function middleware(req: NextRequest) {
   const isAuthPage = pathname.startsWith("/auth");
   const isVerifyOtp = pathname.startsWith(ROUTES.AUTH.VERIFY_OTP);
   const isAdminRoute = pathname.startsWith("/admin");
-  const isVendorRoute = pathname.startsWith("/vendor");
+  const isStoreRoute = pathname.startsWith("/store");
 
   // ===============================
   // ❌ NOT LOGGED IN
   // ===============================
   if (!token) {
     // allow only auth pages
-    if (isAdminRoute || isVendorRoute) {
+    if (isAdminRoute || isStoreRoute) {
       return NextResponse.redirect(new URL(ROUTES.AUTH.LOGIN, req.url));
     }
 
@@ -56,19 +56,19 @@ export function middleware(req: NextRequest) {
     }
 
     if (role === ACCOUNT_TYPE.VENDOR) {
-      return NextResponse.redirect(new URL(ROUTES.VENDOR.DASHBOARD, req.url));
+      return NextResponse.redirect(new URL(ROUTES.STORE.DASHBOARD, req.url));
     }
   }
 
   // ===============================
   // 🚫 ROLE BASED PROTECTION
   // ===============================
-  if (role === ACCOUNT_TYPE.ADMIN && isVendorRoute) {
+  if (role === ACCOUNT_TYPE.ADMIN && isStoreRoute) {
     return NextResponse.redirect(new URL(ROUTES.ADMIN.DASHBOARD, req.url));
   }
 
   if (role === ACCOUNT_TYPE.VENDOR && isAdminRoute) {
-    return NextResponse.redirect(new URL(ROUTES.VENDOR.DASHBOARD, req.url));
+    return NextResponse.redirect(new URL(ROUTES.STORE.DASHBOARD, req.url));
   }
 
   return NextResponse.next();
@@ -76,5 +76,5 @@ export function middleware(req: NextRequest) {
 
 // ✅ Better matcher (ONLY required routes)
 export const config = {
-  matcher: ["/admin/:path*", "/vendor/:path*", "/auth/:path*"],
+  matcher: ["/admin/:path*", "/store/:path*", "/auth/:path*"],
 };

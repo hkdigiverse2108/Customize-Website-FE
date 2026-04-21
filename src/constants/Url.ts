@@ -7,5 +7,6 @@ export const URL_KEYS = {
     VERIFY_OTP: "/auth/verify-otp",
     RESEND_OTP: "/auth/resend-otp",
     RESET_PASSWORD: "/auth/reset-password",
+    SIGNUP_GOOGLE: "/auth/google-auth",
   },
 } as const;

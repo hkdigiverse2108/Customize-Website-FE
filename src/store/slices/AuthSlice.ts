@@ -7,7 +7,7 @@ const StoredToken = Cookie.get(STORAGE_KEYS.TOKEN) || null;
 
 const initialState = {
   token: StoredToken,
-  user: StoredUser,
+  user: StoredUser ? JSON.parse(StoredUser) : null,
 };
 
 const authSlice = createSlice({

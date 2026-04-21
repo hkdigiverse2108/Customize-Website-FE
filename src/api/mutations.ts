@@ -12,4 +12,5 @@ export const Mutations = {
   useVerifyOtp: () => useMutations<VerifyOtpPayload, LoginResponse>([KEYS.AUTH.VERIFY_OTP], (input) => Post(URL_KEYS.AUTH.VERIFY_OTP, input, false)),
   useResendOtp: () => useMutations<ResendOtpPayload, void>([KEYS.AUTH.RESEND_OTP], (input) => Post(URL_KEYS.AUTH.RESEND_OTP, input, false)),
   useResetPassword: () => useMutations<ResetPasswordPayload, void>([KEYS.AUTH.RESET_PASSWORD], (input) => Post(URL_KEYS.AUTH.RESET_PASSWORD, input, false)),
+  useSignupGoogle: () => useMutations<SignupPayload, LoginResponse>([KEYS.AUTH.SIGNUP_GOOGLE], (input) => Post(URL_KEYS.AUTH.SIGNUP_GOOGLE, input, false)),
 };

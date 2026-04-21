@@ -7,5 +7,6 @@ export const KEYS = {
     VERIFY_OTP: "verify-otp",
     RESEND_OTP: "resend-otp",
     RESET_PASSWORD: "reset-password",
+    SIGNUP_GOOGLE: "signup-google",
   }
 };

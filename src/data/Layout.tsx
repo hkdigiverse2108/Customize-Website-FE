@@ -10,7 +10,7 @@ export type NavItem = {
 };
 
 export const NavItems: NavItem[] = [
-  { icon: <AppstoreOutlined />, name: PAGE_TITLE.DASHBOARD, path: ROUTES.VENDOR.DASHBOARD },
+  { icon: <AppstoreOutlined />, name: PAGE_TITLE.DASHBOARD, path: ROUTES.STORE.DASHBOARD },
   // {
   //   name: PAGE_TITLE.INVENTORY.BASE,
   //   icon: <HomeOutlined />,
