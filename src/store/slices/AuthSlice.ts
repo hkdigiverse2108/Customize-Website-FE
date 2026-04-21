@@ -1,43 +1,37 @@
+import { STORAGE_KEYS } from "@/constants";
+import { Cookie, Stringify } from "@/utils";
 import { createSlice } from "@reduxjs/toolkit";
-// import { Storage, Stringify } from "@/utils";
 
-// const StoredUser = JSON.parse(Storage.getItem(STORAGE_KEYS.USER) || "null");
-// const StoredToken = Storage.getItem(STORAGE_KEYS.TOKEN) || null;
+const StoredUser = Cookie.get(STORAGE_KEYS.USER) || null;
+const StoredToken = Cookie.get(STORAGE_KEYS.TOKEN) || null;
 
 const initialState = {
-  // token: StoredToken,
-  // user: StoredUser,
-  // isAuthenticated: !!StoredToken,
-  signinResponse: { email: "", otp: "" },
+  token: StoredToken,
+  user: StoredUser,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setSigninResponse: (state, action) => {
-      state.signinResponse = action.payload;
+    setSignin: (state, action) => {
+      state.token = action.payload.token;
+      state.user = action.payload;
+      Cookie.set(STORAGE_KEYS.USER, Stringify(action.payload.user), 1);
+      Cookie.set(STORAGE_KEYS.TOKEN, action.payload.token, 1);
     },
-    // setSignin: (state, action) => {
-    //   // state.token = action.payload.token;
-    //   // state.isAuthenticated = true;
-    //   // state.user = action.payload;
-    //   // Storage.setItem(STORAGE_KEYS.TOKEN, action.payload.token);
-    //   // Storage.setItem(STORAGE_KEYS.USER, Stringify(action.payload));
-    // },
     // setUser: (state, action) => {
     //   // state.user = action.payload;
     //   // Storage.setItem(STORAGE_KEYS.USER, Stringify(action.payload));
     // },
-    // setSignOut(state) {
-    //   // state.token = null;
-    //   // state.user = null;
-    //   // state.isAuthenticated = false;
-    //   // Storage.clear();
-    //   window.location.reload();
-    // },
+    setSignOut(state) {
+      state.token = null;
+      state.user = null;
+      Cookie.removeAll();
+      window.location.reload();
+    },
   },
 });
 
-export const { setSigninResponse } = authSlice.actions;
+export const { setSignin, setSignOut } = authSlice.actions;
 export default authSlice.reducer;

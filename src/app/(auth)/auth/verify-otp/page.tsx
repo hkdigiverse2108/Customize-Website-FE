@@ -3,6 +3,9 @@
 import { Mutations } from "@/api";
 import { CommonButton, CommonValidationTextField } from "@/attribute";
 import { ROUTES, STORAGE_KEYS } from "@/constants";
+import { ACCOUNT_TYPE } from "@/data/enm";
+import { useAppDispatch } from "@/store/hooks";
+import { setSignin } from "@/store/slices/AuthSlice";
 import { VerifyOtpPayload } from "@/type";
 import { Cookie, VerifyOtpSchema } from "@/utils";
 import { Row } from "antd";
@@ -15,6 +18,7 @@ const OTP_DURATION = 600;
 
 const VerifyOtp = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
   const [timeLeft, setTimeLeft] = useState(() => {
     const savedExpiry = Cookie.get(STORAGE_KEYS.OTP_EXPIRY_KEY);
@@ -63,11 +67,14 @@ const VerifyOtp = () => {
   const handleSubmit = async (values: VerifyOtpPayload, { resetForm }: FormikHelpers<VerifyOtpPayload>) => {
     verifyOtp(values, {
       onSuccess: async (res) => {
-        Cookie.set(STORAGE_KEYS.USER, JSON.stringify(res.data.user), 1);
-        Cookie.set(STORAGE_KEYS.TOKEN, res.data.token, 1);
-        isForgotPassword ? router.push(ROUTES.AUTH.RESET_PASSWORD) : router.push(ROUTES.DASHBOARD);
+        if (isForgotPassword) {
+          router.push(ROUTES.AUTH.RESET_PASSWORD);
+        } else {
+          dispatch(setSignin(res.data));
+          router.push(res.data.user.role === ACCOUNT_TYPE.ADMIN ? ROUTES.ADMIN.DASHBOARD : ROUTES.VENDOR.DASHBOARD);
+          Cookie.remove(STORAGE_KEYS.EMAIL_OTP);
+        }
         resetForm();
-        Cookie.remove(STORAGE_KEYS.EMAIL_OTP);
         Cookie.remove(STORAGE_KEYS.OTP_EXPIRY_KEY);
       },
     });
@@ -88,12 +95,12 @@ const VerifyOtp = () => {
     );
   };
 
-  // useEffect(() => {
-  //   if (!email) {
-  //     router.push(ROUTES.AUTH.LOGIN);
-  //     Cookie.removeAll();
-  //   }
-  // }, [router, email]);
+  useEffect(() => {
+    if (!email) {
+      router.push(ROUTES.AUTH.LOGIN);
+      // Cookie.removeAll();
+    }
+  }, [router, email]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50  px-4">

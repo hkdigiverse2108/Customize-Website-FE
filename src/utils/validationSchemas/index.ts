@@ -69,3 +69,10 @@ export const VerifyOtpSchema = Yup.object({
 export const ForgotPasswordSchema = Yup.object({
   email: Validation("string", "Email", { extraRules: (s) => s.email("Invalid email address") }),
 });
+
+export const ResetPasswordSchema = Yup.object({
+  password: Validation("string", "New Password", { extraRules: (s) => s.matches(/[!@#$%^&*()_+={}:;"'<>,.?/-]/, "Password must include at least one special character") }),
+  confirmPassword: Validation("string", "Confirm Password")
+    .oneOf([Yup.ref("password")], "Passwords must match")
+    .required("Confirm Password is required"),
+});

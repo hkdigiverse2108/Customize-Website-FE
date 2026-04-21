@@ -6,6 +6,6 @@ export const KEYS = {
     FORGOT_PASSWORD: "forgot-password",
     VERIFY_OTP: "verify-otp",
     RESEND_OTP: "resend-otp",
-    UPDATE_PASSWORD: "update-password",
-  },
+    RESET_PASSWORD: "reset-password",
+  }
 };

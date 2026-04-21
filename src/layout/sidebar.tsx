@@ -1,4 +1,3 @@
-import { ImagePath } from "@/constants";
 import { NavItem, NavItems } from "@/data";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setIsHovered, setToggleMobileSidebar, setToggleSidebar } from "@/store/slices/LayoutSlice";
@@ -6,8 +5,8 @@ import { useWindowWidth } from "@/utils/hook";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Sidebar = () => {
   const { isExpanded, isMobileOpen, isHovered } = useAppSelector((state) => state.layout);

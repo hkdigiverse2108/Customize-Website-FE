@@ -1,6 +1,7 @@
 import { MessageStatus } from "./common";
 import { UserBase } from "./user";
 
+export type AccountType = "admin" | "vendor";
 export interface SignupPayload {
   firstName: string;
   lastName: string;
@@ -32,4 +33,10 @@ export interface ResendOtpPayload {
 
 export interface ForgotPasswordPayload {
   email: string;
+}
+
+export interface ResetPasswordPayload {
+  email: string;
+  password: string;
+  confirmPassword?: string;
 }
