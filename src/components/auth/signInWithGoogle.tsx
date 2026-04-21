@@ -7,7 +7,6 @@ const SignInWithGoogle = () => {
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: (tokenResponse) => {
       signupGoogle({
-        idToken: tokenResponse.access_token,
         credential: tokenResponse.access_token,
       });
     },

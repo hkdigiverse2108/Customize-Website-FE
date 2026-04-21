@@ -42,6 +42,5 @@ export interface ResetPasswordPayload {
 }
 
 export interface SignupGooglePayload {
-  idToken: string;
   credential: string;
 }
