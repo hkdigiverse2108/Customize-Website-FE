@@ -1,14 +1,34 @@
 import { Mutations } from "@/api";
+import { ROUTES } from "@/constants";
+import { ACCOUNT_TYPE } from "@/data/enm";
+import { useAppDispatch } from "@/store/hooks";
+import { setSignin } from "@/store/slices/AuthSlice";
+import { Cookie } from "@/utils";
 import { useGoogleLogin } from "@react-oauth/google";
+import { useRouter } from "next/navigation";
 
-const SignInWithGoogle = () => {
+const SignInWithGoogle = ({ type }: { type: "signup" | "signin" }) => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const { mutate: signupGoogle, isPending: isSignupGoogleLoading } = Mutations.useSignupGoogle();
 
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: (tokenResponse) => {
-      signupGoogle({
-        credential: tokenResponse.access_token,
-      });
+      Cookie.removeAll();
+      signupGoogle(
+        {
+          credential: tokenResponse.access_token,
+          type,
+        },
+        {
+          onSuccess: (res) => {
+            if (type === "signin") {
+              dispatch(setSignin(res.data));
+              router.push(res.data.user.role === ACCOUNT_TYPE.ADMIN ? ROUTES.ADMIN.DASHBOARD : ROUTES.STORE.DASHBOARD);
+            }
+          },
+        },
+      );
     },
     onError: (error) => console.error("Google Login Failed:", error),
   });

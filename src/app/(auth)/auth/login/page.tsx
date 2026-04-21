@@ -2,10 +2,11 @@
 
 import { Mutations } from "@/api";
 import { CommonButton, CommonValidationTextField } from "@/attribute";
+import { SignInWithGoogle } from "@/components/auth";
 import { ROUTES, STORAGE_KEYS } from "@/constants";
 import { LoginPayload } from "@/type";
 import { Cookie, LoginSchema } from "@/utils";
-import { Row } from "antd";
+import { Divider, Row } from "antd";
 import { Form, Formik, FormikHelpers } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -62,8 +63,11 @@ const Login = () => {
               <CommonButton title="Sign In" block htmlType="submit" loading={isLoginLoading} />
             </Form>
           </Formik>
-
-          <div className="mt-8 text-center text-gray-500 font-medium">
+          <Divider plain>Or</Divider>
+          <div className="grid grid-cols-1 my-3">
+            <SignInWithGoogle type="signin" />
+          </div>
+          <div className="text-center text-gray-500 font-medium">
             Don't have an account?
             <Link href={ROUTES.AUTH.SIGNUP} className="text-gray-600 hover:text-gray-900 font-bold underline underline-offset-4 decoration-gray-200 ps-1">
               Sign up

@@ -8,6 +8,8 @@ import { FC } from "react";
 import { Provider } from "react-redux";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import NoSsr from "@/utils/noSsr";
+import { App as AntdApp } from "antd";
+import { NotificationProvider } from "@/attribute/notification";
 
 const queryClient = new QueryClient();
 
@@ -20,14 +22,18 @@ const MainProvider: FC<ChildrenLayout> = ({ children }) => {
           theme={{
             token: {
               colorPrimary: "#101828",
+              colorLink: "#475467",
+              colorLinkHover: "#1d2939",
             },
           }}
         >
-          <QueryClientProvider client={queryClient}>
-            <GoogleOAuthProvider clientId={googleClientId}>
-              {children}
-            </GoogleOAuthProvider>
-          </QueryClientProvider>
+          <AntdApp>
+            <NotificationProvider>
+              <QueryClientProvider client={queryClient}>
+                <GoogleOAuthProvider clientId={googleClientId}>{children}</GoogleOAuthProvider>
+              </QueryClientProvider>
+            </NotificationProvider>
+          </AntdApp>
         </ConfigProvider>
       </Provider>
     </NoSsr>
