@@ -1,6 +1,5 @@
 import { ImagePath } from "@/constants";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setApplicationMenuOpen, setToggleMobileSidebar, setToggleSidebar } from "@/store/slices/layoutSlice";
+import { setApplicationMenuOpen, setToggleMobileSidebar, setToggleSidebar, useAppDispatch, useAppSelector } from "@/store";
 import { useWindowWidth } from "@/utils/hook";
 import Link from "next/link";
 // import ThemeToggleButton from "./ThemeToggleButton";

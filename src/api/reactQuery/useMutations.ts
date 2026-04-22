@@ -1,7 +1,6 @@
 import { CommonNotification, ErrorMessage } from "@/attribute";
 import { HTTP_STATUS } from "@/constants";
-import { useAppDispatch } from "@/store/hooks";
-import { setSignOut } from "@/store/slices/aAuthSlice";
+import { setSignOut, useAppDispatch } from "@/store";
 import { CombinedErrorResponse } from "@/type";
 import { useMutation, useQueryClient, type InvalidateQueryFilters, type QueryKey, type UseMutationOptions } from "@tanstack/react-query";
 

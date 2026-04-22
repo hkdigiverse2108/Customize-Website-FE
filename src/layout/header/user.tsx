@@ -1,7 +1,6 @@
 import { CommonProfileAvatar } from "@/components/common";
 import { ROUTES } from "@/constants";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setSignOut } from "@/store/slices/aAuthSlice";
+import { setSignOut, useAppDispatch, useAppSelector } from "@/store";
 import { useClickOutside } from "@/utils";
 import Link from "next/link";
 

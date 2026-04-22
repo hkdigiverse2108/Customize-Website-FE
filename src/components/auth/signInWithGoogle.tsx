@@ -1,8 +1,7 @@
 import { Mutations } from "@/api";
 import { ROUTES } from "@/constants";
 import { ACCOUNT_TYPE } from "@/data";
-import { useAppDispatch } from "@/store/hooks";
-import { setSignin } from "@/store/slices/aAuthSlice";
+import { setSignin, useAppDispatch } from "@/store";
 import { Cookie } from "@/utils";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/navigation";

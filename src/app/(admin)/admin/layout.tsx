@@ -2,7 +2,7 @@
 
 import Header from "@/layout/header";
 import Sidebar from "@/layout/sidebar";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector } from "@/store";
 import { ChildrenLayout } from "@/type";
 import { FC } from "react";
 

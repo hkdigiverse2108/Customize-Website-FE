@@ -1,6 +1,6 @@
 "use client";
 
-import Store from "@/store/store";
+import store from "@/store/store";
 import { ChildrenLayout } from "@/type";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider } from "antd";
@@ -17,7 +17,7 @@ const MainProvider: FC<ChildrenLayout> = ({ children }) => {
   const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
   return (
     <NoSsr>
-      <Provider store={Store}>
+      <Provider store={store}>
         <ConfigProvider
           theme={{
             token: {

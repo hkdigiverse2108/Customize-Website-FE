@@ -1,5 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setToggleTheme } from "@/store/slices/layoutSlice";
+import { setToggleTheme, useAppDispatch, useAppSelector } from "@/store";
 
 const ToggleButton = () => {
   const dispatch = useAppDispatch();

@@ -1,7 +1,5 @@
-import { AdminNavItems, StoreNavItems } from "@/data";
-import { ACCOUNT_TYPE } from "@/data";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setIsHovered, setToggleMobileSidebar, setToggleSidebar } from "@/store/slices/layoutSlice";
+import { ACCOUNT_TYPE, AdminNavItems, StoreNavItems } from "@/data";
+import { setIsHovered, setToggleMobileSidebar, setToggleSidebar, useAppDispatch, useAppSelector } from "@/store";
 import { NavItem } from "@/type";
 import { useWindowWidth } from "@/utils/hook";
 import Link from "next/link";
