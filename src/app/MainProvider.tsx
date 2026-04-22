@@ -1,6 +1,6 @@
 "use client";
 
-import Store from "@/store/Store";
+import Store from "@/store/store";
 import { ChildrenLayout } from "@/type";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider } from "antd";
