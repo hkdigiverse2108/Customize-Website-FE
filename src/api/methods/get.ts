@@ -1,17 +1,18 @@
 import { CommonNotification, ErrorMessage } from "@/attribute";
 import { HTTP_STATUS } from "@/constants";
 import { Params } from "@/type";
+import { getToken } from "@/utils";
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 
 let isRedirecting = false;
 
 export async function Get<T>(url: string, params?: Params, headers?: Record<string, string>): Promise<T> {
-  // const authToken = getToken();
+  const authToken = getToken();
   const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
   const config: AxiosRequestConfig = {
     method: "GET",
     headers: {
-      // Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${authToken}`,
       "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
       Pragma: "no-cache",
       Expires: "0",

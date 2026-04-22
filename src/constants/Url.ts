@@ -9,4 +9,7 @@ export const URL_KEYS = {
     RESET_PASSWORD: "/auth/reset-password",
     SIGNUP_GOOGLE: "/auth/google-auth",
   },
+  PLAN: {
+    BASE: "/plan",
+  },
 } as const;

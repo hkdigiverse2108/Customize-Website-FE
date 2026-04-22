@@ -8,5 +8,8 @@ export const KEYS = {
     RESEND_OTP: "resend-otp",
     RESET_PASSWORD: "reset-password",
     SIGNUP_GOOGLE: "signup-google",
-  }
+  },
+  PLAN: {
+    BASE: "plan",
+  },
 };

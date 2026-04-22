@@ -1,5 +1,9 @@
+import { Params, PlanApiResponse } from "@/type";
+import { useQueries } from "./reactQuery";
+import { KEYS, URL_KEYS } from "@/constants";
+import { Get } from "./methods";
+
 export const Queries = {
-  // ************ Upload ***********
-  // useGetUploadImage: (options?: AppQueryOptions<UploadResponse>) => useQueries<UploadResponse>([KEYS.UPLOAD.ALL_IMAGE], () => Get(URL_KEYS.UPLOAD.ALL_IMAGE), options),
-  // useGetUploadPdf: (options?: AppQueryOptions<UploadResponse>) => useQueries<UploadResponse>([KEYS.UPLOAD.ALL_PDF], () => Get(URL_KEYS.UPLOAD.ALL_PDF), options),
+  /* ========================== Plan ========================== */
+  useGetPlan: (params?: Params, enabled?: boolean) => useQueries<PlanApiResponse>([KEYS.PLAN.BASE, params], () => Get(URL_KEYS.PLAN.BASE, params), { enabled: enabled }),
 };

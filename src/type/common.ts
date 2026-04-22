@@ -1,4 +1,4 @@
-import { ButtonProps, ColProps } from "antd";
+import { ButtonProps, CardProps, ColProps, TablePaginationConfig, TableProps } from "antd";
 import { CSSProperties, FocusEvent, ReactNode } from "react";
 import * as Yup from "yup";
 
@@ -58,11 +58,11 @@ export interface CommonButtonProps extends ButtonProps {
 export interface PageState {
   page: number;
   limit: number;
-  totalPages: number;
+  page_limit: number;
 }
 
 export interface PageStatus {
-  totalData: number;
+  total_count: number;
   state: PageState;
 }
 
@@ -108,4 +108,25 @@ export interface FieldOptions<T> {
   required?: boolean;
   extraRules?: (schema: T) => T;
   minItems?: number;
+}
+
+/* ========================== Card ========================== */
+export interface CommonCardProps {
+  children: ReactNode;
+  col?: ColProps;
+  cardProps?: CardProps;
+  handleAdd?: () => void;
+}
+
+/* ========================== Table ========================== */
+
+export interface Params {
+  [key: string]: any;
+}
+
+export interface CommonTableProps<T> extends TableProps<T> {
+  loading?: boolean;
+  dataSource: T[];
+  columns: TableProps<T>["columns"];
+  pagination?: TablePaginationConfig;
 }

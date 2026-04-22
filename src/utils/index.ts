@@ -3,9 +3,9 @@ export * from "./cookies";
 export * from "./noSsr";
 export * from "./hook";
 
-// import { STORAGE_KEYS } from "@/constants";
 import { GridType, Params, SelectOptionType } from "@/type";
-// import { cookies } from "next/headers";
+import { Cookie } from "./cookies";
+import { STORAGE_KEYS } from "@/constants";
 
 export const Stringify = (value: object): string => {
   try {
@@ -15,10 +15,7 @@ export const Stringify = (value: object): string => {
   }
 };
 
-// export const getToken = async () => {
-//   const cookieStore = await cookies();
-//   return cookieStore.get(STORAGE_KEYS.TOKEN)?.value;
-// };
+export const getToken = () => Cookie.get(STORAGE_KEYS.TOKEN);
 
 export const CleanParams = (params?: Params): Params | undefined => {
   if (!params) return undefined;
