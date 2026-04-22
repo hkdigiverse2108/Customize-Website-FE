@@ -1,4 +1,4 @@
-// import { CommonNotification, ErrorMessage } from "@/attribute/notification";
+import { CommonNotification, ErrorMessage } from "@/attribute";
 import { HTTP_STATUS } from "@/constants";
 import { Params } from "@/type";
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
@@ -32,7 +32,7 @@ export async function Get<T>(url: string, params?: Params, headers?: Record<stri
       // window.location.href = ROUTES.HOME;
       setTimeout(() => (isRedirecting = false), 1000);
     } else {
-      // CommonNotification("error", ErrorMessage(error));
+      CommonNotification("error", ErrorMessage(error));
     }
     throw null;
   }

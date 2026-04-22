@@ -6,5 +6,10 @@ export const PAGE_TITLE = {
     FORGOT_PASSWORD: "Forgot Password",
     VERIFY_OTP: "Verify OTP",
     RESET_PASSWORD: "Reset Password",
+  },
+  PLAN: {
+    BASE: "Plan",
+    ADD: "Add Plan",
+    EDIT: "Edit Plan",
   }
 } as const;

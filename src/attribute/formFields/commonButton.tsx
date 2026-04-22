@@ -1,12 +1,6 @@
-import { Button, Col, ColProps, ButtonProps } from "antd";
-import { CSSProperties, ReactNode, FC } from "react";
-
-export interface CommonButtonProps extends ButtonProps {
-  children?: ReactNode;
-  title?: string;
-  col?: ColProps;
-  style?: CSSProperties;
-}
+import { CommonButtonProps } from "@/type";
+import { Button, Col } from "antd";
+import { FC } from "react";
 
 export const CommonButton: FC<CommonButtonProps> = ({ className, children, loading = false, disabled, title, col, style, size = "large", ...rest }) => {
   const button = (

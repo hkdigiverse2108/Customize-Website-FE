@@ -1,6 +1,8 @@
-import { NavItem, NavItems } from "@/data";
+import { AdminNavItems, StoreNavItems } from "@/data";
+import { ACCOUNT_TYPE } from "@/data";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setIsHovered, setToggleMobileSidebar, setToggleSidebar } from "@/store/slices/LayoutSlice";
+import { NavItem } from "@/type";
 import { useWindowWidth } from "@/utils/hook";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,6 +12,7 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Sidebar = () => {
   const { isExpanded, isMobileOpen, isHovered } = useAppSelector((state) => state.layout);
+  const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const width = useWindowWidth();
 
@@ -20,6 +23,8 @@ const Sidebar = () => {
   const subMenuRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const isActive = useCallback((path: string) => location === path || location.startsWith(path + "/"), [location]);
+
+  const NavItems = user?.role === ACCOUNT_TYPE.ADMIN ? AdminNavItems : StoreNavItems;
 
   useEffect(() => {
     NavItems.forEach((menu, index) => {

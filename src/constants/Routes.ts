@@ -5,6 +5,11 @@ export const ROUTES = {
   },
   ADMIN: {
     DASHBOARD: "/admin/dashboard",
+    PLAN: {
+      BASE: "/admin/plan",
+      ADD: "/admin/plan/add",
+      EDIT: "/admin/plan/edit",
+    },
   },
   AUTH: {
     SIGNUP: "/auth/signup",

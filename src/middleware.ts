@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ROUTES, STORAGE_KEYS } from "./constants";
-import { ACCOUNT_TYPE } from "./data/enm";
+import { ACCOUNT_TYPE } from "./data";
 import { AccountType } from "./type";
 
 export function middleware(req: NextRequest) {

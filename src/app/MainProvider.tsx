@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import NoSsr from "@/utils/noSsr";
 import { App as AntdApp } from "antd";
-import { NotificationProvider } from "@/attribute/notification";
+import { NotificationProvider } from "@/attribute";
 
 const queryClient = new QueryClient();
 

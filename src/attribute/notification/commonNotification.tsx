@@ -1,14 +1,16 @@
 import { App } from "antd";
+import { ReactNode, useEffect } from "react";
 
 type AntdNotificationType = "success" | "error" | "info" | "warning";
 
 let notificationInstance: ReturnType<typeof App.useApp>["notification"] | null = null;
 
-export const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
+export const NotificationProvider = ({ children }: { children: ReactNode }) => {
   const { notification } = App.useApp();
 
-  // ✅ assign once
-  notificationInstance = notification;
+  useEffect(() => {
+    notificationInstance = notification;
+  }, [notification]);
 
   return <>{children}</>;
 };

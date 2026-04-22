@@ -14,11 +14,8 @@ const Header = () => {
   if (!width) return null; // SSR safe check
 
   const handleToggle = () => {
-    if (width >= 1024) {
-      dispatch(setToggleSidebar());
-    } else {
-      dispatch(setToggleMobileSidebar());
-    }
+    if (width >= 1024) dispatch(setToggleSidebar());
+    else dispatch(setToggleMobileSidebar());
   };
 
   return (

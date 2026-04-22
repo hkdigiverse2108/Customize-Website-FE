@@ -4,7 +4,7 @@ import { Mutations } from "@/api";
 import { CommonButton, CommonValidationTextField } from "@/attribute";
 import { SignInWithGoogle } from "@/components/auth";
 import { ROUTES } from "@/constants";
-import { ACCOUNT_TYPE } from "@/data/enm";
+import { ACCOUNT_TYPE } from "@/data";
 import { SignupPayload } from "@/type";
 import { SignupSchema } from "@/utils";
 import { Divider, Row } from "antd";

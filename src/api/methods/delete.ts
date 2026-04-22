@@ -1,4 +1,4 @@
-// import { CommonNotification } from "@/attribute/notification";
+import { CommonNotification } from "@/attribute";
 import { HTTP_STATUS } from "@/constants";
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 
@@ -20,7 +20,7 @@ export async function Delete<T, TInput>(url: string, data?: TInput): Promise<T> 
     const resData = response.data;
 
     if (response.status === HTTP_STATUS.OK) {
-      // CommonNotification("success", resData.message);
+      CommonNotification("success", resData.message);
       return resData;
     } else {
       return null as T;

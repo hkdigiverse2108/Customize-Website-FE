@@ -1,6 +1,6 @@
 import { Mutations } from "@/api";
 import { ROUTES } from "@/constants";
-import { ACCOUNT_TYPE } from "@/data/enm";
+import { ACCOUNT_TYPE } from "@/data";
 import { useAppDispatch } from "@/store/hooks";
 import { setSignin } from "@/store/slices/AuthSlice";
 import { Cookie } from "@/utils";

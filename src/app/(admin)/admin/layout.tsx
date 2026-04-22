@@ -14,9 +14,11 @@ const AdminLayout: FC<ChildrenLayout> = ({ children }) => {
       <div>
         <Sidebar />
       </div>
-      <div className={`flex-1 transition-all duration-300 ease-linear ${isApplicationMenuOpen ? "pt-30 xsm:pt-35" : "pt-16"} lg:pt-[78px] ${isExpanded ? "lg:ml-[250px]" : "lg:ml-[70px]"} ${isMobileOpen ? "ml-0" : ""}`}>
+      <div className={`flex-1 transition-all duration-300 ease-linear ${isApplicationMenuOpen ? "pt-29 xsm:pt-30" : "pt-16"} lg:pt-14 ${isExpanded ? "lg:ml-[250px]" : "lg:ml-[70px]"} ${isMobileOpen ? "ml-0" : ""}`}>
         <Header />
-        <div className="mx-auto">{children}</div>
+        <div className="mx-auto">
+          <div className="p-2 sm:p-4">{children}</div>
+        </div>
       </div>
     </div>
   );

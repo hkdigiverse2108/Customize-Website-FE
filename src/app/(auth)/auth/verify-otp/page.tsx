@@ -3,7 +3,7 @@
 import { Mutations } from "@/api";
 import { CommonButton, CommonValidationTextField } from "@/attribute";
 import { ROUTES, STORAGE_KEYS } from "@/constants";
-import { ACCOUNT_TYPE } from "@/data/enm";
+import { ACCOUNT_TYPE } from "@/data";
 import { useAppDispatch } from "@/store/hooks";
 import { setSignin } from "@/store/slices/AuthSlice";
 import { VerifyOtpPayload } from "@/type";

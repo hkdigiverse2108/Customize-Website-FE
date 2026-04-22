@@ -2,15 +2,25 @@ import { CommonProfileAvatar } from "@/components/common";
 import { ROUTES } from "@/constants";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setSignOut } from "@/store/slices/AuthSlice";
+import { useClickOutside } from "@/utils";
 import Link from "next/link";
 
 const User = () => {
   const { user } = useAppSelector((state) => state.auth);
+  const { open, setOpen, wrapperRef } = useClickOutside();
+
   const dispatch = useAppDispatch();
   return (
-    <div className="relative group">
-      <CommonProfileAvatar fullName={`${user?.firstName} ${user?.lastName}`} profileImage={""} className="max-xsm:text-sm h-10 w-10 max-xsm:h-9 max-xsm:w-9" />
-      <div className="fixed lg:absolute max-lg:left-1 max-lg:right-1 lg:right-0 mt-3 flex min-w-[250px] max-w-[330px] flex-col rounded-xl border border-gray-50 bg-white shadow-tooltip dark:border-gray-800 dark:bg-gray-dark z-50 opacity-0 invisible scale-95 translate-y-2 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:visible group-hover:scale-100 group-hover:translate-y-0 ">
+    <div className="relative group" ref={wrapperRef} onMouseEnter={() => window.innerWidth >= 1024 && setOpen(true)} onMouseLeave={() => window.innerWidth >= 1024 && setOpen(false)}>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          if (window.innerWidth < 1024) setOpen((prev) => !prev);
+        }}
+      >
+        <CommonProfileAvatar fullName={`${user?.firstName} ${user?.lastName}`} profileImage={""} className="max-xsm:text-sm h-10 w-10 max-xsm:h-9 max-xsm:w-9" />
+      </div>
+      <div className={`fixed lg:absolute max-lg:left-1 max-lg:right-1 lg:right-0 mt-3 flex min-w-[250px] max-w-[330px] flex-col rounded-xl border border-gray-50 bg-white shadow-tooltip dark:border-gray-800 dark:bg-gray-dark z-50 transition-all duration-200 ease-out ${open ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 translate-y-2"} `}>
         <div className="p-3">
           <div className="flex items-center gap-3">
             <CommonProfileAvatar fullName={`${user?.firstName} ${user?.lastName}`} profileImage={""} className="h-9 w-9" />

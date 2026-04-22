@@ -1,4 +1,4 @@
-import { CommonNotification } from "@/attribute/notification";
+import { CommonNotification } from "@/attribute";
 import { HTTP_STATUS } from "@/constants";
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 

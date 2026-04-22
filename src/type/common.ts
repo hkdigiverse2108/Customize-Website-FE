@@ -1,5 +1,5 @@
-import { ColProps } from "antd";
-import { FocusEvent, ReactNode } from "react";
+import { ButtonProps, ColProps } from "antd";
+import { CSSProperties, FocusEvent, ReactNode } from "react";
 import * as Yup from "yup";
 
 export type ChildrenLayout = {
@@ -48,6 +48,13 @@ export interface CommonValidationTextFieldProps {
   isOtp?: boolean;
 }
 
+export interface CommonButtonProps extends ButtonProps {
+  children?: ReactNode;
+  title?: string;
+  col?: ColProps;
+  style?: CSSProperties;
+}
+
 export interface PageState {
   page: number;
   limit: number;
@@ -74,6 +81,14 @@ export interface CommonDataType {
   updatedAt: string;
   isActive?: boolean;
 }
+
+export type NavItem = {
+  name: string;
+  icon: React.ReactNode;
+  path?: string;
+  number?: number;
+  children?: { name: string; path: string; pro?: boolean; new?: boolean; number?: number }[];
+};
 
 /* ========================== Auth ========================== */
 
