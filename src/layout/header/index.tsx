@@ -1,10 +1,10 @@
 import { ImagePath } from "@/constants";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setApplicationMenuOpen, setToggleMobileSidebar, setToggleSidebar } from "@/store/slices/LayoutSlice";
+import { setApplicationMenuOpen, setToggleMobileSidebar, setToggleSidebar } from "@/store/slices/layoutSlice";
 import { useWindowWidth } from "@/utils/hook";
 import Link from "next/link";
 // import ThemeToggleButton from "./ThemeToggleButton";
-import User from "./User";
+import User from "./user";
 
 const Header = () => {
   const { isMobileOpen, isExpanded, isHovered, isApplicationMenuOpen } = useAppSelector((state) => state.layout);

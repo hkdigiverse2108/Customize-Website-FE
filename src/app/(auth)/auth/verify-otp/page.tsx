@@ -5,7 +5,7 @@ import { CommonButton, CommonValidationTextField } from "@/attribute";
 import { ROUTES, STORAGE_KEYS } from "@/constants";
 import { ACCOUNT_TYPE } from "@/data";
 import { useAppDispatch } from "@/store/hooks";
-import { setSignin } from "@/store/slices/AuthSlice";
+import { setSignin } from "@/store/slices/aAuthSlice";
 import { VerifyOtpPayload } from "@/type";
 import { Cookie, VerifyOtpSchema } from "@/utils";
 import { Row } from "antd";

@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setToggleTheme } from "@/store/slices/LayoutSlice";
+import { setToggleTheme } from "@/store/slices/layoutSlice";
 
-const ThemeToggleButton = () => {
+const ToggleButton = () => {
   const dispatch = useAppDispatch();
   const { isToggleTheme } = useAppSelector((state) => state.layout);
 
@@ -19,4 +19,4 @@ const ThemeToggleButton = () => {
   );
 };
 
-export default ThemeToggleButton;
+export default ToggleButton;
