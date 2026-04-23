@@ -9,7 +9,7 @@ const CommonProfileAvatar: FC<CommonProfileAvatarProps> = ({ fullName, profileIm
 
   const profileInitials = (firstInitial + lastInitial).toUpperCase();
 
-  return <div className={`flex items-center justify-center rounded-full bg-gray-500 text-white overflow-hidden ${className}`}>{profileImage ? <img src={profileImage} alt="profile" className="w-full h-full object-cover" /> : <span className="font-semibold">{profileInitials}</span>}</div>;
+  return <div className={`flex items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white overflow-hidden ${className}`}>{profileImage ? <img src={profileImage} alt="profile" className="w-full h-full object-cover" /> : <span className="font-semibold">{profileInitials}</span>}</div>;
 };
 
 export default CommonProfileAvatar;

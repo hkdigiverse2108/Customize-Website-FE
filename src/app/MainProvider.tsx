@@ -21,9 +21,10 @@ const MainProvider: FC<ChildrenLayout> = ({ children }) => {
         <ConfigProvider
           theme={{
             token: {
-              colorPrimary: "#101828",
-              colorLink: "#475467",
-              colorLinkHover: "#1d2939",
+              colorPrimary: "#10a856",
+              colorLink: "#0a8745",
+              colorLinkHover: "#0b6b38",
+              borderRadius: 12,
             },
           }}
         >

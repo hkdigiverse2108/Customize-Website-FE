@@ -33,7 +33,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50  px-4">
+    <div className="h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 overflow-hidden">
       <div className="w-full max-w-md bg-white shadow-2xl rounded-3xl p-10 border border-gray-100 ">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900  mb-2">Forgot Password?</h2>
@@ -49,7 +49,7 @@ const ForgotPassword = () => {
         </Formik>
 
         <div className="mt-8 text-center">
-          <Link href={ROUTES.AUTH.LOGIN} className="text-gray-600 font-bold hover: underline">
+          <Link href={ROUTES.AUTH.LOGIN} className="text-brand-600 font-bold hover:text-brand-700 hover:underline transition-colors">
             Back to Login
           </Link>
         </div>

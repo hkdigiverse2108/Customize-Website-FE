@@ -102,7 +102,7 @@ const VerifyOtp = () => {
   }, [router, email]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50  px-4">
+    <div className="h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 overflow-hidden">
       <div className="w-full max-w-md bg-white shadow-2xl rounded-3xl p-10 border border-slate-100 ">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-slate-900 mb-2">Verify OTP</h2>
@@ -126,12 +126,12 @@ const VerifyOtp = () => {
         <div className="mt-8 text-center space-y-4">
           <div className="text-sm font-medium text-slate-500 mb-0">
             Didn't receive the code?
-            <button onClick={handleResendOtp} disabled={isResendOtpLoading} className="text-gray-600 ps-1 font-bold hover:underline disabled:opacity-50">
+            <button onClick={handleResendOtp} disabled={isResendOtpLoading} className="text-brand-600 ps-1 font-bold hover:underline disabled:opacity-50">
               {isResendOtpLoading ? "Resending..." : "Resend OTP"}
             </button>
           </div>
           <div>
-            <Link href={ROUTES.AUTH.LOGIN} onClick={() => Cookie.removeAll()} className="text-slate-400 text-xs font-bold hover:text-gray-600 transition-colors">
+            <Link href={ROUTES.AUTH.LOGIN} onClick={() => Cookie.removeAll()} className="text-gray-400 text-xs font-bold hover:text-brand-600 transition-colors">
               Cancel and Login
             </Link>
           </div>

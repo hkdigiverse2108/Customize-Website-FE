@@ -6,7 +6,7 @@
 
 .custom-input .ant-input-outlined,
 .custom-input .ant-input-password {
-  @apply bg-gray-50 py-2 px-3 focus:outline-none focus:ring-1 focus:ring-gray-500/20 transition-all font-medium text-gray-900;
+  @apply bg-white py-2 px-3 focus:outline-none focus:ring-1 focus:ring-brand-500/20 transition-all duration-200 font-medium text-gray-900 rounded-xl;
 }
 .custom-input .ant-input-outlined input,
 .custom-input .ant-input-password input {
@@ -16,11 +16,11 @@
 .custom-input .ant-input-outlined:focus,
 .custom-input .ant-input-password:focus,
 .custom-input .ant-input-affix-wrapper-focused {
-  @apply border border-gray-500;
+  @apply border border-brand-500;
 }
 
 .custom-input .ant-input-affix-wrapper {
-  @apply shadow-none rounded-lg hover:border hover:border-gray-500;
+  @apply shadow-none rounded-xl hover:border hover:border-brand-400;
 }
 
 .custom-input .ant-input {
@@ -28,7 +28,7 @@
 }
 
 .custom-input .ant-form-item-label > label {
-  @apply font-medium text-slate-700 dark:text-slate-300 ml-1;
+  @apply font-medium text-gray-700 dark:text-gray-300 ml-1;
 }
 
 /* Chrome, Safari, Edge */
@@ -50,17 +50,17 @@ input:-webkit-autofill {
 /* ========================== BUTTON ========================== */
 
 .custom-btn {
-  @apply w-full py-2 bg-gray-500 text-white text-base font-semibold rounded-2xl shadow-lg! transition-all duration-200;
+  @apply w-full py-2.5 bg-brand-500 text-white text-base font-semibold rounded-xl shadow-md transition-all duration-200;
 }
 
 /* Hover */
 .custom-btn:hover {
-  @apply bg-gray-100! shadow-xl!;
+  @apply bg-brand-600 shadow-lg -translate-y-0.5;
 }
 
 /* Active click */
 .custom-btn:active {
-  @apply scale-[0.98];
+  @apply scale-[0.98] translate-y-0;
 }
 
 /* Disabled */
@@ -91,4 +91,36 @@ input:-webkit-autofill {
 }
 .custom-card .ant-card-head-title {
   @apply capitalize;
+}
+
+/* ========================== TABLE ========================== */
+
+.ant-table-wrapper .ant-table-thead > tr > th {
+  @apply bg-gray-50 text-gray-600 font-semibold uppercase tracking-wider text-xs;
+}
+
+.ant-table-wrapper .ant-table-tbody > tr:hover > td {
+  @apply bg-brand-50/50!;
+}
+
+/* Pagination dropdown and item active states */
+.ant-pagination-item-active {
+  @apply border-brand-500 bg-white!;
+}
+
+.ant-pagination-item-active a {
+  @apply text-brand-600!;
+}
+
+.ant-pagination-item:hover {
+  @apply border-brand-500!;
+}
+
+.ant-pagination-item:hover a {
+  @apply text-brand-600!;
+}
+
+/* Select dropdown in pagination */
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  @apply bg-brand-50 text-brand-700!;
 }

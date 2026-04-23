@@ -10,13 +10,15 @@ const AdminLayout: FC<ChildrenLayout> = ({ children }) => {
   const { isExpanded, isMobileOpen, isApplicationMenuOpen } = useAppSelector((state) => state.layout);
 
   return (
-    <div className="min-h-screen xl:flex overflow-hidden">
+    <div className="min-h-screen xl:flex overflow-hidden bg-gray-50 dark:bg-gray-950">
       <div>
         <Sidebar />
       </div>
-      <div className={`flex-1 transition-all duration-300 ease-linear ${isApplicationMenuOpen ? "pt-30 xsm:pt-35" : "pt-16"} lg:pt-[78px] ${isExpanded ? "lg:ml-[250px]" : "lg:ml-[70px]"} ${isMobileOpen ? "ml-0" : ""}`}>
+      <div className={`flex-1 transition-all duration-300 ease-linear ${isApplicationMenuOpen ? "pt-30 xsm:pt-35" : "pt-16"} lg:pt-14 ${isExpanded ? "lg:ml-[260px]" : "lg:ml-[72px]"} ${isMobileOpen ? "ml-0" : ""}`}>
         <Header />
-        <div className="mx-auto">{children}</div>
+        <div className="mx-auto">
+          <div className="p-3 sm:p-5">{children}</div>
+        </div>
       </div>
     </div>
   );
