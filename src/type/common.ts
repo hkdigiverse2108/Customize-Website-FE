@@ -1,4 +1,4 @@
-import { ButtonProps, CardProps, ColProps, TablePaginationConfig, TableProps } from "antd";
+import { ButtonProps, CardProps, ColProps, SelectProps, TablePaginationConfig, TableProps } from "antd";
 import { CSSProperties, FocusEvent, ReactNode } from "react";
 import * as Yup from "yup";
 
@@ -46,6 +46,31 @@ export interface CommonValidationTextFieldProps {
   className?: string;
   col?: ColProps;
   isOtp?: boolean;
+}
+
+export interface CommonValidationSwitchProps {
+  name: string;
+  label?: string;
+  disabled?: boolean;
+  required?: boolean;
+  syncFieldName?: string;
+  onChange?: (checked: boolean) => void;
+  col?: ColProps;
+}
+
+export interface CommonValidationSelectProps extends SelectProps {
+  name: string;
+  label?: string;
+  options: SelectOptionType[];
+  required?: boolean;
+  disabled?: boolean;
+  placeholder?: string;
+  syncFieldName?: string;
+  isLoading?: boolean;
+  searchKeys?: string[];
+  onChange?: (value: string[]) => void;
+  col?: ColProps;
+  mode?: SelectProps["mode"];
 }
 
 export interface CommonButtonProps extends ButtonProps {

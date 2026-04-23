@@ -14,8 +14,7 @@ export const ROUTES = {
     DASHBOARD: "/admin/dashboard",
     PLAN: {
       BASE: "/admin/plan",
-      ADD: "/admin/plan/add",
-      EDIT: "/admin/plan/edit",
+      ADD_EDIT: "/admin/plan/add-edit",
     },
   },
 } as const;

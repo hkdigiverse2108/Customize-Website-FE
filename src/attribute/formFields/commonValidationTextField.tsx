@@ -52,9 +52,11 @@ export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ 
 
   const input = (
     <Form.Item required={required} validateStatus={meta.touched && meta.error ? "error" : ""} className={`custom-input ${className}`} help={meta.touched && meta.error ? meta.error : helperText}>
-      <label className="block text-sm font-semibold text-gray-700 mb-2">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
+      {label && (
+        <label className="block text-sm font-semibold text-gray-700 mb-2 capitalize">
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
       {multiline ? (
         <Input.TextArea {...field} placeholder={placeholder} autoComplete={autoComplete} disabled={disabled} onChange={handleChange} /> //
       ) : showPasswordToggle ? (

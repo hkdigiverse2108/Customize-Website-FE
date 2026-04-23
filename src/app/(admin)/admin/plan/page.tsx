@@ -2,12 +2,15 @@
 
 import { Queries } from "@/api/queries";
 import { CommonCard, CommonTable } from "@/components/common";
-import { PAGE_TITLE } from "@/constants";
+import { PAGE_TITLE, ROUTES } from "@/constants";
 import { PlanBase } from "@/type";
 import { useTableFilter } from "@/utils";
+import { useRouter } from "next/navigation";
 
 const PlanPage = () => {
   const { paginationModel, handleTableChange, params } = useTableFilter();
+  const router = useRouter();
+
   const { data: planData, isLoading: planLoading } = Queries.useGetPlan(params);
 
   const columns = [
@@ -24,7 +27,7 @@ const PlanPage = () => {
   };
 
   return (
-    <CommonCard cardProps={{ title: PAGE_TITLE.PLAN.BASE}} handleAdd={() => {}}>
+    <CommonCard cardProps={{ title: PAGE_TITLE.PLAN.BASE }} handleAdd={() => router.push(ROUTES.ADMIN.PLAN.ADD_EDIT)}>
       <CommonTable<PlanBase> {...dataOption} />
     </CommonCard>
   );
