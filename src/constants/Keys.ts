@@ -11,5 +11,7 @@ export const KEYS = {
   },
   PLAN: {
     BASE: "plan",
+    ADD: "add-plan",
+    EDIT: "edit-plan",
   },
 };

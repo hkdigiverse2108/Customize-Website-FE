@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload } from "@/type";
+import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload } from "@/type";
 import { Post } from "./methods";
 import { useMutations } from "./reactQuery";
 
@@ -13,4 +13,8 @@ export const Mutations = {
   useResendOtp: () => useMutations<ResendOtpPayload, void>([KEYS.AUTH.RESEND_OTP], (input) => Post(URL_KEYS.AUTH.RESEND_OTP, input, false)),
   useResetPassword: () => useMutations<ResetPasswordPayload, void>([KEYS.AUTH.RESET_PASSWORD], (input) => Post(URL_KEYS.AUTH.RESET_PASSWORD, input, false)),
   useSignupGoogle: () => useMutations<SignupGooglePayload, LoginResponse>([KEYS.AUTH.SIGNUP_GOOGLE], (input) => Post(URL_KEYS.AUTH.SIGNUP_GOOGLE, input, false)),
+
+  /* ========================== Plan ========================== */
+  useAddPlan: () => useMutations<AddPlanPayload, void>([KEYS.PLAN.ADD], (input) => Post(URL_KEYS.PLAN.BASE, input)),
+  useEditPlan: () => useMutations<EditPlanPayload, void>([KEYS.PLAN.EDIT], (input) => Post(URL_KEYS.PLAN.BASE, input)),
 };

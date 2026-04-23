@@ -1,16 +1,17 @@
 import { CommonNotification } from "@/attribute";
 import { HTTP_STATUS } from "@/constants";
+import { getToken } from "@/utils";
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 
 export async function Delete<T, TInput>(url: string, data?: TInput): Promise<T> {
-  // const authToken = getToken();
+  const authToken = getToken();
   const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const config: AxiosRequestConfig = {
     method: "DELETE",
     url: BASE_URL + url,
     headers: {
-      // Authorization: `Bearer ${authToken}`,
+      Authorization: `Bearer ${authToken}`,
     },
     data,
   };

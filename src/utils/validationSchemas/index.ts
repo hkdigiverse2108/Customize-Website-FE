@@ -76,3 +76,17 @@ export const ResetPasswordSchema = Yup.object({
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Confirm Password is required"),
 });
+
+/* ========================== Plan ========================== */
+export const PlanSchema = Yup.object({
+  name: Validation("string", "Plan Name"),
+  price: Validation("number", "Price"),
+  duration: Validation("string", "Duration"),
+  themeLimit: Validation("number", "Theme Limit", { required: false, extraRules: (s) => s.min(1, "Theme Limit must be at least 1") }),
+  productLimit: Validation("number", "Product Limit", { required: false, extraRules: (s) => s.min(1, "Product Limit must be at least 1") }),
+  blogLimit: Validation("number", "Blog Limit", { required: false, extraRules: (s) => s.min(1, "Blog Limit must be at least 1") }),
+  orderLimit: Validation("number", "Order Limit", { required: false, extraRules: (s) => s.min(1, "Order Limit must be at least 1") }),
+  features: Validation("array", "Features", { required: false }),
+  customDomainSupport: Validation("boolean", "Custom Domain Support", { required: false }),
+  isActive: Validation("boolean", "Status"),
+});

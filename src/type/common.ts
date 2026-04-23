@@ -56,6 +56,7 @@ export interface CommonValidationSwitchProps {
   syncFieldName?: string;
   onChange?: (checked: boolean) => void;
   col?: ColProps;
+  loading?: boolean;
 }
 
 export interface CommonValidationSelectProps extends SelectProps {

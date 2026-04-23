@@ -3,7 +3,7 @@ import { Col, Switch } from "antd";
 import { useField, useFormikContext } from "formik";
 import { FC } from "react";
 
-export const CommonValidationSwitch: FC<CommonValidationSwitchProps> = ({ name, label, disabled, required, syncFieldName, onChange, col }) => {
+export const CommonValidationSwitch: FC<CommonValidationSwitchProps> = ({ name, label, disabled, required, syncFieldName, onChange, col, loading }) => {
   const [field, meta, helpers] = useField<boolean>({ name });
   const { setFieldValue } = useFormikContext();
 
@@ -18,7 +18,7 @@ export const CommonValidationSwitch: FC<CommonValidationSwitchProps> = ({ name, 
 
   const SwitchComponent = (
     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-      <Switch id={name} size="middle" checked={checked} onChange={handleChange} disabled={disabled} />
+      <Switch id={name} size="middle" checked={checked} onChange={handleChange} disabled={disabled} loading={loading} />
 
       {label && (
         <label className="block text-sm font-semibold text-gray-700 capitalize" htmlFor={name}>
