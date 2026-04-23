@@ -66,7 +66,7 @@ const Sidebar = () => {
   const renderMenuItems = (items: NavItem[], menuType: "main" | "others") => (
     <ul className="flex flex-col gap-1">
       {items.map((nav, index) => (
-        <li key={nav.name}>
+        <li key={`${nav.name}-${index}`}>
           {nav.children ? (
             <button onClick={() => handleSubmenuToggle(index, menuType)} className={`menu-item w-full group ${openSubmenu?.type === menuType && openSubmenu?.index === index ? "menu-item-active" : "menu-item-inactive"} cursor-pointer ${!isExpanded && !isHovered ? "lg:justify-center" : "lg:justify-start"}`}>
               <span className={`menu-item-icon-size ${openSubmenu?.type === menuType && openSubmenu?.index === index ? "menu-item-icon-active" : "menu-item-icon-inactive"}`}>{nav.icon}</span>
@@ -92,8 +92,8 @@ const Sidebar = () => {
               }}
             >
               <ul className="mt-1 space-y-0.5 ml-8 border-l-2 border-brand-200 dark:border-brand-800 pl-2">
-                {nav.children.map((children) => (
-                  <li key={children.name}>
+                {nav.children.map((children, childIndex) => (
+                  <li key={`${children.name}-${childIndex}`}>
                     <Link href={children.path} className={`menu-dropdown-item ${isActive(children.path) ? "menu-dropdown-item-active" : "menu-dropdown-item-inactive"}`}>
                       {children.name}
                       <span className="flex items-center gap-1 ml-auto">
@@ -130,7 +130,7 @@ const Sidebar = () => {
         onMouseLeave={() => dispatch(setIsHovered(false))}
       >
         {/* Logo area */}
-        <div className={`lg:h-[73px] py-4 flex ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-between"} items-center border-b border-gray-200/60 dark:border-gray-800/60`}>
+        <div className={` py-3 flex ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-between"} items-center border-b border-gray-200/60 dark:border-gray-800/60`}>
           <Link href="/" className="flex items-center gap-2">
             {isShowFull ? (
               <div className="flex items-center gap-2">
@@ -140,7 +140,7 @@ const Sidebar = () => {
                 <span className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">Customize</span>
               </div>
             ) : (
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-md">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-md">
                 <span className="text-white font-bold text-sm">CW</span>
               </div>
             )}
@@ -165,16 +165,6 @@ const Sidebar = () => {
             </div>
           </nav>
         </div>
-
-        {/* Bottom branding */}
-        {isShowFull && (
-          <div className="py-4 border-t border-gray-200 dark:border-gray-800">
-            <div className="flex items-center gap-2 px-3">
-              <div className="w-2 h-2 rounded-full bg-brand-500 animate-pulse" />
-              <span className="text-xs text-gray-400 dark:text-gray-600">v1.0 • Online</span>
-            </div>
-          </div>
-        )}
       </aside>
     </>
   );

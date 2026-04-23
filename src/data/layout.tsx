@@ -6,14 +6,14 @@ import { GrPlan } from "react-icons/gr";
 export const AdminNavItems: NavItem[] = [
   { icon: <AppstoreOutlined />, name: PAGE_TITLE.DASHBOARD, path: ROUTES.ADMIN.DASHBOARD },
   { icon: <GrPlan />, name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE },
-  {
-    name: PAGE_TITLE.PLAN.BASE,
-    icon: <HomeOutlined />,
-    children: [
-      { name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE, pro: false },
-      { name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE, pro: false },
-    ],
-  },
+  // {
+  //   name: PAGE_TITLE.PLAN.BASE,
+  //   icon: <HomeOutlined />,
+  //   children: [
+  //     { name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE, pro: false },
+  //     { name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE, pro: false },
+  //   ],
+  // },
 ];
 
 export const StoreNavItems: NavItem[] = [
