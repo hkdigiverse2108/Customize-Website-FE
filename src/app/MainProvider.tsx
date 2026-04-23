@@ -3,7 +3,7 @@
 import store from "@/store/store";
 import { ChildrenLayout } from "@/type";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, Spin } from "antd";
 import { FC } from "react";
 import { Provider } from "react-redux";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -15,6 +15,9 @@ const queryClient = new QueryClient();
 
 const MainProvider: FC<ChildrenLayout> = ({ children }) => {
   const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
+
+  Spin.setDefaultIndicator(<div className="animate-spin rounded-full h-8! w-8! border-b-2 border-brand-600" />);
+
   return (
     <NoSsr>
       <Provider store={store}>
