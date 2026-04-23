@@ -44,39 +44,43 @@ input[type="number"] {
 }
 
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px #f9fafb inset !important;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 /* ========================== BUTTON ========================== */
 
 .custom-btn {
-  @apply w-full py-2.5 bg-brand-500 text-white text-base font-semibold rounded-xl shadow-md transition-all duration-200;
+  @apply shadow-none!;
 }
 
 /* Hover */
-.custom-btn:hover {
-  @apply bg-brand-600 shadow-lg -translate-y-0.5;
+.custom-btn.ant-btn-default.ant-btn-color-primary:hover {
+  @apply border border-brand-500 bg-white text-brand-600;
+}
+.custom-btn.ant-btn-default.ant-btn-color-primary.ant-btn:disabled:hover,
+.custom-btn.ant-btn-default.ant-btn-color-primary.ant-btn.ant-btn-disabled:hover {
+  @apply bg-[#0000000a]! text-[#00000040]! border border-[#d9d9d9]!;
 }
 
 /* Active click */
-.custom-btn:active {
+/* .custom-btn:active {
   @apply scale-[0.98] translate-y-0;
-}
+} */
 
 /* Disabled */
-.custom-btn:disabled,
+/* .custom-btn:disabled,
 .custom-btn.ant-btn-loading {
   @apply opacity-50 cursor-not-allowed;
-}
+} */
 
 /* Remove default AntD shadow */
-.custom-btn.ant-btn-default {
+/* .custom-btn.ant-btn-default {
   @apply shadow-none;
-}
+} */
 
-.custom-btn.ant-btn-default:disabled {
+/* .custom-btn.ant-btn-default:disabled {
   @apply bg-gray-200! text-black!;
-}
+} */
 
 /* ========================== NOTIFICATION ========================== */
 

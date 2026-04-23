@@ -1,4 +1,3 @@
-import { ImagePath } from "@/constants";
 import { setApplicationMenuOpen, setToggleMobileSidebar, setToggleSidebar, useAppDispatch, useAppSelector } from "@/store";
 import { useWindowWidth } from "@/utils/hook";
 import Link from "next/link";
@@ -18,7 +17,7 @@ const Header = () => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-40 flex bg-white/80 backdrop-blur-xl dark:bg-gray-900/80 lg:h-[73px] lg:border-b border-gray-200/60 dark:border-gray-800/60 transition-all duration-300 ${isExpanded || isHovered ? "lg:ml-[260px] lg:w-[calc(100%-260px)]" : "lg:ml-[72px] lg:w-[calc(100%-72px)]"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-40 flex bg-white/80 backdrop-blur-xl dark:bg-gray-900/80 lg:border-b border-gray-200/60 dark:border-gray-800/60 transition-all duration-300 ${isExpanded || isHovered ? "lg:ml-[260px] lg:w-[calc(100%-260px)]" : "lg:ml-[72px] lg:w-[calc(100%-72px)]"}`}>
       <div className="w-full flex flex-col items-center justify-between grow lg:flex-row lg:px-6">
         <div className="flex items-center justify-between max-lg:w-full gap-2 px-3 py-3 sm:gap-4 lg:justify-normal border-b border-gray-200/60 dark:border-gray-800/60 lg:border-b-0 lg:px-0 lg:py-2">
           {width <= 1024 && (
