@@ -27,7 +27,7 @@ const MainProvider: FC<ChildrenLayout> = ({ children }) => {
               colorPrimary: "#10a856",
               colorLink: "#0a8745",
               colorLinkHover: "#0b6b38",
-              borderRadius: 12,
+              borderRadius: 8,
             },
           }}
         >
