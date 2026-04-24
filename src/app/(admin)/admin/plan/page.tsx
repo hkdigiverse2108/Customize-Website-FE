@@ -15,8 +15,10 @@ const PlanPage = () => {
   const router = useRouter();
 
   const { data: planData, isLoading: planLoading } = Queries.useGetPlan(params);
+  const queryClient = useQueryClient();
   const handleEdit = (item: PlanBase) => {
-    router.push(`${ROUTES.ADMIN.PLAN.ADD_EDIT}`);
+    // queryClient.setQueryData(["plan", item._id], item);
+    router.push(`${ROUTES.ADMIN.PLAN.ADD_EDIT}?id=${item._id}`);
   };
 
   const columns: ColumnsType<PlanBase> = [

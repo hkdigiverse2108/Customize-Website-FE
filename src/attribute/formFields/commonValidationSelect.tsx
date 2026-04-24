@@ -31,7 +31,7 @@ export const CommonValidationSelect: FC<CommonValidationSelectProps> = ({ name, 
       onBlur={() => helpers.setTouched(true)}
       placeholder={placeholder}
       disabled={disabled}
-      style={{ width: "100%" }}
+      style={{ width: "100%", borderRadius: "8px" }}
       size="large"
       tokenSeparators={[","]}
       status={meta.touched && meta.error ? "error" : ""}

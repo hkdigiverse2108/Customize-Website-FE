@@ -1,24 +1,32 @@
 "use client";
 
+import { Get } from "@/api";
 import { Mutations } from "@/api/mutations";
 import { CommonButton, CommonValidationSelect, CommonValidationSwitch, CommonValidationTextField } from "@/attribute";
 import { CommonCard } from "@/components/common";
-import { PAGE_TITLE } from "@/constants";
+import { PAGE_TITLE, URL_KEYS } from "@/constants";
 import { PLAN_DURATION_OPTIONS, SUBSCRIPTION_TYPE_OPTIONS } from "@/data";
 import { PlanFormValues } from "@/type";
 import { PlanSchema, RemoveEmptyFields } from "@/utils";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Row } from "antd";
 import { Form, Formik, FormikHelpers } from "formik";
+import { useSearchParams } from "next/navigation";
 
 const AddEditPlanPage = () => {
   const { mutate: addData, isPending: isAddLoading } = Mutations.useAddPlan();
   const { mutate: editData, isPending: isEditLoading } = Mutations.useEditPlan();
-  // const searchParams = useSearchParams();
-  // const data = searchParams.get("data");
-  // const parsed = data ? JSON.parse(decodeURIComponent(data)) : null;
-  // console.log("parsed", parsed);
+  const searchParams = useSearchParams();
+  const queryClient = useQueryClient();
 
-  const initialValues = {
+  const id = searchParams.get("id");
+
+  const { data } = useQuery({
+    queryKey: ["plan", id],
+    queryFn: () => Get(`${URL_KEYS.PLAN.BASE}/${id}`),
+    initialData: () => queryClient.getQueryData(["plan", id]),
+  });
+  const initialValues = data?.data || {
     name: "",
     price: 0,
     duration: "",

@@ -6,7 +6,7 @@
 
 .custom-input .ant-input-outlined,
 .custom-input .ant-input-password {
-  @apply bg-white py-2 px-3 focus:outline-none focus:ring-1 focus:ring-brand-500/20 transition-all duration-200 font-medium text-gray-900 rounded-xl;
+  @apply bg-white py-2 px-3 focus:outline-none focus:ring-1 focus:ring-brand-500/20 transition-all duration-200 font-medium text-gray-900 rounded-lg!;
 }
 .custom-input .ant-input-outlined input,
 .custom-input .ant-input-password input {
@@ -20,7 +20,7 @@
 }
 
 .custom-input .ant-input-affix-wrapper {
-  @apply shadow-none rounded-xl hover:border hover:border-brand-400;
+  @apply shadow-none rounded-lg! hover:border hover:border-brand-400;
 }
 
 .custom-input .ant-input {

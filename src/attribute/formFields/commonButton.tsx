@@ -14,7 +14,7 @@ export const CommonButton: FC<CommonButtonProps> = ({ className, children, loadi
       className={`custom-btn ${className}`}
       style={{
         ...style,
-        borderRadius: "10px",
+        borderRadius: "8px",
       }}
     >
       {children ?? title}

@@ -17,14 +17,13 @@ export const CommonValidationSwitch: FC<CommonValidationSwitchProps> = ({ name, 
   };
 
   const SwitchComponent = (
-    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-      <Switch id={name} size="middle" checked={checked} onChange={handleChange} disabled={disabled} loading={loading} />
-
+    <div className="flex items-center justify-between px-3 py-2 rounded-lg border border-black/20 hover:border-brand-500 transition-all duration-200">
       {label && (
         <label className="block text-sm font-semibold text-gray-700 capitalize" htmlFor={name}>
           {label} {required && <span className="text-red-500">*</span>}
         </label>
       )}
+      <Switch id={name} size="middle" checked={checked} onChange={handleChange} disabled={disabled} loading={loading} />
     </div>
   );
 
