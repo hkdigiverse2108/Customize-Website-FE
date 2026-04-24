@@ -13,5 +13,6 @@ export const KEYS = {
     BASE: "plan",
     ADD: "add-plan",
     EDIT: "edit-plan",
+    DELETE: "delete-plan",
   },
 };

@@ -1,6 +1,6 @@
 import { KEYS, URL_KEYS } from "@/constants";
 import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload } from "@/type";
-import { Post } from "./methods";
+import { Delete, Post, Put } from "./methods";
 import { useMutations } from "./reactQuery";
 
 export const Mutations = {
@@ -15,6 +15,7 @@ export const Mutations = {
   useSignupGoogle: () => useMutations<SignupGooglePayload, LoginResponse>([KEYS.AUTH.SIGNUP_GOOGLE], (input) => Post(URL_KEYS.AUTH.SIGNUP_GOOGLE, input, false)),
 
   /* ========================== Plan ========================== */
-  useAddPlan: () => useMutations<AddPlanPayload, void>([KEYS.PLAN.ADD], (input) => Post(URL_KEYS.PLAN.BASE, input)),
-  useEditPlan: () => useMutations<EditPlanPayload, void>([KEYS.PLAN.EDIT], (input) => Post(URL_KEYS.PLAN.BASE, input)),
+  useAddPlan: () => useMutations<AddPlanPayload, void>([KEYS.PLAN.ADD, KEYS.PLAN.BASE], (input) => Post(URL_KEYS.PLAN.BASE, input)),
+  useEditPlan: () => useMutations<EditPlanPayload, void>([KEYS.PLAN.EDIT, KEYS.PLAN.BASE], (input) => Put(URL_KEYS.PLAN.BASE, input)),
+  useDeletePlan: () => useMutations<string, void>([KEYS.PLAN.DELETE, KEYS.PLAN.BASE], (id) => Delete(`${URL_KEYS.PLAN.BASE}/${id}`)),
 };

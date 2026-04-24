@@ -1,52 +1,57 @@
 "use client";
 
-import { Get } from "@/api";
+import { Queries } from "@/api";
 import { Mutations } from "@/api/mutations";
-import { CommonButton, CommonValidationSelect, CommonValidationSwitch, CommonValidationTextField } from "@/attribute";
-import { CommonCard } from "@/components/common";
-import { PAGE_TITLE, URL_KEYS } from "@/constants";
+import { CommonValidationSelect, CommonValidationSwitch, CommonValidationTextField } from "@/attribute";
+import { CommonBottomActionBar, CommonCard } from "@/components/common";
+import { PAGE_TITLE } from "@/constants";
 import { PLAN_DURATION_OPTIONS, SUBSCRIPTION_TYPE_OPTIONS } from "@/data";
 import { PlanFormValues } from "@/type";
-import { PlanSchema, RemoveEmptyFields } from "@/utils";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { GetChangedFields, PlanSchema, RemoveEmptyFields, useDynamicSlug } from "@/utils";
 import { Row } from "antd";
 import { Form, Formik, FormikHelpers } from "formik";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const AddEditPlanPage = () => {
+  const router = useRouter();
+
   const { mutate: addData, isPending: isAddLoading } = Mutations.useAddPlan();
   const { mutate: editData, isPending: isEditLoading } = Mutations.useEditPlan();
-  const searchParams = useSearchParams();
-  const queryClient = useQueryClient();
+  const { mode, id } = useDynamicSlug(["mode", "id"] as const);
+  const isEditing = Boolean(id) && mode === "edit";
+  const pageMode = isEditing ? "EDIT" : "ADD";
 
-  const id = searchParams.get("id");
+  const { data, isLoading: planLoading } = Queries.useGetPlanById(id, !!id);
 
-  const { data } = useQuery({
-    queryKey: ["plan", id],
-    queryFn: () => Get(`${URL_KEYS.PLAN.BASE}/${id}`),
-    initialData: () => queryClient.getQueryData(["plan", id]),
-  });
-  const initialValues = data?.data || {
-    name: "",
-    price: 0,
-    duration: "",
-    themeLimit: 0,
-    productLimit: 0,
-    blogLimit: 0,
-    orderLimit: 0,
-    features: [],
-    customDomainSupport: false,
-    isActive: true,
+  const planData = data?.data;
+
+  const initialValues: PlanFormValues = {
+    name: planData?.name || "",
+    price: planData?.price || 0,
+    duration: planData?.duration || "",
+    themeLimit: planData?.themeLimit || 0,
+    productLimit: planData?.productLimit || 0,
+    blogLimit: planData?.blogLimit || 0,
+    orderLimit: planData?.orderLimit || 0,
+    features: planData?.features || [],
+    customDomainSupport: planData?.customDomainSupport ?? false,
+    isActive: planData?.isActive ?? true,
   };
 
   const handleSubmit = (values: PlanFormValues, { resetForm }: FormikHelpers<PlanFormValues>) => {
     const cleanedPayload = RemoveEmptyFields(values);
-    addData(cleanedPayload, { onSuccess: () => resetForm() });
+    const changedFields = GetChangedFields(values, planData);
+    const handleSuccess = () => {
+      resetForm();
+      router.back();
+    };
+    if (isEditing) editData({ id, ...changedFields }, { onSuccess: handleSuccess });
+    else addData(cleanedPayload, { onSuccess: handleSuccess });
   };
 
   return (
     <div className="max-w-[83%] mx-auto">
-      <CommonCard cardProps={{ title: PAGE_TITLE.PLAN.ADD }}>
+      <CommonCard cardProps={{ title: PAGE_TITLE.PLAN[pageMode], loading: planLoading }}>
         <Formik<PlanFormValues> enableReinitialize initialValues={initialValues} validationSchema={PlanSchema} onSubmit={handleSubmit}>
           <Form className="space-y-6">
             <Row gutter={[24, 20]} className="mb-4">
@@ -61,9 +66,7 @@ const AddEditPlanPage = () => {
               <CommonValidationSwitch name="customDomainSupport" label="Custom Domain Support" col={{ xs: 24, sm: 12 }} />
               <CommonValidationSwitch name="isActive" label="Is Active" col={{ xs: 24, sm: 12 }} />
             </Row>
-            <div className="flex justify-end gap-4">
-              <CommonButton title="Submit" htmlType="submit" loading={isAddLoading} className="px-8" />
-            </div>
+            <CommonBottomActionBar save isLoading={isAddLoading || isEditLoading} />
           </Form>
         </Formik>
       </CommonCard>

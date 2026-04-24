@@ -29,6 +29,7 @@ export const CommonTable = <T extends object>({ loading = false, dataSource, col
         showSizeChanger: true,
         size: "middle",
         showTotal: (total) => `Total ${total} items`,
+        simple: true,
       }}
       rowKey={rowKey}
       bordered={bordered}

@@ -1,48 +1,58 @@
 "use client";
 
+import { Mutations } from "@/api";
 import { Queries } from "@/api/queries";
 import { CommonCard, CommonTable } from "@/components/common";
+import CommonDeleteModal from "@/components/common/modal/commonDeleteModal";
 import CommonActionColumn from "@/components/common/table/commonActionColumn";
 import { PAGE_TITLE, ROUTES } from "@/constants";
 import { PlanBase } from "@/type";
 import { useTableFilter } from "@/utils";
-import { useQueryClient } from "@tanstack/react-query";
 import { ColumnsType } from "antd/es/table";
 import { useRouter } from "next/navigation";
 
 const PlanPage = () => {
-  const { paginationModel, handleTableChange, params } = useTableFilter();
+  const { paginationModel, handleTableChange, rowToDelete, setRowToDelete, params } = useTableFilter();
   const router = useRouter();
 
-  const { data: planData, isLoading: planLoading } = Queries.useGetPlan(params);
-  const queryClient = useQueryClient();
+  const { data: planData, isLoading: isPlanLoading, isFetching: isPlanFetching } = Queries.useGetPlan(params);
+  const { mutate: editData, isPending: isEditLoading } = Mutations.useEditPlan();
+  const { mutate: deleteMutate, isPending: isDeleteLoading } = Mutations.useDeletePlan();
+
   const handleEdit = (item: PlanBase) => {
-    // queryClient.setQueryData(["plan", item._id], item);
-    router.push(`${ROUTES.ADMIN.PLAN.ADD_EDIT}?id=${item._id}`);
+    router.push(`${ROUTES.ADMIN.PLAN.EDIT}/${item._id}`);
+  };
+
+  const handleDeleteBtn = () => {
+    if (!rowToDelete) return;
+    deleteMutate(rowToDelete?._id as string, { onSuccess: () => setRowToDelete(null) });
   };
 
   const columns: ColumnsType<PlanBase> = [
     { title: "Name", dataIndex: "name", key: "name" },
     { title: "Price", dataIndex: "price", key: "price" },
     CommonActionColumn<PlanBase>({
-      // onActive: { onHandle: (row) => console.log("row", row) },
+      onActive: { onHandle: (row) => editData({ isActive: !row.isActive }) },
       onEdit: { onHandle: (row) => handleEdit(row) },
-      // onDelete: { onHandle: (row) => console.log("row", row) },
+      onDelete: { onHandle: (row) => setRowToDelete({ _id: row?._id, title: row?.name }) },
     }),
   ];
 
   const dataOption = {
     columns,
     dataSource: planData?.data?.plans || [],
-    loading: planLoading,
+    loading: isPlanLoading || isPlanFetching || isEditLoading,
     pagination: { ...paginationModel, total: planData?.data?.total_count || 0 },
     onChange: handleTableChange,
   };
 
   return (
-    <CommonCard cardProps={{ title: PAGE_TITLE.PLAN.BASE }} handleAdd={() => router.push(ROUTES.ADMIN.PLAN.ADD_EDIT)}>
-      <CommonTable<PlanBase> {...dataOption} />
-    </CommonCard>
+    <>
+      <CommonCard cardProps={{ title: PAGE_TITLE.PLAN.BASE }} handleAdd={() => router.push(ROUTES.ADMIN.PLAN.ADD)}>
+        <CommonTable<PlanBase> {...dataOption} />
+      </CommonCard>
+      <CommonDeleteModal open={Boolean(rowToDelete)} itemName={rowToDelete?.title} loading={isDeleteLoading} onClose={() => setRowToDelete(null)} onConfirm={() => handleDeleteBtn()} />
+    </>
   );
 };
 

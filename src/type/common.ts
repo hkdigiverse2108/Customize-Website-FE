@@ -81,6 +81,13 @@ export interface CommonButtonProps extends ButtonProps {
   style?: CSSProperties;
 }
 
+export interface CommonBottomActionBarProps {
+  isLoading?: boolean;
+  save?: boolean;
+  disabled?: boolean;
+  onSave?: () => void;
+}
+
 export interface PageState {
   page: number;
   limit: number;
@@ -115,6 +122,26 @@ export type NavItem = {
   number?: number;
   children?: { name: string; path: string; pro?: boolean; new?: boolean; number?: number }[];
 };
+
+export interface CommonModalProps {
+  open: boolean;
+  onClose: () => void;
+  title?: string;
+  subtitle?: string;
+  icon?: React.ReactNode;
+  children: React.ReactNode;
+  width?: number;
+  closable?: boolean;
+}
+export interface CommonDeleteModalProps {
+  open: boolean;
+  title?: string;
+  description?: string;
+  itemName?: string;
+  loading?: boolean;
+  onClose: () => void;
+  onConfirm?: () => void;
+}
 
 /* ========================== Auth ========================== */
 
