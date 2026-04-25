@@ -92,7 +92,9 @@ const AddEditPlanPage = () => {
             <CommonFormSection title="Settings" description="Control visibility and platform access for the plan.">
               <Row gutter={[20, 20]}>
                 <CommonValidationSwitch name="customDomainSupport" label="Custom Domain Support" col={{ xs: 24, md: 12 }} />
-                <CommonValidationSwitch name="isActive" label="Is Active" col={{ xs: 24, md: 12 }} />
+                {!isEditing && (
+                  <CommonValidationSwitch name="isActive" label="Is Active" col={{ xs: 24, md: 12 }} />
+                )}
               </Row>
             </CommonFormSection>
 
