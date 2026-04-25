@@ -90,6 +90,7 @@ export interface CommonBottomActionBarProps {
 
 export interface CommonFormSectionProps {
   title: string;
+  description?: string;
   children: ReactNode;
   className?: string;
 }

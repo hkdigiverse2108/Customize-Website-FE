@@ -55,7 +55,7 @@ const AddEditPlanPage = () => {
     <div className="mx-auto max-w-6xl px-4 py-6 lg:px-6">
       <div className="mb-6 rounded-lg border border-slate-200 bg-white/90 p-5 backdrop-blur">
         <div className="max-w-2xl text-left">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-brand-600">Admin plan editor</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.075em] text-brand-600">Admin plan editor</p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">{pageTitle}</h1>
           <p className="mt-3 text-sm leading-6 text-slate-500">
             Define pricing, usage limits, feature access, and domain support in one structured admin form.
@@ -66,7 +66,7 @@ const AddEditPlanPage = () => {
       <CommonCard cardProps={{ title: "Plan Details", loading: planLoading, style: { borderRadius: 10, overflow: "hidden" } }}>
         <Formik<PlanFormValues> enableReinitialize initialValues={initialValues} validationSchema={PlanSchema} onSubmit={handleSubmit}>
           <Form className="space-y-5">
-            <CommonFormSection title="Plan basics">
+            <CommonFormSection title="Plan basics" description="Capture the core commercial details for this subscription tier.">
               <Row gutter={[20, 20]}>
                 <CommonValidationSelect name="name" label="Plan Name" placeholder="Select plan name" options={SUBSCRIPTION_TYPE_OPTIONS} col={{ xs: 24, xl: 8 }} required />
                 <CommonValidationSelect name="duration" label="Duration" placeholder="Select duration" options={PLAN_DURATION_OPTIONS} col={{ xs: 24, xl: 8 }} required />
@@ -74,7 +74,7 @@ const AddEditPlanPage = () => {
               </Row>
             </CommonFormSection>
 
-            <CommonFormSection title="Usage limits">
+            <CommonFormSection title="Usage limits" description="Set the quota values that control how much each customer can use.">
               <Row gutter={[20, 20]}>
                 <CommonValidationTextField name="themeLimit" label="Theme Limit" placeholder="Enter theme limit" type="number" col={{ xs: 24, sm: 12, xl: 6 }} />
                 <CommonValidationTextField name="productLimit" label="Product Limit" placeholder="Enter product limit" type="number" col={{ xs: 24, sm: 12, xl: 6 }} />
@@ -83,13 +83,13 @@ const AddEditPlanPage = () => {
               </Row>
             </CommonFormSection>
 
-            <CommonFormSection title="Plan features">
+            <CommonFormSection title="Plan features" description="Add every capability included in this plan. Press Enter after each feature.">
               <Row gutter={[20, 20]}>
                 <CommonValidationSelect name="features" label="Features" placeholder="Type a feature and press Enter" options={[]} mode="tags" maxTagCount="responsive" col={{ xs: 24 }} />
               </Row>
             </CommonFormSection>
 
-            <CommonFormSection title="Settings">
+            <CommonFormSection title="Settings" description="Control visibility and platform access for the plan.">
               <Row gutter={[20, 20]}>
                 <CommonValidationSwitch name="customDomainSupport" label="Custom Domain Support" col={{ xs: 24, md: 12 }} />
                 <CommonValidationSwitch name="isActive" label="Is Active" col={{ xs: 24, md: 12 }} />
