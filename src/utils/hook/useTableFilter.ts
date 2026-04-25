@@ -3,19 +3,9 @@ import type { TablePaginationConfig, SorterResult } from "antd/es/table/interfac
 import type { FilterValue } from "antd/es/table/interface";
 import { CleanParams } from "..";
 import { useDebounce } from "./useDebounce";
+import { TableFilterOptions } from "@/type";
 
-interface UseAntdTableOptions {
-  page?: number;
-  pageSize?: number;
-  initialSortField?: string;
-  initialSortOrder?: "ascend" | "descend";
-  active?: boolean;
-  debounceDelay?: number;
-  pagination?: boolean;
-  defaultFilterKey?: Record<string, string[]>;
-}
-
-export const useTableFilter = ({ page = 1, pageSize = 10, initialSortField, initialSortOrder, active = true, debounceDelay = 300, pagination = true, defaultFilterKey = {} }: UseAntdTableOptions = {}) => {
+export const useTableFilter = ({ page = 1, pageSize = 10, initialSortField, initialSortOrder, active = true, debounceDelay = 300, pagination = true, defaultFilterKey = {} }: TableFilterOptions = {}) => {
   /* ---------------- Pagination ---------------- */
   const [paginationModel, setPaginationModel] = useState<TablePaginationConfig>({ current: page, pageSize });
 

@@ -185,3 +185,29 @@ export interface CommonTableProps<T> extends TableProps<T> {
   onSearch?: { value: string; onChange: (value: string) => void };
   onActive?: { value: boolean; onChange: (value: boolean) => void };
 }
+
+export type ColumnFormatType = "default" | "phone" | "date" | "datetime" | "format" | "status" | "createdBy";
+
+export interface CommonObjectNameColumnOptions {
+  title?: string;
+  width?: number;
+  ellipsis?: boolean;
+  type?: ColumnFormatType;
+}
+
+export interface TableFilterOptions {
+  page?: number;
+  pageSize?: number;
+  initialSortField?: string;
+  initialSortOrder?: "ascend" | "descend";
+  active?: boolean;
+  debounceDelay?: number;
+  pagination?: boolean;
+  defaultFilterKey?: Record<string, string[]>;
+}
+
+export interface CommonActionColumnProps<T> {
+  onActive?: { onHandle: (row: T) => void; isPermission?: (row: T) => boolean };
+  onEdit?: { onHandle: (row: T) => void; isPermission?: (row: T) => boolean };
+  onDelete?: { onHandle: (row: T) => void; isPermission?: (row: T) => boolean };
+}

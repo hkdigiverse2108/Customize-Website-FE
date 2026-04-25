@@ -5,6 +5,7 @@ import { Queries } from "@/api/queries";
 import { CommonCard, CommonTable } from "@/components/common";
 import CommonDeleteModal from "@/components/common/modal/commonDeleteModal";
 import CommonActionColumn from "@/components/common/table/commonActionColumn";
+import { CommonObjectPropertyColumn } from "@/components/common/table/commonColumns";
 import { PAGE_TITLE, ROUTES } from "@/constants";
 import { PlanBase } from "@/type";
 import { useTableFilter } from "@/utils";
@@ -19,21 +20,22 @@ const PlanPage = () => {
   const { mutate: editData, isPending: isEditLoading } = Mutations.useEditPlan();
   const { mutate: deleteMutate, isPending: isDeleteLoading } = Mutations.useDeletePlan();
 
-  const handleEdit = (item: PlanBase) => {
-    router.push(`${ROUTES.ADMIN.PLAN.EDIT}/${item._id}`);
-  };
-
   const handleDeleteBtn = () => {
     if (!rowToDelete) return;
     deleteMutate(rowToDelete?._id as string, { onSuccess: () => setRowToDelete(null) });
   };
 
   const columns: ColumnsType<PlanBase> = [
-    { title: "Name", dataIndex: "name", key: "name" },
-    { title: "Price", dataIndex: "price", key: "price" },
+    CommonObjectPropertyColumn("name", "name", ["name"], { title: "Name", type: "format" }),
+    CommonObjectPropertyColumn("duration", "duration", ["duration"], { title: "Duration", type: "format" }),
+    CommonObjectPropertyColumn("price", "price", ["price"], { title: "Price" }),
+    CommonObjectPropertyColumn("themeLimit", "themeLimit", ["themeLimit"], { title: "Theme Limit" }),
+    CommonObjectPropertyColumn("productLimit", "productLimit", ["productLimit"], { title: "Product Limit" }),
+    CommonObjectPropertyColumn("blogLimit", "blogLimit", ["blogLimit"], { title: "Blog Limit" }),
+    CommonObjectPropertyColumn("orderLimit", "orderLimit", ["orderLimit"], { title: "Order Limit" }),
     CommonActionColumn<PlanBase>({
       onActive: { onHandle: (row) => editData({ id: row._id, isActive: !row.isActive }) },
-      onEdit: { onHandle: (row) => handleEdit(row) },
+      onEdit: { onHandle: (row) => router.push(`${ROUTES.ADMIN.PLAN.EDIT}/${row._id}`) },
       onDelete: { onHandle: (row) => setRowToDelete({ _id: row?._id, title: row?.name }) },
     }),
   ];

@@ -1,19 +1,15 @@
 import { CommonButton } from "@/attribute";
+import { CommonActionColumnProps } from "@/type";
 import { Flex, Tooltip } from "antd";
 import { BiTrash } from "react-icons/bi";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 
-export interface CommonActionColumnProps<T> {
-  onActive?: { onHandle: (row: T) => void; isPermission?: (row: T) => boolean };
-  onEdit?: { onHandle: (row: T) => void; isPermission?: (row: T) => boolean };
-  onDelete?: { onHandle: (row: T) => void; isPermission?: (row: T) => boolean };
-}
 const CommonActionColumn = <T,>({ onActive, onEdit, onDelete }: CommonActionColumnProps<T>) => ({
   title: "Option",
   key: "actionIcons",
   width: 120,
-  fixed: "right" as const,
+  // fixed: "right" as const,
   render: (_: T, record: T & { isActive?: boolean }) => (
     <Flex gap="small" justify="center">
       {!!onActive && (onActive?.isPermission?.(record) ?? true) && (
