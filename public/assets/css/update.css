@@ -97,6 +97,10 @@ input:-webkit-autofill {
   @apply capitalize;
 }
 
+.custom-card .ant-card-body {
+  @apply p-5!;
+}
+
 /* ========================== TABLE ========================== */
 
 .ant-table-wrapper .ant-table-thead > tr > th {
@@ -127,4 +131,8 @@ input:-webkit-autofill {
 /* Select dropdown in pagination */
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
   @apply bg-brand-50 text-brand-700!;
+}
+
+.ant-table-title {
+  @apply p-0! pb-2!;
 }

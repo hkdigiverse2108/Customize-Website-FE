@@ -12,7 +12,7 @@ import { ColumnsType } from "antd/es/table";
 import { useRouter } from "next/navigation";
 
 const PlanPage = () => {
-  const { paginationModel, handleTableChange, rowToDelete, setRowToDelete, params } = useTableFilter();
+  const { paginationModel, handleTableChange, rowToDelete, setRowToDelete, search, setSearch, isActive, setActive, params } = useTableFilter();
   const router = useRouter();
 
   const { data: planData, isLoading: isPlanLoading, isFetching: isPlanFetching } = Queries.useGetPlan(params);
@@ -32,7 +32,7 @@ const PlanPage = () => {
     { title: "Name", dataIndex: "name", key: "name" },
     { title: "Price", dataIndex: "price", key: "price" },
     CommonActionColumn<PlanBase>({
-      onActive: { onHandle: (row) => editData({ isActive: !row.isActive }) },
+      onActive: { onHandle: (row) => editData({ id: row._id, isActive: !row.isActive }) },
       onEdit: { onHandle: (row) => handleEdit(row) },
       onDelete: { onHandle: (row) => setRowToDelete({ _id: row?._id, title: row?.name }) },
     }),
@@ -44,6 +44,8 @@ const PlanPage = () => {
     loading: isPlanLoading || isPlanFetching || isEditLoading,
     pagination: { ...paginationModel, total: planData?.data?.total_count || 0 },
     onChange: handleTableChange,
+    onSearch: { value: search, onChange: setSearch },
+    onActive: { value: isActive, onChange: setActive },
   };
 
   return (

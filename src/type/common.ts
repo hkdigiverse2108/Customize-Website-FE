@@ -182,4 +182,6 @@ export interface CommonTableProps<T> extends TableProps<T> {
   dataSource: T[];
   columns: TableProps<T>["columns"];
   pagination?: TablePaginationConfig;
+  onSearch?: { value: string; onChange: (value: string) => void };
+  onActive?: { value: boolean; onChange: (value: boolean) => void };
 }
