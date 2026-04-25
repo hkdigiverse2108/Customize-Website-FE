@@ -172,11 +172,6 @@ export interface CommonCardProps {
 }
 
 /* ========================== Table ========================== */
-
-export interface Params {
-  [key: string]: any;
-}
-
 export interface CommonTableProps<T> extends TableProps<T> {
   loading?: boolean;
   dataSource: T[];
