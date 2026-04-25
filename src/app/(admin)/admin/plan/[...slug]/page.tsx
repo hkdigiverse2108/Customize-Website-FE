@@ -57,9 +57,7 @@ const AddEditPlanPage = () => {
         <div className="max-w-2xl text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.075em] text-brand-600">Admin plan editor</p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">{pageTitle}</h1>
-          <p className="mt-3 text-sm leading-6 text-slate-500">
-            Define pricing, usage limits, feature access, and domain support in one structured admin form.
-          </p>
+          <p className="mt-3 text-sm leading-6 text-slate-500">Define pricing, usage limits, feature access, and domain support in one structured admin form.</p>
         </div>
       </div>
 
@@ -92,9 +90,7 @@ const AddEditPlanPage = () => {
             <CommonFormSection title="Settings" description="Control visibility and platform access for the plan.">
               <Row gutter={[20, 20]}>
                 <CommonValidationSwitch name="customDomainSupport" label="Custom Domain Support" col={{ xs: 24, md: 12 }} />
-                {!isEditing && (
-                  <CommonValidationSwitch name="isActive" label="Is Active" col={{ xs: 24, md: 12 }} />
-                )}
+                {!isEditing && <CommonValidationSwitch name="isActive" label="Is Active" col={{ xs: 24, md: 12 }} />}
               </Row>
             </CommonFormSection>
 
