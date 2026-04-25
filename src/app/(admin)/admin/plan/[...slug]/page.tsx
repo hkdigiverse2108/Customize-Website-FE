@@ -11,6 +11,16 @@ import { GetChangedFields, PlanSchema, RemoveEmptyFields, useDynamicSlug } from 
 import { Row } from "antd";
 import { Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
+import { type ReactNode } from "react";
+
+const FormSection = ({ title, children }: { title: string; children: ReactNode }) => (
+  <section className="rounded-[10px] border border-slate-200 bg-white p-5 shadow-sm">
+    <div className="mb-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-600">{title}</p>
+    </div>
+    {children}
+  </section>
+);
 
 const AddEditPlanPage = () => {
   const router = useRouter();
@@ -24,6 +34,7 @@ const AddEditPlanPage = () => {
   const { data, isLoading: planLoading } = Queries.useGetPlanById(id, !!id);
 
   const planData = data?.data;
+  const pageTitle = PAGE_TITLE.PLAN[pageMode];
 
   const initialValues: PlanFormValues = {
     name: planData?.name || "",
@@ -45,28 +56,59 @@ const AddEditPlanPage = () => {
       resetForm();
       router.back();
     };
+
     if (isEditing) editData({ id, ...changedFields }, { onSuccess: handleSuccess });
     else addData(cleanedPayload, { onSuccess: handleSuccess });
   };
 
   return (
-    <div className="max-w-[83%] mx-auto">
-      <CommonCard cardProps={{ title: PAGE_TITLE.PLAN[pageMode], loading: planLoading }}>
+    <div className="mx-auto max-w-6xl px-4 py-6 lg:px-6">
+      <div className="mb-6 rounded-[10px] border border-slate-200 bg-white/90 p-5 backdrop-blur">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-brand-600">Admin plan editor</p>
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">{pageTitle}</h1>
+          <p className="mt-3 text-sm leading-6 text-slate-500">
+            Define pricing, usage limits, feature access, and domain support in one structured admin form.
+          </p>
+        </div>
+      </div>
+
+      <CommonCard cardProps={{ title: "Plan Details", loading: planLoading, style: { borderRadius: 10, overflow: "hidden" } }}>
         <Formik<PlanFormValues> enableReinitialize initialValues={initialValues} validationSchema={PlanSchema} onSubmit={handleSubmit}>
-          <Form className="space-y-6">
-            <Row gutter={[24, 20]} className="mb-4">
-              <CommonValidationSelect name="name" label="Plan Name" placeholder="Select Plan Name" options={SUBSCRIPTION_TYPE_OPTIONS} col={{ xs: 24, md: 12 }} required />
-              <CommonValidationTextField name="price" label="Price" placeholder="0.00" type="number" col={{ xs: 24, md: 12 }} required startIcon={<span className="text-gray-500 font-medium px-1">₹</span>} />
-              <CommonValidationSelect name="duration" label="Duration" placeholder="Select Duration" options={PLAN_DURATION_OPTIONS} col={{ xs: 24, md: 12 }} required />
-              <CommonValidationTextField name="themeLimit" label="Theme Limit" placeholder="Enter Theme Limit" type="number" col={{ xs: 24, md: 12 }} />
-              <CommonValidationTextField name="productLimit" label="Product Limit" placeholder="Enter Product Limit" type="number" col={{ xs: 24, md: 12 }} />
-              <CommonValidationTextField name="blogLimit" label="Blog Limit" placeholder="Enter Blog Limit" type="number" col={{ xs: 24, md: 12 }} />
-              <CommonValidationTextField name="orderLimit" label="Order Limit" placeholder="Enter Order Limit" type="number" col={{ xs: 24, md: 12 }} />
-              <CommonValidationSelect name="features" label="Plan Features" placeholder="Type and press Enter to add features" options={[]} mode="tags" col={{ xs: 24, md: 12 }} />
-              <CommonValidationSwitch name="customDomainSupport" label="Custom Domain Support" col={{ xs: 24, sm: 12 }} />
-              <CommonValidationSwitch name="isActive" label="Is Active" col={{ xs: 24, sm: 12 }} />
-            </Row>
-            <CommonBottomActionBar save isLoading={isAddLoading || isEditLoading} />
+          <Form className="space-y-5">
+            <FormSection title="Plan basics">
+              <Row gutter={[20, 20]}>
+                <CommonValidationSelect name="name" label="Plan Name" placeholder="Select plan name" options={SUBSCRIPTION_TYPE_OPTIONS} col={{ xs: 24, xl: 8 }} required />
+                <CommonValidationSelect name="duration" label="Duration" placeholder="Select duration" options={PLAN_DURATION_OPTIONS} col={{ xs: 24, xl: 8 }} required />
+                <CommonValidationTextField name="price" label="Price" placeholder="0.00" type="number" col={{ xs: 24, xl: 8 }} required startIcon={<span className="px-1 font-semibold text-slate-500">Rs.</span>} />
+              </Row>
+            </FormSection>
+
+            <FormSection title="Usage limits">
+              <Row gutter={[20, 20]}>
+                <CommonValidationTextField name="themeLimit" label="Theme Limit" placeholder="Enter theme limit" type="number" col={{ xs: 24, sm: 12, xl: 6 }} />
+                <CommonValidationTextField name="productLimit" label="Product Limit" placeholder="Enter product limit" type="number" col={{ xs: 24, sm: 12, xl: 6 }} />
+                <CommonValidationTextField name="blogLimit" label="Blog Limit" placeholder="Enter blog limit" type="number" col={{ xs: 24, sm: 12, xl: 6 }} />
+                <CommonValidationTextField name="orderLimit" label="Order Limit" placeholder="Enter order limit" type="number" col={{ xs: 24, sm: 12, xl: 6 }} />
+              </Row>
+            </FormSection>
+
+            <FormSection title="Plan features">
+              <Row gutter={[20, 20]}>
+                <CommonValidationSelect name="features" label="Features" placeholder="Type a feature and press Enter" options={[]} mode="tags" maxTagCount="responsive" col={{ xs: 24 }} />
+              </Row>
+            </FormSection>
+
+            <FormSection title="Settings">
+              <Row gutter={[20, 20]}>
+                <CommonValidationSwitch name="customDomainSupport" label="Custom Domain Support" col={{ xs: 24, md: 12 }} />
+                <CommonValidationSwitch name="isActive" label="Is Active" col={{ xs: 24, md: 12 }} />
+              </Row>
+            </FormSection>
+
+            <div className="rounded-[10px] border border-slate-200 bg-slate-50/90 p-4 shadow-sm">
+              <CommonBottomActionBar save isLoading={isAddLoading || isEditLoading} />
+            </div>
           </Form>
         </Formik>
       </CommonCard>
