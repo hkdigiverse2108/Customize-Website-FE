@@ -8,14 +8,12 @@ export type ChildrenLayout = {
 
 export type NoSsrProps = ChildrenLayout;
 
-export interface Params {
-  [key: string]: any;
-}
+export type Params = Record<string, unknown>;
 
 export type SelectOptionType = {
   label: string;
   value: string;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 export type GridType = number | object | "auto" | "grow";
@@ -88,6 +86,14 @@ export interface CommonBottomActionBarProps {
   onSave?: () => void;
 }
 
+/* ========================== Form ========================== */
+
+export interface CommonFormSectionProps {
+  title: string;
+  children: ReactNode;
+  className?: string;
+}
+
 export interface PageState {
   page: number;
   limit: number;
@@ -154,7 +160,7 @@ export type FieldTypeMap = {
   string: Yup.StringSchema<string | null | undefined>;
   number: Yup.NumberSchema<number | null | undefined>;
   boolean: Yup.BooleanSchema<boolean | null | undefined>;
-  array: Yup.ArraySchema<any[], Yup.AnyObject>;
+  array: Yup.ArraySchema<unknown[], Yup.AnyObject>;
 };
 
 export interface FieldOptions<T> {
@@ -172,10 +178,6 @@ export interface CommonCardProps {
 }
 
 /* ========================== Table ========================== */
-
-export interface Params {
-  [key: string]: any;
-}
 
 export interface CommonTableProps<T> extends TableProps<T> {
   loading?: boolean;
