@@ -2,7 +2,7 @@ import { CommonFormSectionProps } from "@/type";
 import { FC } from "react";
 
 const CommonFormSection: FC<CommonFormSectionProps> = ({ title, description, children, className }) => {
-  const sectionClassName = ["rounded-lg", "border", "border-slate-200", "bg-white", "p-5", className].filter(Boolean).join(" ");
+  const sectionClassName = ["rounded-lg", "border", "border-slate-200", "bg-white", "p-3 md:p-5", className].filter(Boolean).join(" ");
 
   return (
     <section className={sectionClassName}>

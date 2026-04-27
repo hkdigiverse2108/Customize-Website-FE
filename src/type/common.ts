@@ -214,3 +214,14 @@ export interface CommonActionColumnProps<T> {
   onEdit?: { onHandle: (row: T) => void; isPermission?: (row: T) => boolean };
   onDelete?: { onHandle: (row: T) => void; isPermission?: (row: T) => boolean };
 }
+
+/* ========================== Upload ========================== */
+
+export interface CommonUploadProps {
+  title?: string;
+  type?: "image" | "pdf";
+}
+
+export interface UploadResponse extends MessageStatus {
+  data: string[];
+}

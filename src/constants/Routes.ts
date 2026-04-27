@@ -17,5 +17,10 @@ export const ROUTES = {
       ADD: "/admin/plan/add",
       EDIT: "/admin/plan/edit",
     },
+    STORE: {
+      BASE: "/admin/store",
+      ADD: "/admin/store/add",
+      EDIT: "/admin/store/edit",
+    },
   },
 } as const;

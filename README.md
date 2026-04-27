@@ -1,3 +1,7 @@
+PORT=5008
+NEXT_PUBLIC_BACKEND_URL=http://localhost:7782
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=850759601009-s9ai77l2kpi3mcu3sp77ubl3qq004pud.apps.googleusercontent.com
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

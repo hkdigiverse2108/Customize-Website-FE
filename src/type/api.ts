@@ -1,4 +1,5 @@
 import type { QueryKey, UseQueryOptions } from "@tanstack/react-query";
+import { Params } from "./common";
 
 export type ResponseParserWrapper<T> = {
   data: T;

@@ -1,15 +1,15 @@
 "use client";
 
+import { NotificationProvider } from "@/attribute";
+import { CommonUpload } from "@/components/common";
 import store from "@/store/store";
 import { ChildrenLayout } from "@/type";
+import NoSsr from "@/utils/noSsr";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConfigProvider, Spin } from "antd";
+import { App as AntdApp, ConfigProvider, Spin } from "antd";
 import { FC } from "react";
 import { Provider } from "react-redux";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import NoSsr from "@/utils/noSsr";
-import { App as AntdApp } from "antd";
-import { NotificationProvider } from "@/attribute";
 
 const queryClient = new QueryClient();
 
@@ -34,7 +34,10 @@ const MainProvider: FC<ChildrenLayout> = ({ children }) => {
           <AntdApp>
             <NotificationProvider>
               <QueryClientProvider client={queryClient}>
-                <GoogleOAuthProvider clientId={googleClientId}>{children}</GoogleOAuthProvider>
+                <GoogleOAuthProvider clientId={googleClientId}>
+                  {children}
+                  <CommonUpload />
+                </GoogleOAuthProvider>
               </QueryClientProvider>
             </NotificationProvider>
           </AntdApp>
