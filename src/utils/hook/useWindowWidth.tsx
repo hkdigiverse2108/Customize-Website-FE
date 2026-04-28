@@ -1,19 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 export const useWindowWidth = () => {
-  const [width, setWidth] = useState<number | null>(null);
+  const [width, setWidth] = useState<number>(() => (typeof window !== "undefined" ? window.innerWidth : 0));
+
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleResize = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    timerRef.current = setTimeout(() => {
+      setWidth(window.innerWidth);
+    }, 100);
+  }, []);
 
   useEffect(() => {
-    // client side check
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
-
-    handleResize(); // initial call
-
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [handleResize]);
 
   return width;
 };

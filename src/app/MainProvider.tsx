@@ -8,15 +8,16 @@ import NoSsr from "@/utils/noSsr";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { App as AntdApp, ConfigProvider, Spin } from "antd";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Provider } from "react-redux";
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
+
+Spin.setDefaultIndicator(<div className="animate-spin rounded-full h-8! w-8! border-b-2 border-brand-600" />);
 
 const MainProvider: FC<ChildrenLayout> = ({ children }) => {
   const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
-
-  Spin.setDefaultIndicator(<div className="animate-spin rounded-full h-8! w-8! border-b-2 border-brand-600" />);
+  const [queryClient] = useState(() => new QueryClient({}));
 
   return (
     <NoSsr>

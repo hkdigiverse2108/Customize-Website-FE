@@ -10,7 +10,7 @@ export const AdminNavItems: NavItem[] = [
   { icon: <FaWindowRestore />, name: PAGE_TITLE.STORE.BASE, path: ROUTES.ADMIN.STORE.BASE },
   // {
   //   name: PAGE_TITLE.PLAN.BASE,
-  //   icon: <HomeOutlined />,
+  //   icon: <FaWindowRestore />,
   //   children: [
   //     { name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE, pro: false },
   //     { name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE, pro: false },
