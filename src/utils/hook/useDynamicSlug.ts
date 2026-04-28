@@ -1,5 +1,3 @@
-"use client";
-
 import { useParams } from "next/navigation";
 
 export const useDynamicSlug = <T extends readonly string[]>(keys: T): { all: string[] } & { [K in T[number]]?: string } => {

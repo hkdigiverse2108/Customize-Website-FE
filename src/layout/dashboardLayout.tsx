@@ -1,5 +1,3 @@
-"use client";
-
 import Header from "@/layout/header";
 import Sidebar from "@/layout/sidebar";
 import { useAppSelector } from "@/store";

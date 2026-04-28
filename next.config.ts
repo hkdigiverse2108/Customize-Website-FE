@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   compress: true,
 
   experimental: {
-    optimizePackageImports: ["antd", "@ant-design/icons", "react-icons", "@tanstack/react-query"],
+    optimizePackageImports: ["antd", "react-icons", "@tanstack/react-query"],
   },
 
   images: {
@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
 
   async headers() {
+    const isProd = process.env.NODE_ENV === "production";
+
     return [
       {
         source: "/:path*",
@@ -36,10 +38,14 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      {
-        source: "/_next/static/:path*",
-        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
-      },
+      ...(isProd
+        ? [
+            {
+              source: "/_next/static/:path*",
+              headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+            },
+          ]
+        : []),
     ];
   },
 };

@@ -24,15 +24,15 @@ const StorePage = () => {
 
   const columns: ColumnsType<StoreBase> = [
     CommonObjectPropertyColumn("name", "name", ["name"], { title: "Name", type: "format" }),
-    CommonObjectPropertyColumn("duration", "duration", ["duration"], { title: "Duration", type: "format" }),
-    CommonObjectPropertyColumn("price", "price", ["price"], { title: "Price" }),
-    CommonObjectPropertyColumn("themeLimit", "themeLimit", ["themeLimit"], { title: "Theme Limit" }),
-    CommonObjectPropertyColumn("productLimit", "productLimit", ["productLimit"], { title: "Product Limit" }),
-    CommonObjectPropertyColumn("blogLimit", "blogLimit", ["blogLimit"], { title: "Blog Limit" }),
-    CommonObjectPropertyColumn("orderLimit", "orderLimit", ["orderLimit"], { title: "Order Limit" }),
+    // CommonObjectPropertyColumn("duration", "duration", ["duration"], { title: "Duration", type: "format" }),
+    // CommonObjectPropertyColumn("price", "price", ["price"], { title: "Price" }),
+    // CommonObjectPropertyColumn("themeLimit", "themeLimit", ["themeLimit"], { title: "Theme Limit" }),
+    // CommonObjectPropertyColumn("productLimit", "productLimit", ["productLimit"], { title: "Product Limit" }),
+    // CommonObjectPropertyColumn("blogLimit", "blogLimit", ["blogLimit"], { title: "Blog Limit" }),
+    // CommonObjectPropertyColumn("orderLimit", "orderLimit", ["orderLimit"], { title: "Order Limit" }),
     CommonActionColumn<StoreBase>({
       onActive: { onHandle: (row) => editData({ id: row._id, isActive: !row.isActive }) },
-      onEdit: { onHandle: (row) => router.push(`${ROUTES.ADMIN.STORE.EDIT}/${row._id}`) },
+      onEdit: { onHandle: (row) => router.push(`${ROUTES.ADMIN.STORES.EDIT}/${row._id}`) },
       onDelete: { onHandle: (row) => setRowToDelete({ _id: row?._id, title: row?.name }) },
     }),
   ];
@@ -49,7 +49,7 @@ const StorePage = () => {
 
   return (
     <>
-      <CommonCard cardProps={{ title: PAGE_TITLE.STORE.BASE }} handleAdd={() => router.push(ROUTES.ADMIN.STORE.ADD)}>
+      <CommonCard cardProps={{ title: PAGE_TITLE.STORES.BASE }} handleAdd={() => router.push(ROUTES.ADMIN.STORES.ADD)}>
         <CommonTable<StoreBase> {...dataOption} />
       </CommonCard>
       <CommonDeleteModal open={Boolean(rowToDelete)} itemName={rowToDelete?.title} loading={isDeleteLoading} onClose={() => setRowToDelete(null)} onConfirm={() => handleDeleteBtn()} />

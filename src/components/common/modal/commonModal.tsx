@@ -1,5 +1,3 @@
-"use client";
-
 import { CommonModalProps } from "@/type";
 import { Modal } from "antd";
 import { FC } from "react";

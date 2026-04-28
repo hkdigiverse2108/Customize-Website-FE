@@ -1,13 +1,13 @@
 import { PAGE_TITLE, ROUTES } from "@/constants";
 import { NavItem } from "@/type";
-import { AppstoreOutlined } from "@ant-design/icons";
 import { FaWindowRestore } from "react-icons/fa";
 import { GrPlan } from "react-icons/gr";
+import { RxDashboard } from "react-icons/rx";
 
 export const AdminNavItems: NavItem[] = [
-  { icon: <AppstoreOutlined />, name: PAGE_TITLE.DASHBOARD, path: ROUTES.ADMIN.DASHBOARD },
+  { icon: <RxDashboard />, name: PAGE_TITLE.DASHBOARD, path: ROUTES.ADMIN.DASHBOARD },
   { icon: <GrPlan />, name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE },
-  { icon: <FaWindowRestore />, name: PAGE_TITLE.STORE.BASE, path: ROUTES.ADMIN.STORE.BASE },
+  { icon: <FaWindowRestore />, name: PAGE_TITLE.STORES.BASE, path: ROUTES.ADMIN.STORES.BASE },
   // {
   //   name: PAGE_TITLE.PLAN.BASE,
   //   icon: <FaWindowRestore />,
@@ -19,7 +19,7 @@ export const AdminNavItems: NavItem[] = [
 ];
 
 export const StoreNavItems: NavItem[] = [
-  { icon: <AppstoreOutlined />, name: PAGE_TITLE.DASHBOARD, path: ROUTES.STORE.DASHBOARD },
+  { icon: <RxDashboard />, name: PAGE_TITLE.DASHBOARD, path: ROUTES.STORE.DASHBOARD },
   // {
   //   name: PAGE_TITLE.INVENTORY.BASE,
   //   icon: <HomeOutlined />,

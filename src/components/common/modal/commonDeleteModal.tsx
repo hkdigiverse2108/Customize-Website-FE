@@ -1,7 +1,7 @@
 import { CommonButton } from "@/attribute";
 import { CommonDeleteModalProps } from "@/type";
 import { type FC } from "react";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { BsExclamationCircle } from "react-icons/bs";
 import CommonModal from "./commonModal";
 
 const CommonDeleteModal: FC<CommonDeleteModalProps> = ({ open, title, description, itemName, loading = false, onClose, onConfirm }) => {
@@ -11,7 +11,7 @@ const CommonDeleteModal: FC<CommonDeleteModalProps> = ({ open, title, descriptio
         {/* Icon */}
         <div className="mb-4 flex justify-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
-            <ExclamationCircleOutlined className="text-3xl text-red-500" />
+            <BsExclamationCircle className="text-3xl text-red-500" />
           </div>
         </div>
 

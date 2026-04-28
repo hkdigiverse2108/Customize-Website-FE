@@ -12,9 +12,9 @@ export const PAGE_TITLE = {
     ADD: "Add Plan",
     EDIT: "Edit Plan",
   },
-  STORE: {
-    BASE: "Store",
-    ADD: "Add Store",
-    EDIT: "Edit Store",
+  STORES: {
+    BASE: "Stores",
+    ADD: "Add Stores",
+    EDIT: "Edit Stores",
   }
 } as const;

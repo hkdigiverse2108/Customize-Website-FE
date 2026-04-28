@@ -10,10 +10,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Sidebar = () => {
-  const { isExpanded, isMobileOpen, isHovered } = useAppSelector(
-    (state) => ({ isExpanded: state.layout.isExpanded, isMobileOpen: state.layout.isMobileOpen, isHovered: state.layout.isHovered }),
-    shallowEqual
-  );
+  const { isExpanded, isMobileOpen, isHovered } = useAppSelector((state) => ({ isExpanded: state.layout.isExpanded, isMobileOpen: state.layout.isMobileOpen, isHovered: state.layout.isHovered }), shallowEqual);
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const width = useWindowWidth();
@@ -101,12 +98,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Mobile overlay backdrop */}
-      {isMobileOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
-          onClick={() => dispatch(setToggleMobileSidebar())}
-        />
-      )}
+      {isMobileOpen && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300" onClick={() => dispatch(setToggleMobileSidebar())} />}
 
       <aside
         className={`fixed mt-16 flex flex-col lg:mt-0 top-0 px-3 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200 
