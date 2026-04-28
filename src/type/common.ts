@@ -1,4 +1,4 @@
-import { ButtonProps, CardProps, ColProps, SelectProps, TablePaginationConfig, TableProps } from "antd";
+import { ButtonProps, CardProps, ColProps, RowProps, SelectProps, TablePaginationConfig, TableProps } from "antd";
 import { CSSProperties, FocusEvent, ReactNode } from "react";
 import * as Yup from "yup";
 
@@ -93,6 +93,7 @@ export interface CommonFormSectionProps {
   description?: string;
   children: ReactNode;
   className?: string;
+  row?:RowProps
 }
 
 export interface PageState {
@@ -217,11 +218,15 @@ export interface CommonActionColumnProps<T> {
 
 /* ========================== Upload ========================== */
 
-export interface CommonUploadProps {
-  title?: string;
-  type?: "image" | "pdf";
-}
-
 export interface UploadResponse extends MessageStatus {
   data: string[];
+}
+
+export interface CommonImageBoxProps {
+  name: string;
+  label: string;
+  type: "image" | "pdf";
+  col?: ColProps;
+  required?: boolean;
+  multiple?: boolean;
 }

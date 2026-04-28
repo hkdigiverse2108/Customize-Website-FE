@@ -48,7 +48,8 @@ const FileGallery = () => {
   /* ---------------------------------- */
   const handleSaveBtn = () => {
     dispatch(setSelectedFiles(selected));
-    dispatch(setUploadModal({ open: false, type: isUploadModal.type }));
+    dispatch(setUploadModal({ open: false, type: isUploadModal.type, fieldName: isUploadModal.fieldName }));
+    setSelected([]);
   };
 
   /* ---------------------------------- */
@@ -122,7 +123,7 @@ const FileGallery = () => {
       <div className="flex justify-between gap-3 mt-5 pt-4 border-t border-gray-200 dark:border-gray-800">
         <p className="text-gray-500">{selected.length} selected</p>
         <div className="flex gap-2">
-          <CommonButton title="Close" onClick={handleClose} />
+          <CommonButton title="Clear" color="default" variant="dashed" onClick={handleClose} />
           <CommonButton title="Save" onClick={handleSaveBtn} />
         </div>
       </div>

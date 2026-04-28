@@ -1,11 +1,5 @@
 import { CommonDataType, MessageStatus, PageStatus } from "./common";
 
-export interface StoreThemeConfig {
-  colors: string;
-  fonts: string;
-  spacing: string;
-}
-
 export interface StoreKycDocument {
   type: string;
   documentUrl: string;
@@ -44,14 +38,12 @@ export interface StoreFormValues {
   logo?: string[];
   banner?: string[];
   themeIds?: string[];
-  themeConfig?: StoreThemeConfig;
   userId?: string;
   subdomain?: string;
   customDomain?: string;
   domainVerified?: boolean;
   isActive?: boolean;
   isPublished?: boolean;
-  isBlocked?: boolean;
   businessName?: string;
   businessType?: string;
   gstNumber?: string;

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isUploadModal: { open: false, type: "image", multiple: false },
+  isUploadModal: { open: false, type: "image", multiple: false ,fieldName:""},
   selectedFiles: [],
 };
 

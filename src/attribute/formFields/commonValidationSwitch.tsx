@@ -19,7 +19,7 @@ export const CommonValidationSwitch: FC<CommonValidationSwitchProps> = ({ name, 
   const SwitchComponent = (
     <div className="flex items-center justify-between px-3 py-2 rounded-lg border border-black/20 hover:border-brand-500 transition-all duration-200">
       {label && (
-        <label className="block text-sm font-semibold text-gray-700 capitalize" htmlFor={name}>
+        <label className="block text-sm font-semibold text-gray-700 capitalize cursor-pointer" htmlFor={name}>
           {label} {required && <span className="text-red-500">*</span>}
         </label>
       )}
