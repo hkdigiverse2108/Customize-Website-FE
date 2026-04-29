@@ -20,9 +20,9 @@ const DashboardLayout: FC<ChildrenLayout> = ({ children }) => {
       <Sidebar />
       <div className={`flex-1 transition-all duration-300 ease-linear ${isApplicationMenuOpen ? "pt-29 xsm:pt-30" : "pt-16"} lg:pt-14 ${isExpanded ? "lg:ml-[260px]" : "lg:ml-[72px]"} ${isMobileOpen ? "ml-0" : ""}`}>
         <Header />
-        <div className="mx-auto">
+        <main className="mx-auto">
           <div className="p-3 sm:p-5">{children}</div>
-        </div>
+        </main>
       </div>
     </div>
   );

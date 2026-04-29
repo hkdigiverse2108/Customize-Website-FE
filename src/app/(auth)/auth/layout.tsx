@@ -1,10 +1,12 @@
 "use client";
-
 import { ChildrenLayout } from "@/type";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { FC } from "react";
 
-const AdminLayout: FC<ChildrenLayout> = ({ children }) => {
-  return <div>{children}</div>;
+const AuthLayout: FC<ChildrenLayout> = ({ children }) => {
+  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
+
+  return <GoogleOAuthProvider clientId={googleClientId}>{children}</GoogleOAuthProvider>;
 };
 
-export default AdminLayout;
+export default AuthLayout;

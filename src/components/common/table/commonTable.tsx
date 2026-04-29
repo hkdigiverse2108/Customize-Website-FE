@@ -41,7 +41,7 @@ export const CommonTable = <T extends object>({ loading = false, dataSource, col
             {onSearch && (
               <Col xs={24} md={10} lg={8} xl={8} xxl={6}>
                 <div className="flex items-center bg-gray-100 px-1 py-2 rounded-lg">
-                  <Input value={onSearch?.value} type="text" placeholder="Search by name..." prefix={<FiSearch className="text-gray-400 mr-2" />} onChange={(e) => onSearch?.onChange?.(e.target.value)} className="bg-transparent! outline-none! border-none! shadow-none! w-full! text-sm!" />
+                  <Input value={onSearch?.value} type="text" placeholder="Search by name..." aria-label="Search by name" prefix={<FiSearch className="text-gray-400 mr-2" />} onChange={(e) => onSearch?.onChange?.(e.target.value)} className="bg-transparent! outline-none! border-none! shadow-none! w-full! text-sm!" />
                 </div>
               </Col>
             )}
@@ -49,7 +49,7 @@ export const CommonTable = <T extends object>({ loading = false, dataSource, col
               <Col xs={24} md={4} xl={3} xxl={2}>
                 <div className="flex items-center gap-3 bg-gray-100 px-3 py-3 rounded-lg">
                   <span className="text-sm font-semibold text-gray-500 uppercase">Active</span>
-                  <Switch size="small" checked={onActive?.value} onChange={onActive?.onChange} />
+                  <Switch size="small" checked={onActive?.value} aria-label="Toggle active status" onChange={onActive?.onChange} />
                 </div>
               </Col>
             )}
