@@ -5,18 +5,19 @@ export const useClickOutside = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!open) return; // skip adding listener when closed
+
     const handleClickOutside = (event: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
         setOpen(false);
       }
     };
 
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
+    // Use capture phase so it fires before any stopPropagation in child handlers
+    document.addEventListener("mousedown", handleClickOutside, { capture: true });
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside, { capture: true });
     };
   }, [open]);
 

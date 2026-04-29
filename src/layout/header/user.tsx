@@ -3,34 +3,65 @@ import { ROUTES } from "@/constants";
 import { setSignOut, useAppDispatch, useAppSelector } from "@/store";
 import { useClickOutside } from "@/utils";
 import Link from "next/link";
+import { memo, useCallback } from "react";
+import { shallowEqual } from "react-redux";
 
 const User = () => {
-  const { user } = useAppSelector((state) => state.auth);
-  const { open, setOpen, wrapperRef } = useClickOutside();
+  const user = useAppSelector(
+    (state) => ({
+      firstName: state.auth.user?.firstName,
+      lastName: state.auth.user?.lastName,
+      email: state.auth.user?.email,
+    }),
+    shallowEqual,
+  );
 
+  const { open, setOpen, wrapperRef } = useClickOutside();
   const dispatch = useAppDispatch();
+
+  const fullName = `${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim();
+
+  const handleMouseEnter = useCallback(() => {
+    if (window.innerWidth >= 1024) setOpen(true);
+  }, [setOpen]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (window.innerWidth >= 1024) setOpen(false);
+  }, [setOpen]);
+
+  const handleClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (window.innerWidth < 1024) setOpen((prev) => !prev);
+    },
+    [setOpen],
+  );
+
+  const handleSignOut = useCallback(() => {
+    dispatch(setSignOut());
+  }, [dispatch]);
+
   return (
-    <div className="relative" ref={wrapperRef} onMouseEnter={() => window.innerWidth >= 1024 && setOpen(true)} onMouseLeave={() => window.innerWidth >= 1024 && setOpen(false)}>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          if (window.innerWidth < 1024) setOpen((prev) => !prev);
-        }}
-        className="cursor-pointer ring-2 ring-transparent hover:ring-brand-200 dark:hover:ring-brand-800 rounded-full transition-all duration-200"
-      >
-        <CommonProfileAvatar fullName={`${user?.firstName} ${user?.lastName}`} profileImage={""} className="max-xsm:text-sm h-10 w-10 max-xsm:h-9 max-xsm:w-9" />
+    <div className="relative" ref={wrapperRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div onClick={handleClick} className="cursor-pointer ring-2 ring-transparent hover:ring-brand-200 dark:hover:ring-brand-800 rounded-full transition-all duration-200">
+        <CommonProfileAvatar fullName={fullName} profileImage={""} className="max-xsm:text-sm h-10 w-10 max-xsm:h-9 max-xsm:w-9" />
       </div>
-      <div className={`fixed lg:absolute max-lg:left-1 max-lg:right-1 lg:right-0 mt-3 flex min-w-[260px] max-w-[330px] flex-col rounded-2xl border border-gray-100 bg-white/95 backdrop-blur-xl shadow-theme-lg dark:border-gray-800 dark:bg-gray-900/95 z-50 transition-all duration-200 ease-out ${open ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 translate-y-2"} `}>
+
+      <div className={`fixed lg:absolute max-lg:left-1 max-lg:right-1 lg:right-0 mt-3 flex min-w-[260px] max-w-[330px] flex-col rounded-2xl border border-gray-100 bg-white backdrop-blur-xl shadow-theme-lg dark:border-gray-800 dark:bg-gray-900/95 z-50 transition-all duration-200 ease-out ${open ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 translate-y-2"}`}>
         <div className="p-4">
           <div className="flex items-center gap-3">
-            <CommonProfileAvatar fullName={`${user?.firstName} ${user?.lastName}`} profileImage={""} className="h-10 w-10" />
+            <CommonProfileAvatar fullName={fullName} profileImage={""} className="h-10 w-10" />
             <div className="flex-1 min-w-0">
-              <span className="block font-semibold text-gray-800 text-theme-sm dark:text-gray-200 truncate"> {`${user?.firstName} ${user?.lastName}`} </span>
-              <span className="block text-theme-xs text-gray-500 dark:text-gray-500 truncate" title={user?.email}>{user?.email} </span>
+              <span className="block font-semibold text-gray-800 text-theme-sm dark:text-gray-200 truncate">{fullName}</span>
+              <span className="block text-theme-xs text-gray-500 dark:text-gray-500 truncate" title={user?.email}>
+                {user?.email}
+              </span>
             </div>
           </div>
         </div>
+
         <div className="h-px bg-gray-100 dark:bg-gray-800 mx-3" />
+
         <ul className="flex flex-col p-1.5">
           <li>
             <Link href={ROUTES.STORE.DASHBOARD}>
@@ -42,18 +73,12 @@ const User = () => {
               </div>
             </Link>
           </li>
-          {/* <li>
-            <Link to={ROUTES.SETTINGS.CHANGE_PASSWORD} className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300">
-              <svg className="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" clipRule="evenodd" d="M10.4858 3.5L13.5182 3.5C13.9233 3.5 14.2518 3.82851 14.2518 4.23377C14.2518 5.9529 16.1129 7.02795 17.602 6.1682C17.9528 5.96567 18.4014 6.08586 18.6039 6.43667L20.1203 9.0631C20.3229 9.41407 20.2027 9.86286 19.8517 10.0655C18.3625 10.9253 18.3625 13.0747 19.8517 13.9345C20.2026 14.1372 20.3229 14.5859 20.1203 14.9369L18.6039 17.5634C18.4013 17.9142 17.9528 18.0344 17.602 17.8318C16.1129 16.9721 14.2518 18.0471 14.2518 19.7663C14.2518 20.1715 13.9233 20.5 13.5182 20.5H10.4858C10.0804 20.5 9.75182 20.1714 9.75182 19.766C9.75182 18.0461 7.88983 16.9717 6.40067 17.8314C6.04945 18.0342 5.60037 17.9139 5.39767 17.5628L3.88167 14.937C3.67903 14.586 3.79928 14.1372 4.15026 13.9346C5.63949 13.0748 5.63946 10.9253 4.15025 10.0655C3.79926 9.86282 3.67901 9.41401 3.88165 9.06303L5.39764 6.43725C5.60034 6.08617 6.04943 5.96581 6.40065 6.16858C7.88982 7.02836 9.75182 5.9539 9.75182 4.23399C9.75182 3.82862 10.0804 3.5 10.4858 3.5ZM13.5182 2L10.4858 2C9.25201 2 8.25182 3.00019 8.25182 4.23399C8.25182 4.79884 7.64013 5.15215 7.15065 4.86955C6.08213 4.25263 4.71559 4.61859 4.0986 5.68725L2.58261 8.31303C1.96575 9.38146 2.33183 10.7477 3.40025 11.3645C3.88948 11.647 3.88947 12.3531 3.40026 12.6355C2.33184 13.2524 1.96578 14.6186 2.58263 15.687L4.09863 18.3128C4.71562 19.3814 6.08215 19.7474 7.15067 19.1305C7.64015 18.8479 8.25182 19.2012 8.25182 19.766C8.25182 20.9998 9.25201 22 10.4858 22H13.5182C14.7519 22 15.7518 20.9998 15.7518 19.7663C15.7518 19.2015 16.3632 18.8487 16.852 19.1309C17.9202 19.7476 19.2862 19.3816 19.9029 18.3134L21.4193 15.6869C22.0361 14.6185 21.6701 13.2523 20.6017 12.6355C20.1125 12.3531 20.1125 11.647 20.6017 11.3645C21.6701 10.7477 22.0362 9.38152 21.4193 8.3131L19.903 5.68667C19.2862 4.61842 17.9202 4.25241 16.852 4.86917C16.3632 5.15138 15.7518 4.79856 15.7518 4.23377C15.7518 3.00024 14.7519 2 13.5182 2ZM9.6659 11.9999C9.6659 10.7103 10.7113 9.66493 12.0009 9.66493C13.2905 9.66493 14.3359 10.7103 14.3359 11.9999C14.3359 13.2895 13.2905 14.3349 12.0009 14.3349C10.7113 14.3349 9.6659 13.2895 9.6659 11.9999ZM12.0009 8.16493C9.88289 8.16493 8.1659 9.88191 8.1659 11.9999C8.1659 14.1179 9.88289 15.8349 12.0009 15.8349C14.1189 15.8349 15.8359 14.1179 15.8359 11.9999C15.8359 9.88191 14.1189 8.16493 12.0009 8.16493Z" fill="" />
-              </svg>
-              Change Password
-            </Link>
-          </li> */}
         </ul>
+
         <div className="h-px bg-gray-100 dark:bg-gray-800 mx-3" />
+
         <div className="p-1.5">
-          <Link href={ROUTES.AUTH.LOGIN} onClick={() => dispatch(setSignOut())}>
+          <Link href={ROUTES.AUTH.LOGIN} onClick={handleSignOut}>
             <div className="flex items-center gap-3 px-3 py-2.5 font-medium text-gray-600 rounded-xl group text-theme-sm hover:bg-error-50 hover:text-error-600 dark:text-gray-400 dark:hover:bg-error-500/10 dark:hover:text-error-400 transition-all duration-200">
               <svg className="fill-gray-500 text-gray-500 group-hover:fill-error-600 group-hover:text-error-600 dark:fill-gray-400 dark:text-gray-400 dark:group-hover:fill-error-400 dark:group-hover:text-error-400 transition-colors duration-200" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M15.1007 19.247C14.6865 19.247 14.3507 18.9112 14.3507 18.497L14.3507 14.245H12.8507V18.497C12.8507 19.7396 13.8581 20.747 15.1007 20.747H18.5007C19.7434 20.747 20.7507 19.7396 20.7507 18.497L20.7507 5.49609C20.7507 4.25345 19.7433 3.24609 18.5007 3.24609H15.1007C13.8581 3.24609 12.8507 4.25345 12.8507 5.49609V9.74501L14.3507 9.74501V5.49609C14.3507 5.08188 14.6865 4.74609 15.1007 4.74609L18.5007 4.74609C18.9149 4.74609 19.2507 5.08188 19.2507 5.49609L19.2507 18.497C19.2507 18.9112 18.9149 19.247 18.5007 19.247H15.1007ZM3.25073 11.9984C3.25073 12.2144 3.34204 12.4091 3.48817 12.546L8.09483 17.1556C8.38763 17.4485 8.86251 17.4487 9.15549 17.1559C9.44848 16.8631 9.44863 16.3882 9.15583 16.0952L5.81116 12.7484L16.0007 12.7484C16.4149 12.7484 16.7507 12.4127 16.7507 11.9984C16.7507 11.5842 16.4149 11.2484 16.0007 11.2484L5.81528 11.2484L9.15585 7.90554C9.44864 7.61255 9.44847 7.13767 9.15547 6.84488C8.86248 6.55209 8.3876 6.55226 8.09481 6.84525L3.52309 11.4202C3.35673 11.5577 3.25073 11.7657 3.25073 11.9984Z" fill="currentColor" />
@@ -67,4 +92,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default memo(User);
