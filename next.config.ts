@@ -3,12 +3,23 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   compress: true,
+  productionBrowserSourceMaps: false,
 
   experimental: {
     optimizePackageImports: ["antd", "react-icons", "@tanstack/react-query"],
+    staleTimes: {
+      dynamic: 30,
+      static: 180,
+    },
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
 
   images: {
+    minimumCacheTTL: 60,
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
       /* { protocol: 'https', hostname: 'example.com' } */
