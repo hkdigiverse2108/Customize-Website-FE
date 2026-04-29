@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "dev": "dotenv -e .env -- next dev",
     "build": "dotenv -e .env -- next build",
@@ -14,6 +15,7 @@
     "@tanstack/react-query": "^5.99.0",
     "antd": "^6.3.5",
     "axios": "^1.15.0",
+    "dayjs": "^1.11.20",
     "formik": "^2.4.9",
     "next": "16.2.4",
     "react": "19.2.4",

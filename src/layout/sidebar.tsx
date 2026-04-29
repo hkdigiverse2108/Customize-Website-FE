@@ -4,21 +4,20 @@ import { NavItem } from "@/type";
 import { useWindowWidth } from "@/utils/hook";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { shallowEqual } from "react-redux";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Sidebar = () => {
-  const { isExpanded, isMobileOpen, isHovered } = useAppSelector((state) => state.layout);
-  const { user } = useAppSelector((state) => state.auth);
+  const { isExpanded, isMobileOpen, isHovered } = useAppSelector((state) => ({ isExpanded: state.layout.isExpanded, isMobileOpen: state.layout.isMobileOpen, isHovered: state.layout.isHovered }), shallowEqual);
+  const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const width = useWindowWidth();
 
   const location = usePathname();
 
   const [openSubmenu, setOpenSubmenu] = useState<{ type: "main" | "others"; index: number } | null>(null);
-  const [subMenuHeight, setSubMenuHeight] = useState<Record<string, number>>({});
-  const subMenuRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const isActive = useCallback((path: string) => location === path || location.startsWith(path + "/"), [location]);
 
@@ -39,18 +38,6 @@ const Sidebar = () => {
       dispatch(setToggleMobileSidebar());
     }
   };
-
-  useEffect(() => {
-    if (openSubmenu !== null) {
-      const key = `${openSubmenu.type}-${openSubmenu.index}`;
-      if (subMenuRefs.current[key]) {
-        setSubMenuHeight((prevHeights) => ({
-          ...prevHeights,
-          [key]: subMenuRefs.current[key]?.scrollHeight || 0,
-        }));
-      }
-    }
-  }, [openSubmenu]);
 
   const handleSubmenuToggle = (index: number, menuType: "main" | "others") => {
     setOpenSubmenu((prevOpenSubmenu) => {
@@ -83,12 +70,9 @@ const Sidebar = () => {
           )}
           {nav.children && isShowFull && (
             <div
-              ref={(el) => {
-                subMenuRefs.current[`${menuType}-${index}`] = el;
-              }}
               className="overflow-hidden transition-all duration-300 ease-in-out"
               style={{
-                height: openSubmenu?.type === menuType && openSubmenu?.index === index ? `${subMenuHeight[`${menuType}-${index}`]}px` : "0px",
+                maxHeight: openSubmenu?.type === menuType && openSubmenu?.index === index ? "500px" : "0px",
               }}
             >
               <ul className="mt-1 space-y-0.5 ml-8 border-l-2 border-brand-200 dark:border-brand-800 pl-2">
@@ -114,12 +98,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Mobile overlay backdrop */}
-      {isMobileOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
-          onClick={() => dispatch(setToggleMobileSidebar())}
-        />
-      )}
+      {isMobileOpen && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300" onClick={() => dispatch(setToggleMobileSidebar())} />}
 
       <aside
         className={`fixed mt-16 flex flex-col lg:mt-0 top-0 px-3 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200 

@@ -1,5 +1,3 @@
-"use client";
-
 import { CommonButton } from "@/attribute";
 import { CommonBottomActionBarProps } from "@/type";
 import { useRouter } from "next/navigation";

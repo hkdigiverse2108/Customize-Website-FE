@@ -28,7 +28,6 @@ const authSlice = createSlice({
       state.token = null;
       state.user = null;
       Cookie.removeAll();
-      window.location.reload();
     },
   },
 });

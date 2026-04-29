@@ -17,10 +17,10 @@ export const ROUTES = {
       ADD: "/admin/plan/add",
       EDIT: "/admin/plan/edit",
     },
-    STORE: {
-      BASE: "/admin/store",
-      ADD: "/admin/store/add",
-      EDIT: "/admin/store/edit",
+    STORES: {
+      BASE: "/admin/stores",
+      ADD: "/admin/stores/add",
+      EDIT: "/admin/stores/edit",
     },
   },
 } as const;

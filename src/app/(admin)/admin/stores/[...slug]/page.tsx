@@ -24,7 +24,7 @@ const AddEditStorePage = () => {
   const { data, isLoading: isDataLoading } = Queries.useGetStoreById(id, !!id);
 
   const Data = data?.data;
-  const pageTitle = PAGE_TITLE.STORE[pageMode];
+  const pageTitle = PAGE_TITLE.STORES[pageMode];
 
   const initialValues: StoreFormValues = {
     name: Data?.name || "",
@@ -90,12 +90,12 @@ const AddEditStorePage = () => {
     <div className="mx-auto max-w-6xl">
       <div className="mb-6 rounded-lg border border-slate-100 bg-white/90 p-5 backdrop-blur">
         <div className="text-left">
-          <p className="text-xs font-semibold uppercase tracking-[0.075em] text-brand-600">Admin {PAGE_TITLE.STORE.BASE} editor</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.075em] text-brand-600">Admin {PAGE_TITLE.STORES.BASE} editor</p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">{pageTitle}</h1>
           <p className="mt-0 text-sm leading-6 text-slate-500">Manage store details, business information, domain settings, and customer-facing content from a single structured admin interface.</p>{" "}
         </div>
       </div>
-      <CommonCard cardProps={{ title: `${PAGE_TITLE.STORE.BASE} Details`, loading: isDataLoading, style: { borderRadius: 10, overflow: "hidden" } }}>
+      <CommonCard cardProps={{ title: `${PAGE_TITLE.STORES.BASE} Details`, loading: isDataLoading, style: { borderRadius: 10, overflow: "hidden" } }}>
         <Formik<StoreFormValues> enableReinitialize initialValues={initialValues} onSubmit={handleSubmit}>
           <Form className="space-y-5">
             <CommonFormSection title="Basic Details" row={{ gutter: [10, 10] }}>

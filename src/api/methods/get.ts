@@ -1,7 +1,7 @@
 import { CommonNotification, ErrorMessage } from "@/attribute";
 import { HTTP_STATUS } from "@/constants";
 import { Params } from "@/type";
-import { getToken } from "@/utils";
+import { Cookie, getToken } from "@/utils";
 import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 
 let isRedirecting = false;
@@ -29,12 +29,13 @@ export async function Get<T>(url: string, params?: Params, headers?: Record<stri
 
     if (axiosError?.response?.status === HTTP_STATUS.UNAUTHORIZED && !isRedirecting) {
       // Storage.clear();
+      Cookie.removeAll();
       isRedirecting = true;
       // window.location.href = ROUTES.HOME;
       setTimeout(() => (isRedirecting = false), 1000);
     } else {
       CommonNotification("error", ErrorMessage(error));
     }
-    throw null;
+    throw axiosError;
   }
 }

@@ -1,8 +1,8 @@
 import { CommonValidationTextFieldProps } from "@/type";
-import { CloseOutlined } from "@ant-design/icons";
 import { Col, Form, Input } from "antd";
 import { useField } from "formik";
 import { FC, FocusEvent, useCallback } from "react";
+import { RiCloseLargeFill } from "react-icons/ri";
 
 export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ col, label, name, type = "text", placeholder, required, autoComplete = "off", clearable = false, startIcon, endIcon, showPasswordToggle = false, disabled, helperText, multiline, maxDigits, className, isOtp, ...props }) => {
   const [field, meta, helpers] = useField(name);
@@ -20,7 +20,7 @@ export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ 
 
   const suffix = (
     <>
-      {clearable && field.value && <CloseOutlined onClick={handleClear} style={{ cursor: "pointer", marginRight: 8 }} />}
+      {clearable && field.value && <RiCloseLargeFill onClick={handleClear} style={{ cursor: "pointer", marginRight: 8 }} />}
 
       {endIcon}
     </>
