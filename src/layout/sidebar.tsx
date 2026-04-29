@@ -138,7 +138,7 @@ const Sidebar = () => {
           <nav className="mb-6">
             <div className="flex flex-col gap-4">
               <div>
-                <h2 className={`mb-3 text-[11px] uppercase tracking-widest font-semibold flex text-gray-400 dark:text-gray-600 ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-start pl-3"}`}>{isShowFull ? "Menu" : <BiDotsHorizontalRounded className="size-5" />}</h2>
+                <h2 className={`mb-3 text-[11px] uppercase tracking-widest font-semibold flex text-gray-500 dark:text-gray-400 ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-start pl-3"}`}>{isShowFull ? "Menu" : <BiDotsHorizontalRounded className="size-5" />}</h2>
                 {renderMenuItems(NavItems, "main")}
               </div>
             </div>

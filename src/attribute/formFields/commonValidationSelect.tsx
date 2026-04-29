@@ -25,6 +25,7 @@ export const CommonValidationSelect: FC<CommonValidationSelectProps> = ({ name, 
 
   const SelectComponent = (
     <Select
+      id={name}
       mode={mode}
       value={value}
       onChange={handleChange}
@@ -56,7 +57,7 @@ export const CommonValidationSelect: FC<CommonValidationSelectProps> = ({ name, 
   const SelectComponentWithLabel = (
     <>
       {label && (
-        <label className="block text-sm font-semibold text-gray-700 mb-2 capitalize">
+        <label htmlFor={name} className="block text-sm font-semibold text-gray-700 mb-2 capitalize">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
       )}

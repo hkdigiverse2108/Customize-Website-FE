@@ -3,7 +3,7 @@ import { ROUTES, STORAGE_KEYS } from "./constants";
 import { ACCOUNT_TYPE } from "./data";
 import { AccountType } from "./type";
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const token = req.cookies.get(STORAGE_KEYS.TOKEN)?.value;
