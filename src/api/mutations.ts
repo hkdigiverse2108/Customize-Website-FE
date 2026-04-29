@@ -27,4 +27,7 @@ export const Mutations = {
   useAddStore: () => useMutations<AddStorePayload, void>([KEYS.STORE.ADD, KEYS.STORE.BASE], (input) => Post(URL_KEYS.STORE.BASE, input)),
   useEditStore: () => useMutations<EditStorePayload, void>([KEYS.STORE.EDIT, KEYS.STORE.BASE], (input) => Put(URL_KEYS.STORE.BASE, input)),
   useDeleteStore: () => useMutations<string, void>([KEYS.STORE.DELETE, KEYS.STORE.BASE], (id) => Delete(`${URL_KEYS.STORE.BASE}/${id}`)),
+  
+  /* ========================== User ========================== */
+  useUpdateUserSubscription: () => useMutations<{ planId: string }, LoginResponse>([KEYS.USER.SUBSCRIBE], (input) => Post(URL_KEYS.USER.SUBSCRIBE, input)),
 };

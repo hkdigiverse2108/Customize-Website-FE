@@ -27,4 +27,7 @@ export const KEYS = {
     EDIT: "edit-store",
     DELETE: "delete-store",
   },
+  USER: {
+    SUBSCRIBE: "subscribe",
+  },
 };

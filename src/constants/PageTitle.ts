@@ -16,5 +16,9 @@ export const PAGE_TITLE = {
     BASE: "Stores",
     ADD: "Add Stores",
     EDIT: "Edit Stores",
-  }
+  },
+  STORE: {
+    DASHBOARD: "Store Dashboard",
+    PLANS: "Select Plan",
+  },
 } as const;

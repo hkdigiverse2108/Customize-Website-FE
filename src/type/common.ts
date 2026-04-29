@@ -93,7 +93,7 @@ export interface CommonFormSectionProps {
   description?: string;
   children: ReactNode;
   className?: string;
-  row?:RowProps
+  row?: RowProps
 }
 
 export interface PageState {

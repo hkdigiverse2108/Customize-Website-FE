@@ -18,6 +18,9 @@ export const URL_KEYS = {
   PLAN: {
     BASE: "/plan",
   },
+  USER: {
+    SUBSCRIBE: "/user/subscribe",
+  },
   STORE: {
     BASE: "/store",
   },

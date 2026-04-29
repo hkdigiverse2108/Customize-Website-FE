@@ -56,7 +56,37 @@ export function proxy(req: NextRequest) {
     }
 
     if (role === ACCOUNT_TYPE.VENDOR) {
+      // Check if vendor has a plan
+      let hasPlan = false;
+      try {
+        const parsedUser = JSON.parse(userCookie || "{}");
+        hasPlan = !!parsedUser?.subscription?.planId;
+      } catch {
+        hasPlan = false;
+      }
+
+      if (!hasPlan && pathname !== ROUTES.STORE.PLANS) {
+        return NextResponse.redirect(new URL(ROUTES.STORE.PLANS, req.url));
+      }
+
       return NextResponse.redirect(new URL(ROUTES.STORE.DASHBOARD, req.url));
+    }
+  }
+
+  // ===============================
+  // 🚫 PLAN PROTECTION (Vendor only)
+  // ===============================
+  if (role === ACCOUNT_TYPE.VENDOR && isStoreRoute && pathname !== ROUTES.STORE.PLANS && pathname !== ROUTES.STORE.DASHBOARD) {
+    let hasPlan = false;
+    try {
+      const parsedUser = JSON.parse(userCookie || "{}");
+      hasPlan = !!parsedUser?.subscription?.planId;
+    } catch {
+      hasPlan = false;
+    }
+
+    if (!hasPlan) {
+      return NextResponse.redirect(new URL(ROUTES.STORE.PLANS, req.url));
     }
   }
 
