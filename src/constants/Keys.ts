@@ -27,4 +27,10 @@ export const KEYS = {
     EDIT: "edit-store",
     DELETE: "delete-store",
   },
+  THEME: {
+    BASE: "theme",
+    ADD: "add-theme",
+    EDIT: "edit-theme",
+    DELETE: "delete-theme",
+  },
 };

@@ -21,4 +21,7 @@ export const URL_KEYS = {
   STORE: {
     BASE: "/store",
   },
+  THEME: {
+    BASE: "/theme",
+  },
 } as const;

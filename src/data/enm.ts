@@ -45,7 +45,7 @@ export const KYC_DOCUMENT_TYPE = {
 } as const;
 
 export const KYC_DOCUMENT_TYPE_OPTIONS = [
-  { label: "aadhaar", value: KYC_DOCUMENT_TYPE.AADHAAR },
-  { label: "pan", value: KYC_DOCUMENT_TYPE.PAN },
-  { label: "gst", value: KYC_DOCUMENT_TYPE.GST },
+  { label: "Aadhaar", value: KYC_DOCUMENT_TYPE.AADHAAR },
+  { label: "Pan", value: KYC_DOCUMENT_TYPE.PAN },
+  { label: "Gst", value: KYC_DOCUMENT_TYPE.GST },
 ];
