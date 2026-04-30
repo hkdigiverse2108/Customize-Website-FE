@@ -1,9 +1,12 @@
-import Header from "@/layout/header";
-import Sidebar from "@/layout/sidebar";
 import { useAppSelector } from "@/store";
 import { ChildrenLayout } from "@/type";
+import dynamic from "next/dynamic";
 import { FC, memo } from "react";
 import { shallowEqual } from "react-redux";
+
+const Header = dynamic(() => import("@/layout/header"), { ssr: false });
+const Sidebar = dynamic(() => import("@/layout/sidebar"), { ssr: false });
+
 
 const DashboardLayout: FC<ChildrenLayout> = ({ children }) => {
   const { isExpanded, isMobileOpen, isApplicationMenuOpen } = useAppSelector(

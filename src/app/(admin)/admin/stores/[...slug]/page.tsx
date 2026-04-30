@@ -2,14 +2,20 @@
 
 import { Queries } from "@/api";
 import { Mutations } from "@/api/mutations";
-import { CommonFormImageBox, CommonValidationSelect, CommonValidationSwitch, CommonValidationTextField } from "@/attribute";
 import { CommonBottomActionBar, CommonCard, CommonFormSection } from "@/components/common";
 import { PAGE_TITLE } from "@/constants";
 import { KYC_DOCUMENT_TYPE_OPTIONS, KYC_STATUS_OPTIONS } from "@/data";
 import { StoreFormValues } from "@/type";
 import { GetChangedFields, RemoveEmptyFields, StoreSchema, useDynamicSlug } from "@/utils";
 import { Form, Formik, FormikHelpers } from "formik";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+
+const CommonFormImageBox = dynamic(() => import("@/attribute").then((mod) => mod.CommonFormImageBox), { ssr: false });
+const CommonValidationSelect = dynamic(() => import("@/attribute").then((mod) => mod.CommonValidationSelect), { ssr: false });
+const CommonValidationSwitch = dynamic(() => import("@/attribute").then((mod) => mod.CommonValidationSwitch), { ssr: false });
+const CommonValidationTextField = dynamic(() => import("@/attribute").then((mod) => mod.CommonValidationTextField), { ssr: false });
+
 
 const AddEditStorePage = () => {
   const router = useRouter();

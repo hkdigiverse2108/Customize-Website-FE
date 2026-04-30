@@ -2,7 +2,6 @@
 
 import { Queries } from "@/api";
 import { Mutations } from "@/api/mutations";
-import { CommonValidationSelect, CommonValidationSwitch, CommonValidationTextField } from "@/attribute";
 import { CommonBottomActionBar, CommonCard, CommonFormSection } from "@/components/common";
 import { PAGE_TITLE } from "@/constants";
 import { PLAN_DURATION_OPTIONS, SUBSCRIPTION_TYPE_OPTIONS } from "@/data";
@@ -10,7 +9,13 @@ import { PlanFormValues } from "@/type";
 import { GetChangedFields, PlanSchema, RemoveEmptyFields, useDynamicSlug } from "@/utils";
 import { Row } from "antd";
 import { Form, Formik, FormikHelpers } from "formik";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+
+const CommonValidationSelect = dynamic(() => import("@/attribute").then((mod) => mod.CommonValidationSelect), { ssr: false });
+const CommonValidationSwitch = dynamic(() => import("@/attribute").then((mod) => mod.CommonValidationSwitch), { ssr: false });
+const CommonValidationTextField = dynamic(() => import("@/attribute").then((mod) => mod.CommonValidationTextField), { ssr: false });
+
 
 const AddEditPlanPage = () => {
   const router = useRouter();

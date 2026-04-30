@@ -32,10 +32,10 @@ const MainProvider: FC<ChildrenLayout> = ({ children }) => {
         >
           <AntdApp>
             <NotificationProvider>
-                <QueryClientProvider client={queryClient}>
-                  {children}
-                  <CommonUpload />
-                </QueryClientProvider>
+              <QueryClientProvider client={queryClient}>
+                {children}
+                <CommonUpload />
+              </QueryClientProvider>
             </NotificationProvider>
           </AntdApp>
         </ConfigProvider>

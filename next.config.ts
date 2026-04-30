@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
 
   experimental: {
-    optimizePackageImports: ["antd", "react-icons", "@tanstack/react-query"],
+    optimizePackageImports: ["antd", "react-icons", "@tanstack/react-query", "formik", "yup"],
+
     staleTimes: {
       dynamic: 30,
       static: 180,
