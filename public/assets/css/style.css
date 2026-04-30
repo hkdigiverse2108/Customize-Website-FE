@@ -3,6 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -10,10 +11,12 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
   body {
     @apply relative font-normal font-outfit z-1 bg-gray-50;
   }
@@ -22,7 +25,6 @@
 @import "./layout.css";
 @import "./update.css";
 
-/* 
 :root {
   --white: #ffffff;
   --black: #000000;
@@ -56,7 +58,8 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-} */
+}

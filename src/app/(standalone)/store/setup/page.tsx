@@ -77,15 +77,11 @@ const StoreSetupPage = () => {
           <Title level={1} className="mb-4 tracking-tight !text-slate-900 !font-extrabold !text-4xl md:!text-5xl">Let's build your <span className="text-brand-600">storefront</span></Title>
           <Text className="text-slate-500 text-xl font-medium">Tell us a bit about your business to get started.</Text>
         </div>
-
         <div className="mb-12">
           <CommonCard cardProps={{ className: "rounded-[32px] border-slate-200/50 shadow-xl shadow-slate-200/20 bg-white/50 backdrop-blur-sm" }}>
-            <div className="px-4 py-2">
-              <Steps current={currentStep} items={steps.map(item => ({ title: item.title, icon: item.icon }))} className="vendor-setup-steps"/>
-            </div>
+            <div className="px-4 py-2"><Steps current={currentStep} items={steps.map(item => ({ title: item.title, icon: item.icon }))} className="vendor-setup-steps"/></div>
           </CommonCard>
         </div>
-
         <Formik initialValues={initialValues} validationSchema={StoreSchema} onSubmit={handleSubmit} validateOnChange={false} validateOnBlur={true}>
           {({ values, errors, touched, setFieldTouched, validateForm, setTouched }) => (
             <Form className="space-y-10">

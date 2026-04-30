@@ -9,6 +9,11 @@ const Store = configureStore({
     auth: AuthSlice,
     modal: ModalSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+    }),
 });
 
 export default Store;

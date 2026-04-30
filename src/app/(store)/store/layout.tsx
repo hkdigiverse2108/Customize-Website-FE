@@ -12,7 +12,6 @@ import { FC, useEffect } from "react";
 const StoreLayout: FC<ChildrenLayout> = ({ children }) => {
   const router = useRouter();
   const user = useAppSelector((state) => state.auth.user);
-  
   // Fetch stores to see if any exist
   const { data: storeData, isLoading } = Queries.useGetStore({}, !!user);
 
@@ -26,10 +25,10 @@ const StoreLayout: FC<ChildrenLayout> = ({ children }) => {
 
   useEffect(() => {
     if (!isLoading && user && !isSetupPage && !isPlanPage) {
-      if (!hasStore) {
-        router.replace(ROUTES.STORE.SETUP);
-      } else if (!hasPlan) {
+      if (!hasPlan) {
         router.replace(ROUTES.STORE.PLANS);
+      } else if (!hasStore) {
+        router.replace(ROUTES.STORE.SETUP);
       }
     }
   }, [user, hasPlan, hasStore, isLoading, router, isSetupPage, isPlanPage]);
@@ -37,22 +36,21 @@ const StoreLayout: FC<ChildrenLayout> = ({ children }) => {
   // Handle Redirection State to prevent content flash
   const isRedirecting = user && (!hasPlan || !hasStore) && !isSetupPage && !isPlanPage;
 
-  return (
-    <DashboardLayout>
-      {(isLoading || isRedirecting) ? (
-        <div className="flex h-[calc(100vh-100px)] w-full items-center justify-center">
-          <div className="text-center">
-            <Spin size="large" />
-            <p className="mt-4 text-slate-500 font-medium tracking-wide animate-pulse">
-              {isLoading ? "Synchronizing..." : "Redirecting..."}
-            </p>
-          </div>
+  if (isLoading || isRedirecting) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-slate-50/50 backdrop-blur-sm fixed inset-0 z-[9999]">
+        <div className="text-center">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-lg mx-auto mb-6 animate-bounce">
+            <span className="text-white font-bold text-xl">CW</span></div> <Spin size="large" />
+          <p className="mt-4 text-slate-600 font-bold tracking-widest text-xs uppercase animate-pulse">
+            {isLoading ? "Synchronizing..." : "Redirecting..."}
+          </p>
         </div>
-      ) : (
-        children
-      )}
-    </DashboardLayout>
-  );
+      </div>
+    );
+  }
+
+  return <DashboardLayout>{children}</DashboardLayout>;
 };
 
 
