@@ -140,3 +140,38 @@ input:-webkit-autofill {
 .ant-table-title {
   @apply p-0! pb-2!;
 }
+
+/* ========================== VENDOR SETUP STEPS ========================== */
+
+.vendor-setup-steps .ant-steps-item-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 12px !important;
+  border: 2px solid #e2e8f0 !important;
+  background: white !important;
+}
+
+.vendor-setup-steps .ant-steps-item-active .ant-steps-item-icon {
+  border-color: #0b7a3e !important;
+  background: #f0fdf4 !important;
+  color: #0b7a3e !important;
+}
+
+.vendor-setup-steps .ant-steps-item-finish .ant-steps-item-icon {
+  background: #0b7a3e !important;
+  border-color: #0b7a3e !important;
+  color: white !important;
+}
+
+.vendor-setup-steps .ant-steps-item-title {
+  font-weight: 600 !important;
+  color: #64748b !important;
+}
+
+.vendor-setup-steps .ant-steps-item-active .ant-steps-item-title {
+  color: #0f172a !important;
+}
+

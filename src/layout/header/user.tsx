@@ -1,3 +1,4 @@
+import { Queries } from "@/api";
 import { CommonProfileAvatar } from "@/components/common";
 import { ROUTES } from "@/constants";
 import { setSignOut, useAppDispatch, useAppSelector } from "@/store";
@@ -7,6 +8,12 @@ import { memo, useCallback } from "react";
 import { shallowEqual } from "react-redux";
 
 const User = () => {
+  const { data: storeData } = Queries.useGetStore({});
+  const activeStore = storeData?.data?.stores?.[0];
+  const storeName = activeStore?.name;
+  const storeLogo = activeStore?.logo?.[0];
+
+
   const user = useAppSelector(
     (state) => ({
       firstName: state.auth.user?.firstName,
@@ -44,21 +51,22 @@ const User = () => {
   return (
     <div className="relative" ref={wrapperRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div onClick={handleClick} className="cursor-pointer ring-2 ring-transparent hover:ring-brand-200 dark:hover:ring-brand-800 rounded-full transition-all duration-200">
-        <CommonProfileAvatar fullName={fullName} profileImage={""} className="max-xsm:text-sm h-10 w-10 max-xsm:h-9 max-xsm:w-9" />
+        <CommonProfileAvatar fullName={storeName || fullName} profileImage={storeLogo || ""} className="max-xsm:text-sm h-10 w-10 max-xsm:h-9 max-xsm:w-9" />
       </div>
 
       <div className={`fixed lg:absolute max-lg:left-1 max-lg:right-1 lg:right-0 mt-3 flex min-w-[260px] max-w-[330px] flex-col rounded-2xl border border-gray-100 bg-white backdrop-blur-xl shadow-theme-lg dark:border-gray-800 dark:bg-gray-900/95 z-50 transition-all duration-200 ease-out ${open ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 translate-y-2"}`}>
         <div className="p-4">
           <div className="flex items-center gap-3">
-            <CommonProfileAvatar fullName={fullName} profileImage={""} className="h-10 w-10" />
+            <CommonProfileAvatar fullName={storeName || fullName} profileImage={storeLogo || ""} className="h-10 w-10" />
             <div className="flex-1 min-w-0">
-              <span className="block font-semibold text-gray-800 text-theme-sm dark:text-gray-200 truncate">{fullName}</span>
+              <span className="block font-bold text-gray-800 text-theme-sm dark:text-gray-200 truncate capitalize">{storeName || fullName}</span>
               <span className="block text-theme-xs text-gray-500 dark:text-gray-500 truncate" title={user?.email}>
                 {user?.email}
               </span>
             </div>
           </div>
         </div>
+
 
         <div className="h-px bg-gray-100 dark:bg-gray-800 mx-3" />
 

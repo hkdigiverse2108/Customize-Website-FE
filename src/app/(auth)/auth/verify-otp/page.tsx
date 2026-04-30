@@ -6,7 +6,9 @@ import { ROUTES, STORAGE_KEYS } from "@/constants";
 import { ACCOUNT_TYPE } from "@/data";
 import { setSignin, useAppDispatch } from "@/store";
 import { VerifyOtpPayload } from "@/type";
-import { Cookie, VerifyOtpSchema } from "@/utils";
+import { Cookie } from "@/utils";
+import { VerifyOtpSchema } from "@/utils/validationSchemas";
+
 import { Row } from "antd";
 import { Form, Formik, FormikHelpers } from "formik";
 import Link from "next/link";

@@ -10,6 +10,7 @@ export const ROUTES = {
   STORE: {
     DASHBOARD: "/store/dashboard",
     PLANS: "/store/subscription",
+    SETUP: "/store/setup",
   },
   ADMIN: {
     DASHBOARD: "/admin/dashboard",

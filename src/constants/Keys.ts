@@ -27,15 +27,13 @@ export const KEYS = {
     EDIT: "edit-store",
     DELETE: "delete-store",
   },
-<<<<<<< HEAD
   USER: {
     SUBSCRIBE: "subscribe",
-=======
+  },
   THEME: {
     BASE: "theme",
     ADD: "add-theme",
     EDIT: "edit-theme",
     DELETE: "delete-theme",
->>>>>>> 76249b47a447173016e826894d175c639e58c486
   },
 };
