@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload, AddStorePayload, EditStorePayload, UploadResponse } from "@/type";
+import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload, AddStorePayload, EditStorePayload, UploadResponse, AddThemePayload, EditThemePayload } from "@/type";
 import { Delete, Post, Put } from "./methods";
 import { useMutations } from "./reactQuery";
 
@@ -30,4 +30,9 @@ export const Mutations = {
   
   /* ========================== User ========================== */
   useUpdateUserSubscription: () => useMutations<{ planId: string }, LoginResponse>([KEYS.USER.SUBSCRIBE], (input) => Post(URL_KEYS.USER.SUBSCRIBE, input)),
+
+  /* ========================== Theme ========================== */
+  useAddTheme: () => useMutations<AddThemePayload, void>([KEYS.THEME.ADD, KEYS.THEME.BASE], (input) => Post(URL_KEYS.THEME.BASE, input)),
+  useEditTheme: () => useMutations<EditThemePayload, void>([KEYS.THEME.EDIT, KEYS.THEME.BASE], (input) => Put(URL_KEYS.THEME.BASE, input)),
+  useDeleteTheme: () => useMutations<string, void>([KEYS.THEME.DELETE, KEYS.THEME.BASE], (id) => Delete(`${URL_KEYS.THEME.BASE}/${id}`)),
 };
