@@ -93,7 +93,11 @@ export interface CommonFormSectionProps {
   description?: string;
   children: ReactNode;
   className?: string;
+<<<<<<< HEAD
   row?: RowProps
+=======
+  row?: RowProps;
+>>>>>>> 76249b47a447173016e826894d175c639e58c486
 }
 
 export interface PageState {
@@ -170,6 +174,11 @@ export interface FieldOptions<T> {
   extraRules?: (schema: T) => T;
   minItems?: number;
 }
+export type FieldType = "string" | "number" | "boolean" | "array";
+
+export type RequiredWhenOptions<T extends Yup.AnySchema> = {
+  extraRules?: (schema: T) => T;
+};
 
 /* ========================== Card ========================== */
 export interface CommonCardProps {

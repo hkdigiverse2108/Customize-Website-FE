@@ -5,10 +5,9 @@ import { Mutations } from "@/api/mutations";
 import { CommonFormImageBox, CommonValidationSelect, CommonValidationSwitch, CommonValidationTextField } from "@/attribute";
 import { CommonBottomActionBar, CommonCard, CommonFormSection } from "@/components/common";
 import { PAGE_TITLE } from "@/constants";
-import { KYC_DOCUMENT_TYPE_OPTIONS, KYC_STATUS_OPTIONS, PLAN_DURATION_OPTIONS, SUBSCRIPTION_TYPE_OPTIONS } from "@/data";
+import { KYC_DOCUMENT_TYPE_OPTIONS, KYC_STATUS_OPTIONS } from "@/data";
 import { StoreFormValues } from "@/type";
-import { GetChangedFields, StoreSchema, RemoveEmptyFields, useDynamicSlug } from "@/utils";
-import { Row } from "antd";
+import { GetChangedFields, RemoveEmptyFields, StoreSchema, useDynamicSlug } from "@/utils";
 import { Form, Formik, FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 
@@ -59,12 +58,6 @@ const AddEditStorePage = () => {
     },
     email: Data?.email || "",
     phone: Data?.phone || "",
-    externalScripts: {
-      name: Data?.externalScripts?.name || "",
-      src: Data?.externalScripts?.src || "",
-      position: Data?.externalScripts?.position || "",
-      isActive: Data?.externalScripts?.isActive ?? false,
-    },
     socialLinks: {
       facebook: Data?.socialLinks?.facebook || "",
       instagram: Data?.socialLinks?.instagram || "",
@@ -96,7 +89,7 @@ const AddEditStorePage = () => {
         </div>
       </div>
       <CommonCard cardProps={{ title: `${PAGE_TITLE.STORES.BASE} Details`, loading: isDataLoading, style: { borderRadius: 10, overflow: "hidden" } }}>
-        <Formik<StoreFormValues> enableReinitialize initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik<StoreFormValues> enableReinitialize initialValues={initialValues} validationSchema={StoreSchema} onSubmit={handleSubmit}>
           <Form className="space-y-5">
             <CommonFormSection title="Basic Details" row={{ gutter: [10, 10] }}>
               <CommonValidationTextField name="name" label="Store Name" placeholder="Enter store name" col={{ xs: 24, md: 12 }} required />

@@ -2,7 +2,7 @@ import Header from "@/layout/header";
 import Sidebar from "@/layout/sidebar";
 import { useAppSelector } from "@/store";
 import { ChildrenLayout } from "@/type";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { shallowEqual } from "react-redux";
 
 const DashboardLayout: FC<ChildrenLayout> = ({ children }) => {
@@ -17,9 +17,7 @@ const DashboardLayout: FC<ChildrenLayout> = ({ children }) => {
 
   return (
     <div className="min-h-screen xl:flex overflow-hidden bg-gray-50 dark:bg-gray-950">
-      <div>
-        <Sidebar />
-      </div>
+      <Sidebar />
       <div className={`flex-1 transition-all duration-300 ease-linear ${isApplicationMenuOpen ? "pt-29 xsm:pt-30" : "pt-16"} lg:pt-14 ${isExpanded ? "lg:ml-[260px]" : "lg:ml-[72px]"} ${isMobileOpen ? "ml-0" : ""}`}>
         <Header />
         <main className="mx-auto">
@@ -30,4 +28,4 @@ const DashboardLayout: FC<ChildrenLayout> = ({ children }) => {
   );
 };
 
-export default DashboardLayout;
+export default memo(DashboardLayout);

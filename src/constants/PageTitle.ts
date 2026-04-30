@@ -17,8 +17,15 @@ export const PAGE_TITLE = {
     ADD: "Add Stores",
     EDIT: "Edit Stores",
   },
+<<<<<<< HEAD
   STORE: {
     DASHBOARD: "Store Dashboard",
     PLANS: "Select Plan",
+=======
+  THEME: {
+    BASE: "Theme",
+    ADD: "Add Theme",
+    EDIT: "Edit Theme",
+>>>>>>> 76249b47a447173016e826894d175c639e58c486
   },
 } as const;

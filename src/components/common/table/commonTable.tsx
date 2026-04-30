@@ -12,7 +12,7 @@ export const CommonTable = <T extends object>({ loading = false, dataSource, col
       {
         title: "Sr No.",
         key: "index",
-        width: 80,
+        width: 60,
         render: (_, __, index: number) => (current - 1) * pageSize + index + 1,
       },
       ...(columns || []),

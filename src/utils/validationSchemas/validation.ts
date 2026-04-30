@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import type { FieldOptions, FieldSchemaArgs, FieldTypeMap } from "@/type";
+import type { FieldOptions, FieldSchemaArgs, FieldTypeMap, FieldType, RequiredWhenOptions } from "@/type";
 
 export function Validation<K extends keyof FieldTypeMap>(...args: FieldSchemaArgs<K>): FieldTypeMap[K] {
   let type: K;
@@ -46,3 +46,45 @@ export function Validation<K extends keyof FieldTypeMap>(...args: FieldSchemaArg
 
   return extraRules ? extraRules(schema) : schema;
 }
+
+const hasValue = (val: any): boolean => {
+  if (typeof val === "string") return val.trim() !== "";
+  if (Array.isArray(val)) return val.length > 0;
+  return val !== undefined && val !== null;
+};
+
+export const RequiredWhen = <T extends Yup.AnySchema = Yup.AnySchema>(dependentField: string, expectedValues: any[] = [], label: string, type: FieldType = "string", options: RequiredWhenOptions<T> = {}): Yup.AnySchema => {
+  let schema: Yup.AnySchema;
+
+  switch (type) {
+    case "string":
+      schema = Yup.string();
+      break;
+    case "number":
+      schema = Yup.number();
+      break;
+    case "boolean":
+      schema = Yup.boolean();
+      break;
+    case "array":
+      schema = Yup.array();
+      break;
+    default:
+      schema = Yup.mixed();
+  }
+
+  if (options.extraRules) {
+    schema = options.extraRules(schema as T);
+  }
+
+  return schema.when(dependentField, {
+    is: (value: any) => {
+      if (expectedValues.length === 0) {
+        return hasValue(value);
+      }
+      return expectedValues.includes(value);
+    },
+    then: (s: Yup.AnySchema) => s.required(`${label} is required`),
+    otherwise: (s: Yup.AnySchema) => s.notRequired(),
+  });
+};

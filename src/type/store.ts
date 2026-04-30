@@ -16,13 +16,6 @@ export interface StoreAddress {
   landmark: string;
 }
 
-export interface StoreExternalScript {
-  name: string;
-  src: string;
-  position: string;
-  isActive: boolean;
-}
-
 export interface StoreSocialLinks {
   facebook?: string;
   instagram?: string;
@@ -56,7 +49,6 @@ export interface StoreFormValues {
   totalProducts?: number;
   totalOrders?: number;
   totalRevenue?: number;
-  externalScripts?: StoreExternalScript;
   socialLinks?: StoreSocialLinks;
 }
 
