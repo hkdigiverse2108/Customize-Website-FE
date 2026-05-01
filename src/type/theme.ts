@@ -1,12 +1,17 @@
 import { CommonDataType, MessageStatus, PageStatus } from "./common";
 
+export interface LayoutFieldArrayProps {
+  name: string;
+  title: string;
+}
+
 type SectionItem = {
   componentId: string;
   order: number;
   config: Record<string, any>;
 };
 
-type LayoutSections = "header" | "footer" | "home" | "product" | "category" | "cart" | "checkout" | "custom" | "collection";
+export type LayoutSections = "header" | "footer" | "home" | "product" | "category" | "cart" | "checkout" | "custom" | "collection" | "blog";
 
 export interface ThemeStyles {
   colors?: Record<"primary" | "secondary" | "background" | "text", string>;
@@ -47,7 +52,7 @@ export interface ThemeFormValues {
   supportedPages?: string[];
 
   version?: string;
-  changelog?: string[];
+  changelog?: Partial<Record<"version" | "changes" | "date", string>>[];
   authorName?: string;
 }
 

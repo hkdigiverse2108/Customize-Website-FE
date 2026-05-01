@@ -1,4 +1,5 @@
-import { ButtonProps, CardProps, ColProps, RowProps, SelectProps, TablePaginationConfig, TableProps } from "antd";
+import { ButtonProps, CardProps, ColProps, DatePickerProps, RowProps, SelectProps, TablePaginationConfig, TableProps, TimePickerProps } from "antd";
+import { RangePickerProps } from "antd/es/date-picker";
 import { CSSProperties, FocusEvent, ReactNode } from "react";
 import * as Yup from "yup";
 
@@ -44,6 +45,7 @@ export interface CommonValidationTextFieldProps {
   className?: string;
   col?: ColProps;
   isOtp?: boolean;
+  isColorPicker?: boolean;
 }
 
 export interface CommonValidationSwitchProps {
@@ -85,6 +87,21 @@ export interface CommonBottomActionBarProps {
   disabled?: boolean;
   onSave?: () => void;
 }
+
+export interface CommonValidationDatePickerProps {
+  label?: string;
+  name: string;
+  required?: boolean;
+  disabled?: boolean;
+  helperText?: string;
+  className?: string;
+  col?: ColProps;
+  pickerType?: "date" | "range" | "time" | "date-time";
+  dateProps?: DatePickerProps;
+  timeProps?: TimePickerProps;
+  rangePickerProps?: RangePickerProps;
+}
+
 
 /* ========================== Form ========================== */
 
