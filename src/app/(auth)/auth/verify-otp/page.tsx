@@ -104,15 +104,18 @@ const VerifyOtp = () => {
   }, [router, email]);
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 overflow-hidden">
-      <div className="w-full max-w-md bg-white shadow-2xl rounded-3xl p-10 border border-slate-100 ">
+    <div className="h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-brand-400/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-500/20 rounded-full blur-3xl -ml-32 -mb-32"></div>
+
+      <div className="w-full max-w-md relative bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-10 border border-slate-100 dark:border-slate-800">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">Verify OTP</h2>
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Verify OTP</h2>
           <p className="text-slate-500 font-medium text-sm">
-            We've sent a 6-digit code to <span className="font-bold text-gray-700">{email}</span>.
+            We've sent a 6-digit code to <span className="font-bold text-gray-700 dark:text-gray-300">{email}</span>.
           </p>
           <div className="mt-4 flex items-center justify-center gap-2">
-            <span className={`text-sm font-bold ${timeLeft < 60 ? "text-rose-500 animate-pulse" : "text-gray-600"}`}>OTP Expires in: {formatTime(timeLeft)}</span>
+            <span className={`text-sm font-bold ${timeLeft < 60 ? "text-rose-500 animate-pulse" : "text-gray-600 dark:text-gray-400"}`}>OTP Expires in: {formatTime(timeLeft)}</span>
           </div>
         </div>
 
