@@ -20,7 +20,10 @@ export const PAGE_TITLE = {
   STORE: {
     DASHBOARD: "Store Dashboard",
     PLANS: "Select Plan",
+<<<<<<< HEAD
     SETUP: "Store Setup",
+=======
+>>>>>>> 87f307acd5bd05887ed328a0ce7b86d1f05b7011
   },
   THEME: {
     BASE: "Theme",

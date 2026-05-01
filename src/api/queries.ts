@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { AppQueryOptions, Params, PlanApiResponse, PlanByIdApiResponse, StoreApiResponse, StoreByIdApiResponse, UploadResponse } from "@/type";
+import { AppQueryOptions, Params, PlanApiResponse, PlanByIdApiResponse, StoreApiResponse, StoreByIdApiResponse, ThemeApiResponse, ThemeByIdApiResponse, UploadResponse } from "@/type";
 import { Get } from "./methods";
 import { useQueries } from "./reactQuery";
 
@@ -15,4 +15,8 @@ export const Queries = {
   /* ========================== Store ========================== */
   useGetStore: (params?: Params, enabled?: boolean) => useQueries<StoreApiResponse>([KEYS.STORE.BASE, params], () => Get(URL_KEYS.STORE.BASE, params), { enabled: enabled }),
   useGetStoreById: (id?: string, enabled?: boolean) => useQueries<StoreByIdApiResponse>([KEYS.STORE.BASE, id], () => Get(`${URL_KEYS.STORE.BASE}/${id}`), { enabled: enabled }),
+
+  /* ========================== Theme ========================== */
+  useGetTheme: (params?: Params, enabled?: boolean) => useQueries<ThemeApiResponse>([KEYS.THEME.BASE, params], () => Get(URL_KEYS.THEME.BASE, params), { enabled: enabled }),
+  useGetThemeById: (id?: string, enabled?: boolean) => useQueries<ThemeByIdApiResponse>([KEYS.THEME.BASE, id], () => Get(`${URL_KEYS.THEME.BASE}/${id}`), { enabled: enabled }),
 };

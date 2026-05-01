@@ -8,6 +8,7 @@ export const AdminNavItems: NavItem[] = [
   { icon: <RxDashboard />, name: PAGE_TITLE.DASHBOARD, path: ROUTES.ADMIN.DASHBOARD },
   { icon: <GrPlan />, name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE },
   { icon: <FaWindowRestore />, name: PAGE_TITLE.STORES.BASE, path: ROUTES.ADMIN.STORES.BASE },
+  { icon: <FaWindowRestore />, name: PAGE_TITLE.THEME.BASE, path: ROUTES.ADMIN.THEME.BASE },
   // {
   //   name: PAGE_TITLE.PLAN.BASE,
   //   icon: <FaWindowRestore />,
