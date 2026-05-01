@@ -80,8 +80,9 @@ const Sidebar = () => {
                   <ul className="mt-1 space-y-0.5 ml-8 border-l-2 border-brand-200 dark:border-brand-800 pl-2">
                     {nav.children.map((child) => (
                       <li key={child.name}>
-                        <Link href={child.path} className={`menu-dropdown-item ${isActive(child.path) ? "menu-dropdown-item-active" : "menu-dropdown-item-inactive"}`}>
-                          {child.name}
+                        <Link href={child.path} className={`menu-dropdown-item flex items-center gap-2 ${isActive(child.path) ? "menu-dropdown-item-active" : "menu-dropdown-item-inactive"}`}>
+                          {child.icon && <span className="text-[1.1rem] opacity-70">{child.icon}</span>}
+                          <span>{child.name}</span>
                           <span className="flex items-center gap-1 ml-auto">
                             {child.new && <span className={`ml-auto ${isActive(child.path) ? "menu-dropdown-badge-active" : "menu-dropdown-badge-inactive"} menu-dropdown-badge`}>new</span>}
                             {child.pro && <span className={`ml-auto ${isActive(child.path) ? "menu-dropdown-badge-active" : "menu-dropdown-badge-inactive"} menu-dropdown-badge`}>pro</span>}

@@ -35,4 +35,7 @@ export const Mutations = {
   useAddTheme: () => useMutations<AddThemePayload, void>([KEYS.THEME.ADD, KEYS.THEME.BASE], (input) => Post(URL_KEYS.THEME.BASE, input)),
   useEditTheme: () => useMutations<EditThemePayload, void>([KEYS.THEME.EDIT, KEYS.THEME.BASE], (input) => Put(URL_KEYS.THEME.BASE, input)),
   useDeleteTheme: () => useMutations<string, void>([KEYS.THEME.DELETE, KEYS.THEME.BASE], (id) => Delete(`${URL_KEYS.THEME.BASE}/${id}`)),
+
+  /* ========================== Settings ========================== */
+  useUpsertStoreSetting: () => useMutations<any, void>([KEYS.SETTINGS.STORE_UPSERT, KEYS.SETTINGS.STORE], (input) => Post(URL_KEYS.SETTINGS.STORE, input)),
 };

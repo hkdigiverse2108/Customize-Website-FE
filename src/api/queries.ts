@@ -19,4 +19,7 @@ export const Queries = {
   /* ========================== Theme ========================== */
   useGetTheme: (params?: Params, enabled?: boolean) => useQueries<ThemeApiResponse>([KEYS.THEME.BASE, params], () => Get(URL_KEYS.THEME.BASE, params), { enabled: enabled }),
   useGetThemeById: (id?: string, enabled?: boolean) => useQueries<ThemeByIdApiResponse>([KEYS.THEME.BASE, id], () => Get(`${URL_KEYS.THEME.BASE}/${id}`), { enabled: enabled }),
+
+  /* ========================== Settings ========================== */
+  useGetStoreSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.STORE, storeId], () => Get(URL_KEYS.SETTINGS.STORE, { storeId }), { enabled: !!storeId && enabled !== false }),
 };

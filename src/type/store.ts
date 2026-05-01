@@ -62,6 +62,24 @@ export interface StoreDataResponse extends PageStatus {
   stores: StoreBase[];
 }
 
+export interface StoreSettingFormValues {
+  name?: string;
+  email?: string;
+  phone?: string;
+  logo?: string[];
+  banner?: string[];
+  favicon?: string[];
+  address?: {
+    line1?: string;
+    line2?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    country?: string;
+  };
+  socialLinks?: StoreSocialLinks;
+}
+
 export interface StoreApiResponse extends MessageStatus {
   data: StoreDataResponse;
 }

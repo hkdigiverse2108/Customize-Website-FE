@@ -82,3 +82,27 @@ export const StoreSchema = Yup.object({
   isPublished: Validation("boolean", "Published", { required: false }),
   isActive: Validation("boolean", "Active", { required: false }),
 });
+
+export const StoreSettingSchema = Yup.object({
+  name: Validation("string", "Store Name", { required: false }),
+  email: Validation("string", "Email", { required: false, extraRules: (s) => s.email("Invalid email address") }),
+  phone: Validation("string", "Phone", { required: false, extraRules: (s) => s.trim().matches(/^[0-9]{10}$/, "Phone number must be 10 digits") }),
+  logo: Validation("array", "Logo", { required: false }),
+  banner: Validation("array", "Banner", { required: false }),
+  favicon: Validation("array", "Favicon", { required: false }),
+  address: Yup.object({
+    line1: Validation("string", "Address Line 1", { required: false }),
+    line2: Validation("string", "Address Line 2", { required: false }),
+    city: Validation("string", "City", { required: false }),
+    state: Validation("string", "State", { required: false }),
+    zipCode: Validation("string", "Zip Code", { required: false }),
+    country: Validation("string", "Country", { required: false }),
+  }),
+  socialLinks: Yup.object({
+    facebook: Validation("string", "Facebook", { required: false }),
+    instagram: Validation("string", "Instagram", { required: false }),
+    twitter: Validation("string", "Twitter", { required: false }),
+    youtube: Validation("string", "YouTube", { required: false }),
+    linkedin: Validation("string", "LinkedIn", { required: false }),
+  }),
+});

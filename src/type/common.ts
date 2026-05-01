@@ -128,7 +128,7 @@ export type NavItem = {
   icon: React.ReactNode;
   path?: string;
   number?: number;
-  children?: { name: string; path: string; pro?: boolean; new?: boolean; number?: number }[];
+  children?: { name: string; path: string; icon?: React.ReactNode; pro?: boolean; new?: boolean; number?: number }[];
 };
 
 export interface CommonModalProps {

@@ -36,4 +36,8 @@ export const KEYS = {
     EDIT: "edit-theme",
     DELETE: "delete-theme",
   },
+  SETTINGS: {
+    STORE: "settings-store",
+    STORE_UPSERT: "upsert-settings-store",
+  },
 };
