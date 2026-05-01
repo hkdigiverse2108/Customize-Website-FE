@@ -123,3 +123,108 @@ export const PaymentSettingSchema = Yup.object({
   isPhonePe: Validation("boolean", "Enable PhonePe", { required: false }),
   paymentMethods: Validation("array", "Payment Methods", { required: false }),
 });
+
+export const ShippingSettingSchema = Yup.object({
+  zoneName: Validation("string", "Zone Name", { required: true }),
+  countries: Validation("array", "Countries", { required: false }),
+  rates: Yup.array().of(
+    Yup.object({
+      name: Validation("string", "Rate Name", { required: true }),
+      price: Validation("number", "Price", { required: true, extraRules: (s) => s.min(0, "Price cannot be negative") }),
+      minOrderValue: Validation("number", "Min Order Value", { required: false, extraRules: (s) => s.min(0, "Cannot be negative") }),
+      maxOrderValue: Validation("number", "Max Order Value", { required: false, extraRules: (s) => s.min(0, "Cannot be negative") }),
+    })
+  ).min(1, "At least one rate is required"),
+  isActive: Validation("boolean", "Status", { required: false }),
+});
+
+export const TaxSettingSchema = Yup.object({
+  taxEnabled: Validation("boolean", "Enable Tax", { required: false }),
+  taxName: Validation("string", "Tax Name", { required: true }),
+  taxPercentage: Validation("number", "Tax Percentage", { required: true, extraRules: (s) => s.min(0, "Cannot be less than 0").max(100, "Cannot be more than 100") }),
+  isTaxIncluded: Validation("boolean", "Prices Include Tax", { required: false }),
+  gstNumber: Validation("string", "GST Number", { required: false }),
+});
+
+export const CheckoutSettingSchema = Yup.object({
+  customerAccounts: Validation("string", "Customer Accounts", { required: false }),
+  contactMethod: Validation("string", "Contact Method", { required: false }),
+  allowGuestCheckout: Validation("boolean", "Guest Checkout", { required: false }),
+  requirePhoneNumber: Validation("boolean", "Require Phone Number", { required: false }),
+  companyNameField: Validation("string", "Company Name Field", { required: false }),
+  addressLine2Field: Validation("string", "Address Line 2 Field", { required: false }),
+  orderProcessing: Yup.object({
+    useShippingAsBillingByDefault: Validation("boolean", "Use Shipping As Billing", { required: false }),
+    enableAddressAutocompletion: Validation("boolean", "Address Autocompletion", { required: false }),
+  }),
+  abandonedCart: Yup.object({
+    enabled: Validation("boolean", "Abandoned Cart Emails", { required: false }),
+    sendEmailAfterHours: Validation("number", "Send Email After Hours", { required: false }),
+  }),
+});
+
+export const MailSettingSchema = Yup.object({
+  provider: Validation("string", "Provider", { required: true }),
+  host: RequiredWhen("provider", ["smtp"], "Host", "string"),
+  port: RequiredWhen("provider", ["smtp"], "Port", "number"),
+  secure: Validation("boolean", "Secure", { required: false }),
+  auth: Yup.object({
+    user: Validation("string", "Username", { required: true }),
+    pass: Validation("string", "Password", { required: true }),
+  }),
+  fromEmail: Validation("string", "From Email", { required: true, extraRules: (s) => s.email("Invalid email address") }),
+  fromName: Validation("string", "From Name", { required: true }),
+});
+
+const togglesSchema = Yup.object({
+  orderPlaced: Validation("boolean", "Order Placed", { required: false }),
+  orderCancelled: Validation("boolean", "Order Cancelled", { required: false }),
+  orderShipped: Validation("boolean", "Order Shipped", { required: false }),
+  paymentSuccess: Validation("boolean", "Payment Success", { required: false }),
+  lowStockAlert: Validation("boolean", "Low Stock Alert", { required: false }),
+});
+
+export const NotificationSettingSchema = Yup.object({
+  emailNotifications: togglesSchema,
+  smsNotifications: togglesSchema,
+  senderEmail: Validation("string", "Sender Email", { required: false, extraRules: (s) => s.email("Invalid email address") }),
+  senderName: Validation("string", "Sender Name", { required: false }),
+});
+
+export const RegionSettingSchema = Yup.object({
+  currency: Validation("string", "Currency", { required: true }),
+  currencySymbol: Validation("string", "Currency Symbol", { required: true }),
+  timezone: Validation("string", "Timezone", { required: true }),
+  unitSystem: Validation("string", "Measurement System", { required: true }),
+  weightUnit: Validation("string", "Weight Unit", { required: true }),
+  lengthUnit: Validation("string", "Length Unit", { required: true }),
+});
+
+export const SEOSettingSchema = Yup.object({
+  metaTitle: Validation("string", "Meta Title", { required: false }),
+  metaDescription: Validation("string", "Meta Description", { required: false }),
+  metaKeywords: Validation("array", "Meta Keywords", { required: false }),
+  googleAnalyticsId: Validation("string", "Google Analytics ID", { required: false }),
+  facebookPixelId: Validation("string", "Facebook Pixel ID", { required: false }),
+});
+
+export const VisualSettingSchema = Yup.object({
+  favicon: Validation("string", "Favicon", { required: false }),
+  customCSS: Validation("string", "Custom CSS", { required: false }),
+  customJS: Validation("string", "Custom JS", { required: false }),
+  passwordProtection: Yup.object({
+    enabled: Validation("boolean", "Enabled", { required: false }),
+    password: Validation("string", "Password", { required: false }),
+    message: Validation("string", "Message", { required: false }),
+  }),
+  checkoutPage: Yup.object({
+    banner: Validation("string", "Banner", { required: false }),
+    logo: Validation("string", "Logo", { required: false }),
+    accentColor: Validation("string", "Accent Color", { required: false }),
+  }),
+});
+
+export const ThemeSettingSchema = Yup.object({
+  themeId: Validation("string", "Theme", { required: true }),
+  themeConfig: Yup.object().optional(),
+});

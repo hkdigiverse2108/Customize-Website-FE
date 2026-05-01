@@ -24,4 +24,13 @@ export const Queries = {
   useGetStoreSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.STORE, storeId], () => Get(URL_KEYS.SETTINGS.STORE, { storeId }), { enabled: !!storeId && enabled !== false }),
   useGetDomainSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.DOMAIN, storeId], () => Get(URL_KEYS.SETTINGS.DOMAIN, { storeId }), { enabled: !!storeId && enabled !== false }),
   useGetPaymentSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.PAYMENT, storeId], () => Get(URL_KEYS.SETTINGS.PAYMENT, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetShippingSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.SHIPPING, storeId], () => Get(URL_KEYS.SETTINGS.SHIPPING, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetTaxSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.TAX, storeId], () => Get(URL_KEYS.SETTINGS.TAX, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetCheckoutSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.CHECKOUT, storeId], () => Get(URL_KEYS.SETTINGS.CHECKOUT, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetMailSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.MAIL, storeId], () => Get(URL_KEYS.SETTINGS.MAIL, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetNotificationSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.NOTIFICATION, storeId], () => Get(URL_KEYS.SETTINGS.NOTIFICATION, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetRegionSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.REGION, storeId], () => Get(URL_KEYS.SETTINGS.REGION, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetSEOSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.SEO, storeId], () => Get(URL_KEYS.SETTINGS.SEO, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetVisualSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.VISUAL, storeId], () => Get(URL_KEYS.SETTINGS.VISUAL, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetThemeSetting: (storeId?: string, themeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.THEME, storeId, themeId], () => Get(URL_KEYS.SETTINGS.THEME, { storeId, themeId }), { enabled: !!storeId && enabled !== false }),
 };

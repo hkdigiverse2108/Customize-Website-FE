@@ -49,3 +49,32 @@ export const KYC_DOCUMENT_TYPE_OPTIONS = [
   { label: "Pan", value: KYC_DOCUMENT_TYPE.PAN },
   { label: "Gst", value: KYC_DOCUMENT_TYPE.GST },
 ];
+
+export const SETTING_FIELD_STATUS = {
+  DISABLED: "disabled",
+  OPTIONAL: "optional",
+  REQUIRED: "required",
+} as const;
+
+export const AUTH_METHOD = {
+  EMAIL: "email",
+  PHONE_OR_EMAIL: "phone_or_email",
+} as const;
+
+export const VISIBILITY_STATUS = {
+  HIDDEN: "hidden",
+  OPTIONAL: "optional",
+  REQUIRED: "required",
+} as const;
+
+export const EMAIL_PROVIDER = {
+  GMAIL: "gmail",
+  SMTP: "smtp",
+  RESEND: "resend",
+  SENDGRID: "sendgrid",
+} as const;
+
+export const MEASUREMENT_SYSTEM = {
+  METRIC: "metric",
+  IMPERIAL: "imperial",
+} as const;
