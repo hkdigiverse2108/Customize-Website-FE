@@ -87,3 +87,37 @@ export interface StoreApiResponse extends MessageStatus {
 export interface StoreByIdApiResponse extends MessageStatus {
   data: StoreBase;
 }
+
+export interface DomainSettingFormValues {
+  domain: string;
+  isPrimary: boolean;
+  themeId?: string;
+}
+
+export interface DomainSettingPayload extends DomainSettingFormValues {
+  storeId: string;
+  domainSettingId?: string; // For updates
+}
+
+export interface DomainSettingResponse extends CommonDataType, DomainSettingFormValues {
+  storeId: string;
+  status: string;
+  sslEnabled: boolean;
+  dnsRecords: any[];
+}
+
+export interface PaymentSettingFormValues {
+  isGlobal?: boolean;
+  razorpayApiKey?: string;
+  razorpayApiSecret?: string;
+  isRazorpay?: boolean;
+  phonePeApiKey?: string;
+  phonePeApiSecret?: string;
+  phonePeVersion?: string;
+  isPhonePe?: boolean;
+  paymentMethods?: string[];
+}
+
+export interface PaymentSettingResponse extends CommonDataType, PaymentSettingFormValues {
+  storeId?: string;
+}

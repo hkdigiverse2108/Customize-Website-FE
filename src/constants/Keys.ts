@@ -39,5 +39,11 @@ export const KEYS = {
   SETTINGS: {
     STORE: "settings-store",
     STORE_UPSERT: "upsert-settings-store",
+    DOMAIN: "settings-domain",
+    DOMAIN_ADD: "add-settings-domain",
+    DOMAIN_EDIT: "edit-settings-domain",
+    DOMAIN_DELETE: "delete-settings-domain",
+    PAYMENT: "settings-payment",
+    PAYMENT_UPSERT: "upsert-settings-payment",
   },
 };

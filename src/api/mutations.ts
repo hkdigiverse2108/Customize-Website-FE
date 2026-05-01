@@ -38,4 +38,8 @@ export const Mutations = {
 
   /* ========================== Settings ========================== */
   useUpsertStoreSetting: () => useMutations<any, void>([KEYS.SETTINGS.STORE_UPSERT, KEYS.SETTINGS.STORE], (input) => Post(URL_KEYS.SETTINGS.STORE, input)),
+  useAddDomainSetting: () => useMutations<any, any>([KEYS.SETTINGS.DOMAIN_ADD, KEYS.SETTINGS.DOMAIN], (input) => Post(URL_KEYS.SETTINGS.DOMAIN, input)),
+  useEditDomainSetting: () => useMutations<any, any>([KEYS.SETTINGS.DOMAIN_EDIT, KEYS.SETTINGS.DOMAIN], (input) => Put(URL_KEYS.SETTINGS.DOMAIN, input)),
+  useDeleteDomainSetting: () => useMutations<any, any>([KEYS.SETTINGS.DOMAIN_DELETE, KEYS.SETTINGS.DOMAIN], (input) => Delete(URL_KEYS.SETTINGS.DOMAIN, input)),
+  useUpsertPaymentSetting: () => useMutations<any, void>([KEYS.SETTINGS.PAYMENT_UPSERT, KEYS.SETTINGS.PAYMENT], (input) => Post(URL_KEYS.SETTINGS.PAYMENT, input)),
 };

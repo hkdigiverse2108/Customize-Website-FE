@@ -106,3 +106,20 @@ export const StoreSettingSchema = Yup.object({
     linkedin: Validation("string", "LinkedIn", { required: false }),
   }),
 });
+
+export const DomainSettingSchema = Yup.object({
+  domain: Validation("string", "Domain Name", { required: true, extraRules: (s) => s.matches(/^(?!:\/\/)([a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]+)+)(:\d+)?(\/[^\s]*)?$/, "Invalid domain format. Example: www.mystore.com") }),
+  isPrimary: Validation("boolean", "Primary Domain", { required: false }),
+});
+
+export const PaymentSettingSchema = Yup.object({
+  isGlobal: Validation("boolean", "Global Setting", { required: false }),
+  razorpayApiKey: Validation("string", "Razorpay API Key", { required: false }),
+  razorpayApiSecret: Validation("string", "Razorpay API Secret", { required: false }),
+  isRazorpay: Validation("boolean", "Enable Razorpay", { required: false }),
+  phonePeApiKey: Validation("string", "PhonePe API Key", { required: false }),
+  phonePeApiSecret: Validation("string", "PhonePe API Secret", { required: false }),
+  phonePeVersion: Validation("string", "PhonePe Version", { required: false }),
+  isPhonePe: Validation("boolean", "Enable PhonePe", { required: false }),
+  paymentMethods: Validation("array", "Payment Methods", { required: false }),
+});

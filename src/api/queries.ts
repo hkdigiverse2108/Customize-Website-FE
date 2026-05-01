@@ -22,4 +22,6 @@ export const Queries = {
 
   /* ========================== Settings ========================== */
   useGetStoreSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.STORE, storeId], () => Get(URL_KEYS.SETTINGS.STORE, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetDomainSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.DOMAIN, storeId], () => Get(URL_KEYS.SETTINGS.DOMAIN, { storeId }), { enabled: !!storeId && enabled !== false }),
+  useGetPaymentSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.PAYMENT, storeId], () => Get(URL_KEYS.SETTINGS.PAYMENT, { storeId }), { enabled: !!storeId && enabled !== false }),
 };

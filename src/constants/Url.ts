@@ -29,5 +29,7 @@ export const URL_KEYS = {
   },
   SETTINGS: {
     STORE: "/settings/store",
+    DOMAIN: "/settings/domain",
+    PAYMENT: "/settings/payment",
   },
 } as const;
