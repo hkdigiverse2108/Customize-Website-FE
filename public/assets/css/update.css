@@ -57,6 +57,11 @@ input:-webkit-autofill {
 .custom-btn.ant-btn-default.ant-btn-color-primary:hover {
   @apply border border-brand-500 bg-white text-brand-600;
 }
+
+.custom-btn.ant-btn-default:hover {
+  @apply border border-solid!;
+}
+
 .custom-btn.ant-btn-default.ant-btn-color-primary.ant-btn:disabled:hover,
 .custom-btn.ant-btn-default.ant-btn-color-primary.ant-btn.ant-btn-disabled:hover {
   @apply bg-[#0000000a]! text-[#00000040]! border border-[#d9d9d9]!;
@@ -174,4 +179,3 @@ input:-webkit-autofill {
 .vendor-setup-steps .ant-steps-item-active .ant-steps-item-title {
   color: #0f172a !important;
 }
-

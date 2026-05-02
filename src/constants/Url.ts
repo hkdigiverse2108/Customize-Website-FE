@@ -41,4 +41,7 @@ export const URL_KEYS = {
     VISUAL: "/settings/visual",
     THEME: "/settings/theme",
   },
+  COMPONENT: {
+    BASE: "/component",
+  },
 } as const;

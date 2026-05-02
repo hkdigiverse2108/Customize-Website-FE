@@ -102,3 +102,34 @@ export const THEME_SETTING_GROUP = {
   ADVANCED: "advanced",
 } as const;
 
+export const THEME_TYPE = {
+  FREE: "free",
+  BASIC: "basic",
+  PREMIUM: "premium",
+} as const;
+
+export const THEME_TYPE_OPTIONS = [
+  { label: "Free", value: THEME_TYPE.FREE },
+  { label: "Basic", value: THEME_TYPE.BASIC },
+  { label: "Premium", value: THEME_TYPE.PREMIUM },
+];
+
+export const THEME_SUPPORTED_PAGE = {
+  HOME: "home",
+  PRODUCT: "product",
+  CATEGORY: "category",
+  CART: "cart",
+  CHECKOUT: "checkout",
+  CUSTOM: "custom",
+  COLLECTION: "collection",
+} as const;
+
+export const THEME_SUPPORTED_PAGE_OPTIONS = [
+  { label: "Home", value: THEME_SUPPORTED_PAGE.HOME },
+  { label: "Product", value: THEME_SUPPORTED_PAGE.PRODUCT },
+  { label: "Category", value: THEME_SUPPORTED_PAGE.CATEGORY },
+  { label: "Cart", value: THEME_SUPPORTED_PAGE.CART },
+  { label: "Checkout", value: THEME_SUPPORTED_PAGE.CHECKOUT },
+  { label: "Custom", value: THEME_SUPPORTED_PAGE.CUSTOM },
+  { label: "Collection", value: THEME_SUPPORTED_PAGE.COLLECTION },
+];

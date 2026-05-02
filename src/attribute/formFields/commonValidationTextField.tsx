@@ -1,10 +1,10 @@
 import { CommonValidationTextFieldProps } from "@/type";
-import { Col, Form, Input } from "antd";
+import { Col, ColorPicker, Form, Input } from "antd";
 import { useField } from "formik";
 import { FC, FocusEvent, useCallback } from "react";
 import { RiCloseLargeFill } from "react-icons/ri";
 
-export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ col, label, name, type = "text", placeholder, required, autoComplete = "off", clearable = false, startIcon, endIcon, showPasswordToggle = false, disabled, helperText, multiline, maxDigits, className, isOtp, ...props }) => {
+export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ col, label, name, type = "text", placeholder, required, autoComplete = "off", clearable = false, startIcon, endIcon, showPasswordToggle = false, disabled, helperText, multiline, maxDigits, className, isOtp, isColorPicker, ...props }) => {
   const [field, meta, helpers] = useField(name);
 
   const handleClear = useCallback(() => {
@@ -23,6 +23,7 @@ export const CommonValidationTextField: FC<CommonValidationTextFieldProps> = ({ 
       {clearable && field.value && <RiCloseLargeFill onClick={handleClear} style={{ cursor: "pointer", marginRight: 8 }} />}
 
       {endIcon}
+      {isColorPicker && <ColorPicker size="small" format="hex" value={field.value} onChange={(color) => helpers.setValue(color.toHexString())} />}
     </>
   );
 

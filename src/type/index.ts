@@ -5,3 +5,4 @@ export * from "./user";
 export * from "./plan";
 export * from "./store";
 export * from "./theme";
+export * from "./component";

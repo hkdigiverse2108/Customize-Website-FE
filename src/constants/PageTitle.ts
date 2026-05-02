@@ -42,4 +42,9 @@ export const PAGE_TITLE = {
     ADD: "Add Theme",
     EDIT: "Edit Theme",
   },
+  COMPONENT: {
+    BASE: "Component",
+    ADD: "Add Component",
+    EDIT: "Edit Component",
+  },
 } as const;

@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { AppQueryOptions, Params, PlanApiResponse, PlanByIdApiResponse, StoreApiResponse, StoreByIdApiResponse, ThemeApiResponse, ThemeByIdApiResponse, UploadResponse } from "@/type";
+import { AppQueryOptions, ComponentApiResponse, ComponentByIdApiResponse, Params, PlanApiResponse, PlanByIdApiResponse, StoreApiResponse, StoreByIdApiResponse, ThemeApiResponse, ThemeByIdApiResponse, UploadResponse } from "@/type";
 import { Get } from "./methods";
 import { useQueries } from "./reactQuery";
 
@@ -33,4 +33,8 @@ export const Queries = {
   useGetSEOSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.SEO, storeId], () => Get(URL_KEYS.SETTINGS.SEO, { storeId }), { enabled: !!storeId && enabled !== false }),
   useGetVisualSetting: (storeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.VISUAL, storeId], () => Get(URL_KEYS.SETTINGS.VISUAL, { storeId }), { enabled: !!storeId && enabled !== false }),
   useGetThemeSetting: (storeId?: string, themeId?: string, enabled?: boolean) => useQueries<any>([KEYS.SETTINGS.THEME, storeId, themeId], () => Get(URL_KEYS.SETTINGS.THEME, { storeId, themeId }), { enabled: !!storeId && enabled !== false }),
+  
+  /* ========================== Component ========================== */
+  useGetComponent: (params?: Params, enabled?: boolean) => useQueries<ComponentApiResponse>([KEYS.COMPONENT.BASE, params], () => Get(URL_KEYS.COMPONENT.BASE, params), { enabled: enabled }),
+  useGetComponentById: (id?: string, enabled?: boolean) => useQueries<ComponentByIdApiResponse>([KEYS.COMPONENT.BASE, id], () => Get(`${URL_KEYS.COMPONENT.BASE}/${id}`), { enabled: enabled }),
 };

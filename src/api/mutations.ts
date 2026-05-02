@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload, AddStorePayload, EditStorePayload, UploadResponse, AddThemePayload, EditThemePayload } from "@/type";
+import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload, AddStorePayload, EditStorePayload, UploadResponse, AddThemePayload, EditThemePayload, AddComponentPayload, EditComponentPayload } from "@/type";
 import { Delete, Post, Put } from "./methods";
 import { useMutations } from "./reactQuery";
 
@@ -54,4 +54,9 @@ export const Mutations = {
   useUpsertVisualSetting: () => useMutations<any, void>([KEYS.SETTINGS.VISUAL_UPSERT, KEYS.SETTINGS.VISUAL], (input) => Post(URL_KEYS.SETTINGS.VISUAL, input)),
   useUpsertThemeSetting: () => useMutations<any, void>([KEYS.SETTINGS.THEME_UPSERT, KEYS.SETTINGS.THEME], (input) => Post(URL_KEYS.SETTINGS.THEME, input)),
   usePublishTheme: () => useMutations<any, void>([KEYS.SETTINGS.THEME_PUBLISH, KEYS.SETTINGS.THEME], (input) => Post(URL_KEYS.SETTINGS.THEME + "/publish", input)),
+  
+  /* ========================== Component ========================== */
+  useAddComponent: () => useMutations<AddComponentPayload, void>([KEYS.COMPONENT.ADD, KEYS.COMPONENT.BASE], (input) => Post(URL_KEYS.COMPONENT.BASE, input)),
+  useEditComponent: () => useMutations<EditComponentPayload, void>([KEYS.COMPONENT.EDIT, KEYS.COMPONENT.BASE], (input) => Put(URL_KEYS.COMPONENT.BASE, input)),
+  useDeleteComponent: () => useMutations<string, void>([KEYS.COMPONENT.DELETE, KEYS.COMPONENT.BASE], (id) => Delete(`${URL_KEYS.COMPONENT.BASE}/${id}`)),
 };

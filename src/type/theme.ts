@@ -71,7 +71,11 @@ export interface ThemeFormValues {
   supportedPages?: string[];
 
   version?: string;
+<<<<<<< HEAD
   changelog?: { version?: string; changes?: string; date?: Date }[];
+=======
+  changelog?: Partial<Record<"version" | "changes" | "date", string>>[];
+>>>>>>> f07f116f5d6e68e230d840a6222ff7cc34476a6c
   authorName?: string;
 }
 

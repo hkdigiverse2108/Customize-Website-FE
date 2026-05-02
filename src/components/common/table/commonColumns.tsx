@@ -51,8 +51,9 @@ const formatValues = (values: (string | number)[], type?: ColumnFormatType): str
 export const CommonObjectPropertyColumn = <T extends object>(dataIndex: string, sourceField: string, properties: string[], options?: CommonObjectNameColumnOptions): ColumnsType<T>[number] => ({
   title: options?.title ?? dataIndex,
   dataIndex,
+  key: dataIndex,
   width: options?.width,
-  ellipsis: options?.ellipsis ?? true,
+  // ellipsis: options?.ellipsis ?? true,
 
   render: (_, record) => {
     const obj = getNestedValue(record, sourceField);

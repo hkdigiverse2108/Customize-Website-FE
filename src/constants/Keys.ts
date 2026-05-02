@@ -67,4 +67,10 @@ export const KEYS = {
     THEME_UPSERT: "upsert-settings-theme",
     THEME_PUBLISH: "publish-settings-theme",
   },
+  COMPONENT: {
+    BASE: "component",
+    ADD: "add-component",
+    EDIT: "edit-component",
+    DELETE: "delete-component",
+  },
 };

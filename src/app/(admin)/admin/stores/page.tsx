@@ -23,8 +23,8 @@ const StorePage = () => {
   };
 
   const columns: ColumnsType<StoreBase> = [
-    CommonObjectPropertyColumn("name", "name", ["name"], { title: "Name", type: "format" }),
-    CommonObjectPropertyColumn("slug", "slug", ["slug"], { title: "Slug", }),
+    CommonObjectPropertyColumn("name", "name", ["name"], { title: "Name" }),
+    CommonObjectPropertyColumn("slug", "slug", ["slug"], { title: "Slug" }),
     CommonObjectPropertyColumn("email", "email", ["email"], { title: "Email" }),
     CommonObjectPropertyColumn("phone", "phone", ["phone"], { title: "Phone" }),
     CommonObjectPropertyColumn("subdomain", "subdomain", ["subdomain"], { title: "Subdomain" }),
@@ -32,7 +32,6 @@ const StorePage = () => {
     CommonObjectPropertyColumn("businessName", "businessName", ["businessName"], { title: "Business Name" }),
     CommonObjectPropertyColumn("businessType", "businessType", ["businessType"], { title: "Business Type", type: "format" }),
     CommonObjectPropertyColumn("kycStatus", "kycStatus", ["kycStatus"], { title: "KYC Status", type: "format" }),
-    CommonObjectPropertyColumn("kycDocuments", "kycDocuments", ["type"], { title: "KYC Document Type", type: "format" }),
     CommonActionColumn<StoreBase>({
       onActive: { onHandle: (row) => editData({ id: row._id, isActive: !row.isActive }) },
       onEdit: { onHandle: (row) => router.push(`${ROUTES.ADMIN.STORES.EDIT}/${row._id}`) },
