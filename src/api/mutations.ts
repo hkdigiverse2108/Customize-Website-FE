@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload, AddStorePayload, EditStorePayload, UploadResponse, AddThemePayload, EditThemePayload } from "@/type";
+import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload, AddStorePayload, EditStorePayload, UploadResponse, AddThemePayload, EditThemePayload, AddComponentPayload, EditComponentPayload } from "@/type";
 import { Delete, Post, Put } from "./methods";
 import { useMutations } from "./reactQuery";
 
@@ -27,7 +27,7 @@ export const Mutations = {
   useAddStore: () => useMutations<AddStorePayload, void>([KEYS.STORE.ADD, KEYS.STORE.BASE], (input) => Post(URL_KEYS.STORE.BASE, input)),
   useEditStore: () => useMutations<EditStorePayload, void>([KEYS.STORE.EDIT, KEYS.STORE.BASE], (input) => Put(URL_KEYS.STORE.BASE, input)),
   useDeleteStore: () => useMutations<string, void>([KEYS.STORE.DELETE, KEYS.STORE.BASE], (id) => Delete(`${URL_KEYS.STORE.BASE}/${id}`)),
-  
+
   /* ========================== User ========================== */
   useUpdateUserSubscription: () => useMutations<{ planId: string }, LoginResponse>([KEYS.USER.SUBSCRIBE], (input) => Post(URL_KEYS.USER.SUBSCRIBE, input)),
 
@@ -35,4 +35,9 @@ export const Mutations = {
   useAddTheme: () => useMutations<AddThemePayload, void>([KEYS.THEME.ADD, KEYS.THEME.BASE], (input) => Post(URL_KEYS.THEME.BASE, input)),
   useEditTheme: () => useMutations<EditThemePayload, void>([KEYS.THEME.EDIT, KEYS.THEME.BASE], (input) => Put(URL_KEYS.THEME.BASE, input)),
   useDeleteTheme: () => useMutations<string, void>([KEYS.THEME.DELETE, KEYS.THEME.BASE], (id) => Delete(`${URL_KEYS.THEME.BASE}/${id}`)),
+
+  /* ========================== Component ========================== */
+  useAddComponent: () => useMutations<AddComponentPayload, void>([KEYS.COMPONENT.ADD, KEYS.COMPONENT.BASE], (input) => Post(URL_KEYS.COMPONENT.BASE, input)),
+  useEditComponent: () => useMutations<EditComponentPayload, void>([KEYS.COMPONENT.EDIT, KEYS.COMPONENT.BASE], (input) => Put(URL_KEYS.COMPONENT.BASE, input)),
+  useDeleteComponent: () => useMutations<string, void>([KEYS.COMPONENT.DELETE, KEYS.COMPONENT.BASE], (id) => Delete(`${URL_KEYS.COMPONENT.BASE}/${id}`)),
 };

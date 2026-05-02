@@ -6,9 +6,9 @@ import { CommonButton } from "@/attribute";
 import { CommonBottomActionBar, CommonCard, CommonFormSection } from "@/components/common";
 import { PAGE_TITLE } from "@/constants";
 import { THEME_SUPPORTED_PAGE_OPTIONS, THEME_TYPE_OPTIONS } from "@/data";
-import { LayoutFieldArrayProps, ThemeFormValues } from "@/type";
+import { ThemeFormValues } from "@/type";
 import { GetChangedFields, RemoveEmptyFields, useDynamicSlug } from "@/utils";
-import { Col, ColorPicker, Divider, Row, Segmented } from "antd";
+import { Col, Divider, Row, Segmented } from "antd";
 import { FieldArray, Form, Formik, FormikHelpers } from "formik";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
@@ -65,7 +65,7 @@ const AddEditThemePage = () => {
     changelog: Data?.changelog || [{ version: "", changes: "", date: "" }],
     authorName: Data?.authorName || "",
     breakpoints: Data?.breakpoints || { mobile: 0, tablet: 0, desktop: 0 },
-    styles: Data?.styles || { colors: { primary: "", secondary: "", background: "", text: "" }, fonts: { heading: "", body: "" }, layout: { containerWidth: "", spacing: "" } },
+    styles: Data?.styles || [{ key: "", value: "", type: "", label: "", group: "" }],
     defaultConfig: Data?.defaultConfig || { colors: "", fonts: "", spacing: "", buttons: "" },
     layoutJSON: Data?.layoutJSON || {
       header: [{ componentId: "header-1", order: 1, config: {} }],
@@ -149,7 +149,7 @@ const AddEditThemePage = () => {
                 )}
                 {type === "supported" && (
                   <CommonFormSection title="Supported" row={{ gutter: [10, 10] }}>
-                    <CommonValidationTextField name="supportedComponents" label="Supported Components" placeholder="Comma separated" col={{ xs: 24, md: 12 }} />
+                    <CommonValidationSelect name="supportedComponents" label="Supported Components" placeholder="Comma separated" options={[]} col={{ xs: 24, md: 12 }} />
                     <CommonValidationSelect name="supportedPages" label="Supported Pages" placeholder="Comma separated" options={THEME_SUPPORTED_PAGE_OPTIONS} col={{ xs: 24, md: 12 }} />
                   </CommonFormSection>
                 )}
@@ -188,14 +188,26 @@ const AddEditThemePage = () => {
                 )}
                 {type === "styles" && (
                   <CommonFormSection title="Styles" row={{ gutter: [10, 10] }}>
-                    <CommonValidationTextField name="styles.colors.primary" label="Primary Color" placeholder="e.g. #1a73e8" isColorPicker col={{ xs: 24, md: 12 }} />
-                    <CommonValidationTextField name="styles.colors.secondary" label="Secondary Color" placeholder="e.g. #34a853" isColorPicker col={{ xs: 24, md: 12 }} />
-                    <CommonValidationTextField name="styles.colors.background" label="Background Color" placeholder="e.g. #f8f9fa" isColorPicker col={{ xs: 24, md: 12 }} />
-                    <CommonValidationTextField name="styles.colors.text" label="Text Color" placeholder="e.g. #202124" isColorPicker col={{ xs: 24, md: 12 }} />
-                    <CommonValidationTextField name="styles.fonts.heading" label="Heading Font" placeholder="e.g. Inter, sans-serif" col={{ xs: 24, md: 12 }} />
-                    <CommonValidationTextField name="styles.fonts.body" label="Body Font" placeholder="e.g. Roboto, sans-serif" col={{ xs: 24, md: 12 }} />
-                    <CommonValidationTextField name="styles.layout.containerWidth" label="Container Width" placeholder="e.g. 1200px" col={{ xs: 24, md: 12 }} />
-                    <CommonValidationTextField name="styles.layout.spacing" label="Spacing" placeholder="e.g. 12px" col={{ xs: 24, md: 12 }} />
+                    <Col xs={24}>
+                      <FieldArray name="styles">
+                        {({ push, remove }) =>
+                          values?.styles?.map((_, index) => (
+                            <div key={index}>
+                              <Row key={index} gutter={[10, 10]} align="bottom" justify="start">
+                                <CommonValidationTextField name={`styles.${index}.key`} label="Key" placeholder="e.g. primaryColor" col={{ xs: 24, md: 8, xl: 8 }} />
+                                <CommonValidationTextField name={`styles.${index}.value`} label="Value" placeholder="e.g. #1a73e8" col={{ xs: 24, md: 7, xl: 7, xxl: 8 }} />
+                                <CommonValidationTextField name={`styles.${index}.type`} label="Type" placeholder="e.g. text, background, color" col={{ xs: 24, md: 8, xl: 8 }} />
+                                <CommonValidationTextField name={`styles.${index}.label`} label="Label" placeholder="e.g. Primary Color" col={{ xs: 24, md: 7, xl: 7, xxl: 8 }} />
+                                <CommonValidationTextField name={`styles.${index}.group`} label="Group" placeholder="e.g. colors, fonts, spacing" col={{ xs: 13, sm: 18, md: 5 }} />
+                                {(values?.styles?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
+                                <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ key: "", value: "", type: "", label: "", group: "" })} />
+                              </Row>
+                              {index < (values?.styles?.length || 0) - 1 && <Divider className="my-3!" />}
+                            </div>
+                          ))
+                        }
+                      </FieldArray>
+                    </Col>
                   </CommonFormSection>
                 )}
                 {type === "defaultConfig" && (

@@ -13,10 +13,12 @@ type SectionItem = {
 
 export type LayoutSections = "header" | "footer" | "home" | "product" | "category" | "cart" | "checkout" | "custom" | "collection" | "blog";
 
-export interface ThemeStyles {
-  colors?: Record<"primary" | "secondary" | "background" | "text", string>;
-  fonts?: Record<"heading" | "body", string>;
-  layout?: Record<"containerWidth" | "spacing", string>;
+export interface ThemeSettingItem {
+  key?: string;
+  value?: string;
+  type?: string;
+  label?: string;
+  group?: string;
 }
 
 export type ThemeLayoutJSON = Record<LayoutSections, SectionItem[]>;
@@ -42,7 +44,7 @@ export interface ThemeFormValues {
   price?: number;
   performanceScore?: number;
 
-  styles?: ThemeStyles;
+  styles?: ThemeSettingItem[];
   layoutJSON?: ThemeLayoutJSON;
   draftLayoutJSON?: ThemeLayoutJSON;
   defaultConfig?: Partial<Record<"colors" | "fonts" | "spacing" | "buttons", string>>;

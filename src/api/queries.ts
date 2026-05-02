@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { AppQueryOptions, Params, PlanApiResponse, PlanByIdApiResponse, StoreApiResponse, StoreByIdApiResponse, ThemeApiResponse, ThemeByIdApiResponse, UploadResponse } from "@/type";
+import { AppQueryOptions, ComponentApiResponse, ComponentByIdApiResponse, Params, PlanApiResponse, PlanByIdApiResponse, StoreApiResponse, StoreByIdApiResponse, ThemeApiResponse, ThemeByIdApiResponse, UploadResponse } from "@/type";
 import { Get } from "./methods";
 import { useQueries } from "./reactQuery";
 
@@ -19,4 +19,8 @@ export const Queries = {
   /* ========================== Theme ========================== */
   useGetTheme: (params?: Params, enabled?: boolean) => useQueries<ThemeApiResponse>([KEYS.THEME.BASE, params], () => Get(URL_KEYS.THEME.BASE, params), { enabled: enabled }),
   useGetThemeById: (id?: string, enabled?: boolean) => useQueries<ThemeByIdApiResponse>([KEYS.THEME.BASE, id], () => Get(`${URL_KEYS.THEME.BASE}/${id}`), { enabled: enabled }),
+
+  /* ========================== Component ========================== */
+  useGetComponent: (params?: Params, enabled?: boolean) => useQueries<ComponentApiResponse>([KEYS.COMPONENT.BASE, params], () => Get(URL_KEYS.COMPONENT.BASE, params), { enabled: enabled }),
+  useGetComponentById: (id?: string, enabled?: boolean) => useQueries<ComponentByIdApiResponse>([KEYS.COMPONENT.BASE, id], () => Get(`${URL_KEYS.COMPONENT.BASE}/${id}`), { enabled: enabled }),
 };

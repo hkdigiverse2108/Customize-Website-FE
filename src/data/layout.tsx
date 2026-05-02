@@ -3,6 +3,7 @@ import { NavItem } from "@/type";
 import { FaWindowRestore } from "react-icons/fa";
 import { GrPlan } from "react-icons/gr";
 import { HiOutlineColorSwatch } from "react-icons/hi";
+import { LuComponent } from "react-icons/lu";
 import { RxDashboard } from "react-icons/rx";
 
 export const AdminNavItems: NavItem[] = [
@@ -10,6 +11,7 @@ export const AdminNavItems: NavItem[] = [
   { icon: <GrPlan />, name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE },
   { icon: <FaWindowRestore />, name: PAGE_TITLE.STORES.BASE, path: ROUTES.ADMIN.STORES.BASE },
   { icon: <HiOutlineColorSwatch />, name: PAGE_TITLE.THEME.BASE, path: ROUTES.ADMIN.THEME.BASE },
+  { icon: <LuComponent />, name: PAGE_TITLE.COMPONENT.BASE, path: ROUTES.ADMIN.COMPONENT.BASE },
   // {
   //   name: PAGE_TITLE.PLAN.BASE,
   //   icon: <FaWindowRestore />,

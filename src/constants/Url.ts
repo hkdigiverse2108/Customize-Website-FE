@@ -27,4 +27,7 @@ export const URL_KEYS = {
   THEME: {
     BASE: "/theme",
   },
+  COMPONENT: {
+    BASE: "/component",
+  },
 } as const;
