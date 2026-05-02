@@ -1,20 +1,41 @@
+import { THEME_SETTING_GROUP, THEME_SETTING_TYPE } from "@/data/enm";
 import { CommonDataType, MessageStatus, PageStatus } from "./common";
 
-type SectionItem = {
-  componentId: string;
-  order: number;
-  config: Record<string, any>;
-};
+export type ThemeSettingType = (typeof THEME_SETTING_TYPE)[keyof typeof THEME_SETTING_TYPE];
+export type ThemeSettingGroup = (typeof THEME_SETTING_GROUP)[keyof typeof THEME_SETTING_GROUP];
 
-type LayoutSections = "header" | "footer" | "home" | "product" | "category" | "cart" | "checkout" | "custom" | "collection";
-
-export interface ThemeStyles {
-  colors?: Record<"primary" | "secondary" | "background" | "text", string>;
-  fonts?: Record<"heading" | "body", string>;
-  layout?: Record<"containerWidth" | "spacing", string>;
+export interface ThemeSettingItem {
+  key: string;
+  value: any;
+  type?: ThemeSettingType | string;
+  label?: string;
+  group?: ThemeSettingGroup | string;
 }
 
-export type ThemeLayoutJSON = Record<LayoutSections, SectionItem[]>;
+export interface ThemeSchemaItem {
+  key: string;
+  type: ThemeSettingType | string;
+  label?: string;
+  default?: any;
+  options?: any[];
+  group?: ThemeSettingGroup | string;
+  placeholder?: string;
+  validation?: any;
+}
+
+
+export interface PageLayoutItem {
+  componentId: string;
+  order: number;
+  config: ThemeSettingItem[];
+}
+
+export interface PageLayout {
+  page: string;
+  sections: PageLayoutItem[];
+}
+
+export type ThemeLayoutJSON = PageLayout[];
 
 export interface ThemeFormValues {
   name?: string;
@@ -37,17 +58,20 @@ export interface ThemeFormValues {
   price?: number;
   performanceScore?: number;
 
-  styles?: ThemeStyles;
+  styles?: ThemeSettingItem[];
   layoutJSON?: ThemeLayoutJSON;
   draftLayoutJSON?: ThemeLayoutJSON;
-  defaultConfig?: Partial<Record<"colors" | "fonts" | "spacing" | "buttons", string>>;
-  breakpoints?: Partial<Record<"mobile" | "tablet" | "desktop", number>>;
+  defaultConfig?: ThemeSettingItem[];
+  breakpoints?: ThemeSettingItem[];
+  
+  componentSchema?: ThemeSchemaItem[];
+  settingsSchema?: ThemeSchemaItem[];
 
   supportedComponents?: string[];
   supportedPages?: string[];
 
   version?: string;
-  changelog?: string[];
+  changelog?: { version?: string; changes?: string; date?: Date }[];
   authorName?: string;
 }
 
@@ -67,3 +91,4 @@ export interface ThemeApiResponse extends MessageStatus {
 export interface ThemeByIdApiResponse extends MessageStatus {
   data: ThemeBase;
 }
+

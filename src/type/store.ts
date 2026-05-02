@@ -259,11 +259,18 @@ export interface VisualSettingResponse extends CommonDataType, VisualSettingForm
   storeId?: string;
 }
 
+import { PageLayout, ThemeLayoutJSON, ThemeSettingItem } from "./theme";
+
 export interface ThemeSettingFormValues {
   themeId: string;
-  themeConfig?: Record<string, any>;
+  customLayoutJSON?: ThemeLayoutJSON;
+  draftLayoutJSON?: ThemeLayoutJSON;
+  customStyles?: ThemeSettingItem[];
+  customSettings?: ThemeSettingItem[];
+  baseVersion?: string;
 }
 
 export interface ThemeSettingResponse extends CommonDataType, ThemeSettingFormValues {
   storeId: string;
 }
+

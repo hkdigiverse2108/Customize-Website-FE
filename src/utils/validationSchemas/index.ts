@@ -226,5 +226,16 @@ export const VisualSettingSchema = Yup.object({
 
 export const ThemeSettingSchema = Yup.object({
   themeId: Validation("string", "Theme", { required: true }),
-  themeConfig: Yup.object().optional(),
+  customStyles: Yup.array().of(
+    Yup.object({
+      key: Yup.string().required(),
+      value: Yup.mixed().required(),
+    })
+  ).optional(),
+  customSettings: Yup.array().of(
+    Yup.object({
+      key: Yup.string().required(),
+      value: Yup.mixed().required(),
+    })
+  ).optional(),
 });

@@ -3,13 +3,43 @@
 import { Queries, Mutations } from "@/api";
 import { CommonButton, CommonValidationSelect } from "@/attribute";
 import { CommonCard, CommonFormSection } from "@/components/common";
-import { ThemeSettingFormValues } from "@/type";
+import { ThemeSettingFormValues, ThemeSettingItem } from "@/type";
 import { ThemeSettingSchema } from "@/utils";
 import { Form, Formik, FormikHelpers } from "formik";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { FiEdit2, FiLayout, FiZap, FiSettings } from "react-icons/fi";
 import ThemeSettingOverview from "./ThemeSettingOverview";
-import { Divider, message } from "antd";
+import { ColorPicker, Divider, message, Slider } from "antd";
+
+// Helper to convert array of {key, value} to a nested object
+const arrayToNestedObject = (arr: ThemeSettingItem[] = []) => {
+  const result: any = {};
+  arr.forEach(item => {
+    const keys = item.key.split('.');
+    keys.reduce((acc, key, index) => {
+      if (index === keys.length - 1) {
+        acc[key] = item.value;
+      } else {
+        acc[key] = acc[key] || {};
+      }
+      return acc[key];
+    }, result);
+  });
+  return result;
+};
+
+// Helper to convert a nested object to a flat array of {key, value}
+const nestedObjectToFlatArray = (obj: any, prefix = ''): ThemeSettingItem[] => {
+  return Object.keys(obj).reduce((acc: ThemeSettingItem[], k: string) => {
+    const pre = prefix.length ? prefix + '.' : '';
+    if (typeof obj[k] === 'object' && obj[k] !== null && !Array.isArray(obj[k])) {
+      acc.push(...nestedObjectToFlatArray(obj[k], pre + k));
+    } else {
+      acc.push({ key: pre + k, value: obj[k] });
+    }
+    return acc;
+  }, []);
+};
 
 const ThemeSettingsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -21,22 +51,26 @@ const ThemeSettingsPage = () => {
   const { data: themeData, isLoading: isThemeLoading } = Queries.useGetThemeSetting(storeId);
   const Data = themeData?.data;
 
-  // Ideally we should have a query to fetch all available themes
-  // const { data: allThemesData } = Queries.useGetAllThemes(); 
-  
   const { mutate: upsertTheme, isPending: isUpsertLoading } = Mutations.useUpsertThemeSetting();
   const { mutate: publishTheme, isPending: isPublishLoading } = Mutations.usePublishTheme();
 
-  const initialValues: ThemeSettingFormValues = {
-    themeId: Data?.themeId || "662646271c062c3e449f8b1a", // Example fallback
-    themeConfig: Data?.themeConfig || {},
-  };
+  const initialValues = useMemo(() => ({
+    themeId: Data?.themeId || "662646271c062c3e449f8b1a",
+    customStyles: arrayToNestedObject(Data?.customStyles || []),
+    customSettings: arrayToNestedObject(Data?.customSettings || []),
+  }), [Data]);
 
-  const handleSubmit = (values: ThemeSettingFormValues, { resetForm }: FormikHelpers<ThemeSettingFormValues>) => {
+  const handleSubmit = (values: any, { resetForm }: FormikHelpers<any>) => {
     if (!storeId) return;
 
+    const payload: ThemeSettingFormValues = {
+      themeId: values.themeId,
+      customStyles: nestedObjectToFlatArray(values.customStyles || {}),
+      customSettings: nestedObjectToFlatArray(values.customSettings || {}),
+    };
+
     upsertTheme(
-      { ...values, storeId },
+      { ...payload, storeId },
       {
         onSuccess: () => {
           setIsEditing(false);
@@ -70,15 +104,15 @@ const ThemeSettingsPage = () => {
             <p className="mt-0 text-sm leading-6 text-slate-500">Choose and configure the layout that best represents your brand.</p>
           </div>
           {!isEditing && (
-             <CommonButton type="primary" onClick={handlePublish} loading={isPublishLoading} disabled={!Data?.themeId}>
-                <span className="flex items-center gap-1.5"><FiZap size={14} /> Publish Theme</span>
-             </CommonButton>
+            <CommonButton type="primary" onClick={handlePublish} loading={isPublishLoading} disabled={!Data?.themeId}>
+              <span className="flex items-center gap-1.5"><FiZap size={14} /> Publish Theme</span>
+            </CommonButton>
           )}
         </div>
       </div>
 
-      <CommonCard 
-        cardProps={{ 
+      <CommonCard
+        cardProps={{
           title: (
             <div className="flex justify-between items-center w-full pe-2">
               <span className="flex items-center gap-2">
@@ -91,21 +125,21 @@ const ThemeSettingsPage = () => {
                 </CommonButton>
               )}
             </div>
-          ), 
-          loading: isThemeLoading, 
-          style: { borderRadius: 10, overflow: "hidden" }, 
+          ),
+          loading: isThemeLoading,
+          style: { borderRadius: 10, overflow: "hidden" },
         }}
       >
         {!isEditing ? (
           <ThemeSettingOverview Data={Data} />
         ) : (
-          <Formik<ThemeSettingFormValues> enableReinitialize initialValues={initialValues} validationSchema={ThemeSettingSchema} onSubmit={handleSubmit}>
-            {() => (
+          <Formik enableReinitialize initialValues={initialValues} validationSchema={ThemeSettingSchema} onSubmit={handleSubmit}>
+            {({ values, setFieldValue }) => (
               <Form className="space-y-6">
-                
+
                 <CommonFormSection title="Theme Selection" row={{ gutter: [16, 16] }}>
-                  <CommonValidationSelect 
-                    name="themeId" 
+                  <CommonValidationSelect
+                    name="themeId"
                     label="Choose Active Theme"
                     col={{ span: 24 }}
                     options={[
@@ -118,14 +152,99 @@ const ThemeSettingsPage = () => {
 
                 <Divider className="my-0 border-slate-100" />
 
-                <div className="bg-slate-50/50 p-6 rounded-xl border border-dashed border-slate-200 text-center">
-                  <div className="h-12 w-12 rounded-full bg-white border border-slate-200 flex items-center justify-center mx-auto mb-3 shadow-sm text-slate-400">
-                    <FiSettings />
-                  </div>
-                  <h4 className="font-bold text-slate-800 text-sm mb-1">Advanced Theme Configuration</h4>
-                  <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                    Specific theme variables (like grid sizes, section toggles, etc.) will appear here based on the selected theme's capabilities.
-                  </p>
+                <div className="space-y-8">
+                  <CommonFormSection title="Custom Brand Colors" row={{ gutter: [24, 24] }}>
+                    <div className="col-span-24 md:col-span-6">
+                      <p className="text-xs font-bold text-slate-500 uppercase mb-2">Primary Color</p>
+                      <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <ColorPicker 
+                          value={values.customStyles?.colors?.primary || "#000000"} 
+                          onChange={(color) => setFieldValue('customStyles.colors.primary', color.toHexString())} 
+                          showText 
+                        />
+                      </div>
+                    </div>
+                    <div className="col-span-24 md:col-span-6">
+                      <p className="text-xs font-bold text-slate-500 uppercase mb-2">Secondary Color</p>
+                      <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <ColorPicker 
+                          value={values.customStyles?.colors?.secondary || "#475569"} 
+                          onChange={(color) => setFieldValue('customStyles.colors.secondary', color.toHexString())} 
+                          showText 
+                        />
+                      </div>
+                    </div>
+                    <div className="col-span-24 md:col-span-6">
+                      <p className="text-xs font-bold text-slate-500 uppercase mb-2">Background</p>
+                      <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <ColorPicker 
+                          value={values.customStyles?.colors?.background || "#ffffff"} 
+                          onChange={(color) => setFieldValue('customStyles.colors.background', color.toHexString())} 
+                          showText 
+                        />
+                      </div>
+                    </div>
+                    <div className="col-span-24 md:col-span-6">
+                      <p className="text-xs font-bold text-slate-500 uppercase mb-2">Text Color</p>
+                      <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <ColorPicker 
+                          value={values.customStyles?.colors?.text || "#0f172a"} 
+                          onChange={(color) => setFieldValue('customStyles.colors.text', color.toHexString())} 
+                          showText 
+                        />
+                      </div>
+                    </div>
+                  </CommonFormSection>
+
+                  <CommonFormSection title="Custom Typography" row={{ gutter: [24, 24] }}>
+                    <CommonValidationSelect 
+                      name="customStyles.fonts.heading" 
+                      label="Heading Font"
+                      col={{ span: 12 }}
+                      options={[
+                        { label: "Inter", value: "Inter" },
+                        { label: "Roboto", value: "Roboto" },
+                        { label: "Poppins", value: "Poppins" },
+                        { label: "Playfair Display", value: "Playfair Display" },
+                      ]}
+                    />
+                    <CommonValidationSelect 
+                      name="customStyles.fonts.body" 
+                      label="Body Font"
+                      col={{ span: 12 }}
+                      options={[
+                        { label: "Inter", value: "Inter" },
+                        { label: "Roboto", value: "Roboto" },
+                        { label: "Open Sans", value: "Open Sans" },
+                        { label: "Lato", value: "Lato" },
+                      ]}
+                    />
+                  </CommonFormSection>
+
+                  <CommonFormSection title="Layout & Buttons" row={{ gutter: [24, 24] }}>
+                    <div className="col-span-24 md:col-span-12">
+                      <p className="text-sm font-semibold text-slate-700 mb-3 text-left">Base Spacing (px)</p>
+                      <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <Slider 
+                          min={0} max={64} step={4}
+                          value={values.customStyles?.layout?.spacing || 16}
+                          onChange={(val) => setFieldValue('customStyles.layout.spacing', val)}
+                          marks={{ 0: '0', 16: '16', 32: '32', 64: '64' }}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-span-24 md:col-span-12">
+                      <p className="text-sm font-semibold text-slate-700 mb-3 text-left">Button Roundness (Radius)</p>
+                      <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <Slider 
+                          min={0} max={24} step={2}
+                          value={values.customSettings?.buttons?.borderRadius || 8}
+                          onChange={(val) => setFieldValue('customSettings.buttons.borderRadius', val)}
+                          marks={{ 0: 'Square', 8: '8px', 24: 'Full' }}
+                        />
+                      </div>
+                    </div>
+                  </CommonFormSection>
                 </div>
 
                 <div className="flex justify-end gap-3 pt-6 border-t border-slate-100">

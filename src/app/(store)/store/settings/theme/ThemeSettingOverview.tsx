@@ -7,6 +7,10 @@ interface ThemeSettingOverviewProps {
 }
 
 const ThemeSettingOverview = ({ Data }: ThemeSettingOverviewProps) => {
+  const customStylesCount = Data?.customStyles?.length || 0;
+  const customSettingsCount = Data?.customSettings?.length || 0;
+  const totalCustomizations = customStylesCount + customSettingsCount;
+
   return (
     <div className="space-y-6">
       <div className="p-6 rounded-2xl border border-brand-100 bg-gradient-to-br from-brand-50/50 to-white shadow-sm overflow-hidden relative group">
@@ -46,10 +50,10 @@ const ThemeSettingOverview = ({ Data }: ThemeSettingOverviewProps) => {
           <div>
             <h4 className="font-bold text-slate-800 text-sm mb-1">Configuration Status</h4>
             <p className="text-xs text-slate-500 mb-3">Custom parameters applied to this theme</p>
-            <Badge status={Data?.themeConfig && Object.keys(Data.themeConfig).length > 0 ? "success" : "default"} text={
+            <Badge status={totalCustomizations > 0 ? "success" : "default"} text={
               <span className="text-xs font-medium text-slate-600">
-                {Data?.themeConfig && Object.keys(Data.themeConfig).length > 0 
-                  ? `${Object.keys(Data.themeConfig).length} custom variables applied` 
+                {totalCustomizations > 0 
+                  ? `${totalCustomizations} custom variables applied` 
                   : "No custom configuration"}
               </span>
             } />

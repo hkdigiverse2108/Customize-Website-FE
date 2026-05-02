@@ -78,3 +78,27 @@ export const MEASUREMENT_SYSTEM = {
   METRIC: "metric",
   IMPERIAL: "imperial",
 } as const;
+
+export const THEME_SETTING_TYPE = {
+  TEXT: "text",
+  NUMBER: "number",
+  BOOLEAN: "boolean",
+  COLOR: "color",
+  IMAGE: "image",
+  SELECT: "select",
+  SLIDER: "slider",
+  FONT: "font",
+  TEXTAREA: "textarea",
+  JSON: "json",
+} as const;
+
+export const THEME_SETTING_GROUP = {
+  GENERAL: "general",
+  COLORS: "colors",
+  TYPOGRAPHY: "typography",
+  LAYOUT: "layout",
+  HEADER: "header",
+  FOOTER: "footer",
+  ADVANCED: "advanced",
+} as const;
+
