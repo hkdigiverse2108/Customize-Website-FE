@@ -5,9 +5,9 @@ import { Mutations } from "@/api/mutations";
 import { CommonButton } from "@/attribute";
 import { CommonBottomActionBar, CommonCard, CommonFormSection } from "@/components/common";
 import { PAGE_TITLE } from "@/constants";
-import { THEME_SUPPORTED_PAGE_OPTIONS, THEME_TYPE_OPTIONS } from "@/data";
+import { THEME_EDIT_MODE_OPTIONS, THEME_SETTING_GROUP_OPTIONS, THEME_SETTING_TYPE, THEME_SETTING_TYPE_OPTIONS, THEME_SUPPORTED_PAGE_OPTIONS, THEME_TYPE_OPTIONS } from "@/data";
 import { ThemeFormValues } from "@/type";
-import { GetChangedFields, RemoveEmptyFields, useDynamicSlug } from "@/utils";
+import { GetChangedFields, RemoveEmptyFields, ThemeSchema, useDynamicSlug } from "@/utils";
 import { Col, Divider, Row, Segmented } from "antd";
 import { FieldArray, Form, Formik, FormikHelpers } from "formik";
 import dynamic from "next/dynamic";
@@ -64,21 +64,13 @@ const AddEditThemePage = () => {
     version: Data?.version || "",
     changelog: Data?.changelog || [{ version: "", changes: "", date: "" }],
     authorName: Data?.authorName || "",
-    breakpoints: Data?.breakpoints || { mobile: 0, tablet: 0, desktop: 0 },
+    breakpoints: Data?.breakpoints || [{ key: "", value: "", type: "", label: "", group: "" }],
     styles: Data?.styles || [{ key: "", value: "", type: "", label: "", group: "" }],
-    defaultConfig: Data?.defaultConfig || { colors: "", fonts: "", spacing: "", buttons: "" },
-    layoutJSON: Data?.layoutJSON || {
-      header: [{ componentId: "header-1", order: 1, config: {} }],
-      footer: [{ componentId: "footer-1", order: 1, config: {} }],
-      home: [{ componentId: "header-1", order: 1, config: {} }],
-      product: [{ componentId: "header-1", order: 1, config: {} }],
-      category: [{ componentId: "header-1", order: 1, config: {} }],
-      cart: [{ componentId: "header-1", order: 1, config: {} }],
-      checkout: [{ componentId: "header-1", order: 1, config: {} }],
-      custom: [{ componentId: "header-1", order: 1, config: {} }],
-      collection: [{ componentId: "header-1", order: 1, config: {} }],
-      blog: [{ componentId: "blog-1", order: 1, config: {} }],
-    },
+    defaultConfig: Data?.defaultConfig || [{ key: "", value: "", type: "", label: "", group: "" }],
+    componentSchema: Data?.componentSchema || [{ key: "", type: "", label: "", group: "", options: [], placeholder: "", validation: "" }],
+    settingsSchema: Data?.settingsSchema || [{ key: "", type: "", label: "", group: "", options: [], placeholder: "", validation: "" }],
+    layoutJSON: Data?.layoutJSON || [{ page: "", sections: [{ componentId: "", order: 1, config: [{ key: "", value: "", type: "", label: "", group: "" }] }] }],
+    draftLayoutJSON: Data?.draftLayoutJSON || [{ page: "", sections: [{ componentId: "", order: 1, config: [{ key: "", value: "", type: "", label: "", group: "" }] }] }],
   };
 
   const handleSubmit = (values: ThemeFormValues, { resetForm }: FormikHelpers<ThemeFormValues>) => {
@@ -88,9 +80,8 @@ const AddEditThemePage = () => {
       resetForm();
       router.back();
     };
-    console.log("values", values);
-    // if (isEditing) editData({ id, ...changedFields }, { onSuccess: handleSuccess });
-    // else addData(cleanedPayload, { onSuccess: handleSuccess });
+    if (isEditing) editData({ id, ...changedFields }, { onSuccess: handleSuccess });
+    else addData(cleanedPayload, { onSuccess: handleSuccess });
   };
 
   return (
@@ -104,52 +95,31 @@ const AddEditThemePage = () => {
       </div>
       <CommonCard cardProps={{ title: `${PAGE_TITLE.THEME.BASE} Details`, loading: isDataLoading, style: { borderRadius: 10, overflow: "hidden" } }}>
         <div className="flex! flex-col gap-3!">
-          <Segmented<string>
-            className="mb-6"
-            size="middle"
-            options={[
-              { label: "Basic", value: "basic" },
-              { label: "Classification", value: "classification" },
-              { label: "Pricing & Performance", value: "pricingPerformance" },
-              { label: "Supported", value: "supported" },
-              { label: "Versioning", value: "versioning" },
-              { label: "Breakpoints", value: "breakpoints" },
-              { label: "Styles", value: "styles" },
-              { label: "Default Config", value: "defaultConfig" },
-              { label: "Layout", value: "layout" },
-              { label: "Media", value: "media" },
-              { label: "Features", value: "features" },
-            ]}
-            onChange={(value) => {
-              setType(value);
-            }}
-          />
-          <Formik<ThemeFormValues> enableReinitialize initialValues={initialValues} onSubmit={handleSubmit}>
+          <Segmented<string> className="mb-6 custom-scrollbar overflow-y-auto" size="large" options={THEME_EDIT_MODE_OPTIONS} onChange={(value) => setType(value)} />
+          <Formik<ThemeFormValues> enableReinitialize initialValues={initialValues} validationSchema={ThemeSchema} onSubmit={handleSubmit}>
             {({ values }) => (
               <Form className="space-y-5">
                 {type === "basic" && (
-                  <CommonFormSection title="Basic Details" row={{ gutter: [10, 10] }}>
-                    <CommonValidationTextField name="name" label="Theme Name" placeholder="Enter theme name" col={{ xs: 24, md: 12 }} required />
-                    <CommonValidationTextField name="slug" label="Slug" placeholder="Enter slug" col={{ xs: 24, md: 12 }} required />
-                    <CommonValidationTextField name="description" label="Description" placeholder="Enter description" col={{ xs: 24 }} multiline />
-                  </CommonFormSection>
-                )}
-                {type === "classification" && (
-                  <CommonFormSection title="Classification" row={{ gutter: [10, 10] }}>
-                    <CommonValidationTextField name="category" label="Category" placeholder="Enter category" col={{ xs: 24, md: 8 }} />
-                    <CommonValidationSelect name="type" label="Type" placeholder="Enter type" options={[]} mode="tags" col={{ xs: 24, md: 8 }} />
-                    <CommonValidationSelect name="tags" label="Tags" placeholder="Enter tags" options={THEME_TYPE_OPTIONS} col={{ xs: 24, md: 8 }} />
-                  </CommonFormSection>
-                )}
-                {type === "pricingPerformance" && (
-                  <CommonFormSection title="Pricing & Performance" row={{ gutter: [10, 10] }}>
-                    <CommonValidationTextField name="price" label="Price" type="number" col={{ xs: 24, md: 12 }} />
-                    <CommonValidationTextField name="performanceScore" label="Performance Score" type="number" col={{ xs: 24, md: 12 }} />
-                  </CommonFormSection>
+                  <>
+                    <CommonFormSection title="Basic Details" row={{ gutter: [10, 10] }}>
+                      <CommonValidationTextField name="name" label="Theme Name" placeholder="Enter theme name" col={{ xs: 24, md: 12 }} required />
+                      <CommonValidationTextField name="slug" label="Slug" placeholder="Enter slug" col={{ xs: 24, md: 12 }} required />
+                      <CommonValidationTextField name="description" label="Description" placeholder="Enter description" col={{ xs: 24 }} multiline />
+                    </CommonFormSection>
+                    <CommonFormSection title="Classification" row={{ gutter: [10, 10] }}>
+                      <CommonValidationTextField name="category" label="Category" placeholder="Enter category" col={{ xs: 24, md: 8 }} />
+                      <CommonValidationSelect name="type" label="Type" placeholder="Enter type" options={[]} mode="tags" col={{ xs: 24, md: 8 }} />
+                      <CommonValidationSelect name="tags" label="Tags" placeholder="Enter tags" options={THEME_TYPE_OPTIONS} mode="multiple" col={{ xs: 24, md: 8 }} />
+                    </CommonFormSection>
+                    <CommonFormSection title="Pricing & Performance" row={{ gutter: [10, 10] }}>
+                      <CommonValidationTextField name="price" label="Price" type="number" col={{ xs: 24, md: 12 }} />
+                      <CommonValidationTextField name="performanceScore" label="Performance Score" type="number" col={{ xs: 24, md: 12 }} />
+                    </CommonFormSection>
+                  </>
                 )}
                 {type === "supported" && (
                   <CommonFormSection title="Supported" row={{ gutter: [10, 10] }}>
-                    <CommonValidationSelect name="supportedComponents" label="Supported Components" placeholder="Comma separated" options={[]} col={{ xs: 24, md: 12 }} />
+                    <CommonValidationSelect name="supportedComponents" label="Supported Components" placeholder="Comma separated" options={[]} mode="tags" col={{ xs: 24, md: 12 }} />
                     <CommonValidationSelect name="supportedPages" label="Supported Pages" placeholder="Comma separated" options={THEME_SUPPORTED_PAGE_OPTIONS} col={{ xs: 24, md: 12 }} />
                   </CommonFormSection>
                 )}
@@ -165,8 +135,8 @@ const AddEditThemePage = () => {
                               <div key={index}>
                                 <Row key={index} gutter={[10, 10]} align="bottom" justify="start">
                                   <CommonValidationTextField name={`changelog.${index}.version`} label="Version" placeholder="Add new changelog entry" col={{ xs: 24, md: 8, xl: 8 }} />
-                                  <CommonValidationTextField name={`changelog.${index}.changes`} label="Changes" placeholder="Select changes" col={{ xs: 24, md: 7, xl: 7, xxl: 8 }} />
-                                  <CommonValidationDatePicker name={`changelog.${index}.date`} label="Date" pickerType="date" col={{ xs: 13, sm: 18, md: 5 }} />
+                                  <CommonValidationDatePicker name={`changelog.${index}.date`} label="Date" pickerType="date" col={{ xs: 24, md: 7, xl: 7, xxl: 8 }} />
+                                  <CommonValidationTextField name={`changelog.${index}.changes`} label="Changes" placeholder="Select changes" col={{ flex: "auto" }} />
                                   {(values?.changelog?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
                                   <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ version: "", changes: "", date: "" })} />
                                 </Row>
@@ -181,9 +151,26 @@ const AddEditThemePage = () => {
                 )}
                 {type === "breakpoints" && (
                   <CommonFormSection title="Breakpoints" row={{ gutter: [10, 10] }}>
-                    <CommonValidationTextField name="breakpoints.mobile" label="Mobile" type="number" placeholder="e.g. 375" col={{ xs: 24, md: 8 }} />
-                    <CommonValidationTextField name="breakpoints.tablet" label="Tablet" type="number" placeholder="e.g. 768" col={{ xs: 24, md: 8 }} />
-                    <CommonValidationTextField name="breakpoints.desktop" label="Desktop" type="number" placeholder="e.g. 1024" col={{ xs: 24, md: 8 }} />
+                    <Col xs={24}>
+                      <FieldArray name="breakpoints">
+                        {({ push, remove }) =>
+                          values?.breakpoints?.map((_, index) => (
+                            <div key={index}>
+                              <Row key={index} gutter={[10, 10]} align="bottom" justify="start">
+                                <CommonValidationTextField name={`breakpoints.${index}.key`} label="Key" placeholder="e.g. primaryColor" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationTextField name={`breakpoints.${index}.value`} label="Value" placeholder="e.g. #1a73e8" isColorPicker={THEME_SETTING_TYPE.COLOR === values?.breakpoints?.[index].type} col={{ xs: 24, md: 8 }} />
+                                <CommonValidationSelect name={`breakpoints.${index}.type`} label="Type" placeholder="e.g. text, background, color" options={THEME_SETTING_TYPE_OPTIONS} col={{ xs: 24, md: 8 }} />
+                                <CommonValidationTextField name={`breakpoints.${index}.label`} label="Label" placeholder="e.g. Primary Color" col={{ xs: 24, md: 12 }} />
+                                <CommonValidationSelect name={`breakpoints.${index}.group`} label="Group" placeholder="e.g. colors" options={THEME_SETTING_GROUP_OPTIONS} col={{ flex: "auto" }} />
+                                {(values?.breakpoints?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
+                                <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ key: "", value: "", type: "", label: "", group: "" })} />
+                              </Row>
+                              {index < (values?.breakpoints?.length || 0) - 1 && <Divider className="my-3!" />}
+                            </div>
+                          ))
+                        }
+                      </FieldArray>
+                    </Col>
                   </CommonFormSection>
                 )}
                 {type === "styles" && (
@@ -194,11 +181,11 @@ const AddEditThemePage = () => {
                           values?.styles?.map((_, index) => (
                             <div key={index}>
                               <Row key={index} gutter={[10, 10]} align="bottom" justify="start">
-                                <CommonValidationTextField name={`styles.${index}.key`} label="Key" placeholder="e.g. primaryColor" col={{ xs: 24, md: 8, xl: 8 }} />
-                                <CommonValidationTextField name={`styles.${index}.value`} label="Value" placeholder="e.g. #1a73e8" col={{ xs: 24, md: 7, xl: 7, xxl: 8 }} />
-                                <CommonValidationTextField name={`styles.${index}.type`} label="Type" placeholder="e.g. text, background, color" col={{ xs: 24, md: 8, xl: 8 }} />
-                                <CommonValidationTextField name={`styles.${index}.label`} label="Label" placeholder="e.g. Primary Color" col={{ xs: 24, md: 7, xl: 7, xxl: 8 }} />
-                                <CommonValidationTextField name={`styles.${index}.group`} label="Group" placeholder="e.g. colors, fonts, spacing" col={{ xs: 13, sm: 18, md: 5 }} />
+                                <CommonValidationTextField name={`styles.${index}.key`} label="Key" placeholder="e.g. primaryColor" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationTextField name={`styles.${index}.value`} label="Value" placeholder="e.g. #1a73e8" isColorPicker={THEME_SETTING_TYPE.COLOR === values?.styles?.[index].type} col={{ xs: 24, md: 8 }} />
+                                <CommonValidationSelect name={`styles.${index}.type`} label="Type" placeholder="e.g. text, background, color" options={THEME_SETTING_TYPE_OPTIONS} col={{ xs: 24, md: 8 }} />
+                                <CommonValidationTextField name={`styles.${index}.label`} label="Label" placeholder="e.g. Primary Color" col={{ xs: 24, md: 12 }} />
+                                <CommonValidationSelect name={`styles.${index}.group`} label="Group" placeholder="e.g. colors" options={THEME_SETTING_GROUP_OPTIONS} col={{ flex: "auto" }} />
                                 {(values?.styles?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
                                 <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ key: "", value: "", type: "", label: "", group: "" })} />
                               </Row>
@@ -212,82 +199,215 @@ const AddEditThemePage = () => {
                 )}
                 {type === "defaultConfig" && (
                   <CommonFormSection title="Default Config" row={{ gutter: [10, 10] }}>
-                    <CommonValidationTextField name="defaultConfig.colors" label="Colors" placeholder="e.g. #1a73e8" col={{ xs: 24, md: 12 }} isColorPicker />
-                    <CommonValidationTextField name="defaultConfig.fonts" label="Fonts" placeholder="e.g. Inter, sans-serif" col={{ xs: 24, md: 12 }} />
-                    <CommonValidationTextField name="defaultConfig.spacing" label="Spacing" placeholder="e.g. 12px" col={{ xs: 24, md: 12 }} />
-                    <CommonValidationTextField name="defaultConfig.buttons" label="Buttons" placeholder="e.g. primary, secondary, danger" col={{ xs: 24, md: 12 }} />
+                    <Col xs={24}>
+                      <FieldArray name="defaultConfig">
+                        {({ push, remove }) =>
+                          values?.defaultConfig?.map((_, index) => (
+                            <div key={index}>
+                              <Row key={index} gutter={[10, 10]} align="bottom" justify="start">
+                                <CommonValidationTextField name={`defaultConfig.${index}.key`} label="Key" placeholder="e.g. primaryColor" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationTextField name={`defaultConfig.${index}.value`} label="Value" placeholder="e.g. #1a73e8" isColorPicker={THEME_SETTING_TYPE.COLOR === values?.defaultConfig?.[index].type} col={{ xs: 24, md: 8 }} />
+                                <CommonValidationSelect name={`defaultConfig.${index}.type`} label="Type" placeholder="e.g. text, background, color" options={THEME_SETTING_TYPE_OPTIONS} col={{ xs: 24, md: 8 }} />
+                                <CommonValidationTextField name={`defaultConfig.${index}.label`} label="Label" placeholder="e.g. Primary Color" col={{ xs: 24, md: 12 }} />
+                                <CommonValidationSelect name={`defaultConfig.${index}.group`} label="Group" placeholder="e.g. colors" options={THEME_SETTING_GROUP_OPTIONS} col={{ flex: "auto" }} />
+                                {(values?.defaultConfig?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
+                                <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ key: "", value: "", type: "", label: "", group: "" })} />
+                              </Row>
+                              {index < (values?.defaultConfig?.length || 0) - 1 && <Divider className="my-3!" />}
+                            </div>
+                          ))
+                        }
+                      </FieldArray>
+                    </Col>
                   </CommonFormSection>
                 )}
                 {type === "layout" && (
                   <CommonFormSection title="Layout" row={{ gutter: [10, 10] }}>
                     <Col xs={24}>
-                      <CommonFormSection title="header">
-                        <FieldArray name="layoutJSON.header">
-                          {({ push, remove }) =>
-                            values?.layoutJSON?.header?.map((_, index) => (
-                              <Row key={index} gutter={[10, 10]} align="bottom" justify="start">
-                                <CommonValidationSelect name={`layoutJSON.header.${index}.componentId`} label="component" options={THEME_SUPPORTED_PAGE_OPTIONS} col={{ xs: 24, md: 8, xl: 8 }} />
-                                <CommonValidationTextField type="number" name={`layoutJSON.header.${index}.order`} label="order" col={{ xs: 24, md: 7, xl: 7, xxl: 8 }} />
-                                <CommonValidationTextField type="text" name={`layoutJSON.header.${index}.config`} label="config" col={{ xs: 13, sm: 18, md: 5 }} />
-                                {(values?.layoutJSON?.header?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
-                                <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ componentId: "", order: "", config: "" })} />
+                      <FieldArray name="layoutJSON">
+                        {({ push, remove }) =>
+                          values?.layoutJSON?.map((_, index) => (
+                            <div key={index}>
+                              <Row gutter={[10, 10]} align="bottom" justify="start">
+                                <CommonValidationTextField name={`layoutJSON.${index}.page`} label="Page" placeholder="e.g. home" col={{ flex: "auto" }} />
+                                {(values?.layoutJSON?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
+                                <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ page: "", sections: [{ componentId: "", order: index + 2, config: [{ key: "", value: "", type: "", label: "", group: "" }] }] })} />
+                                <Col xs={24}>
+                                  <CommonFormSection title="Sections">
+                                    <FieldArray name={`layoutJSON.${index}.sections`}>
+                                      {({ push, remove }) =>
+                                        values?.layoutJSON?.[index]?.sections?.map((_, idx) => (
+                                          <div key={idx}>
+                                            <Row gutter={[10, 10]} align="bottom" justify="start">
+                                              <CommonValidationTextField name={`layoutJSON.${index}.sections.${idx}.componentId`} label="Section ID" placeholder="e.g. section-1" col={{ flex: "auto" }} />
+                                              <CommonValidationTextField name={`layoutJSON.${index}.sections.${idx}.order`} label="Order" type="number" placeholder="e.g. 1" col={{ xs: 13, sm: 18, md: 8 }} />
+                                              {(values?.layoutJSON?.[index]?.sections?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(idx)} />}
+                                              <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ componentId: "", order: 1, config: [{ key: "", value: "", type: "", label: "", group: "" }] })} />
+                                              <Col xs={24}>
+                                                <CommonFormSection title="Config">
+                                                  <FieldArray name={`layoutJSON.${index}.sections.${idx}.config`}>
+                                                    {({ push, remove }) =>
+                                                      values?.layoutJSON?.[index]?.sections?.[idx]?.config?.map((_, id) => (
+                                                        <div key={id}>
+                                                          <Row gutter={[10, 10]} align="bottom" justify="start">
+                                                            <CommonValidationTextField name={`layoutJSON.${index}.sections.${idx}.config.${id}.key`} label="Key" placeholder="e.g. title" col={{ xs: 24, md: 8 }} />
+                                                            <CommonValidationTextField name={`layoutJSON.${index}.sections.${idx}.config.${id}.value`} label="Value" placeholder="e.g. Welcome to our Store" isColorPicker={THEME_SETTING_TYPE.COLOR === values?.layoutJSON?.[index].sections?.[idx].config?.[id].type} col={{ xs: 24, md: 8 }} />
+                                                            <CommonValidationSelect name={`layoutJSON.${index}.sections.${idx}.config.${id}.type`} label="Type" placeholder="e.g. text, background, color" options={THEME_SETTING_TYPE_OPTIONS} col={{ xs: 24, md: 8 }} />
+                                                            <CommonValidationTextField name={`layoutJSON.${index}.sections.${idx}.config.${id}.label`} label="Label" placeholder="e.g. Hero Section Title" col={{ xs: 24, md: 12 }} />
+                                                            <CommonValidationSelect name={`layoutJSON.${index}.sections.${idx}.config.${id}.group`} label="Group" placeholder="e.g. General" options={THEME_SETTING_GROUP_OPTIONS} col={{ flex: "auto" }} />
+                                                            {(values?.layoutJSON?.[index]?.sections?.[idx]?.config?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(id)} />}
+                                                            <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ key: "", value: "", type: "", label: "", group: "" })} />
+                                                          </Row>
+                                                          {id < (values?.layoutJSON?.[index]?.sections?.[idx]?.config?.length || 0) - 1 && <Divider className="my-3!" />}
+                                                        </div>
+                                                      ))
+                                                    }
+                                                  </FieldArray>
+                                                </CommonFormSection>
+                                              </Col>
+                                            </Row>
+                                            {idx < (values?.layoutJSON?.[index]?.sections?.length || 0) - 1 && <Divider className="my-3!" />}
+                                          </div>
+                                        ))
+                                      }
+                                    </FieldArray>
+                                  </CommonFormSection>
+                                </Col>
                               </Row>
-                            ))
-                          }
-                        </FieldArray>
-                      </CommonFormSection>
-                    </Col>
-                    <Col xs={24}>
-                      <CommonFormSection title="home">
-                        <FieldArray name="layoutJSON.home">
-                          {({ push, remove }) =>
-                            values?.layoutJSON?.home?.map((_, index) => (
-                              <Row key={index} gutter={[10, 10]} align="bottom" justify="start">
-                                <CommonValidationSelect name={`layoutJSON.home.${index}.componentId`} label="component" options={THEME_SUPPORTED_PAGE_OPTIONS} col={{ xs: 24, md: 8, xl: 8 }} />
-                                <CommonValidationTextField type="number" name={`layoutJSON.home.${index}.order`} label="order" col={{ xs: 24, md: 7, xl: 7, xxl: 8 }} />
-                                <CommonValidationTextField type="text" name={`layoutJSON.home.${index}.config`} label="config" col={{ xs: 13, sm: 18, md: 5 }} />
-                                {(values?.layoutJSON?.home?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
-                                <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ componentId: "", order: "", config: "" })} />
-                              </Row>
-                            ))
-                          }
-                        </FieldArray>
-                      </CommonFormSection>
-                    </Col>
-                    <Col xs={24}>
-                      <CommonFormSection title="product">
-                        <FieldArray name="layoutJSON.product">
-                          {({ push, remove }) =>
-                            values?.layoutJSON?.product?.map((_, index) => (
-                              <Row key={index} gutter={[10, 10]} align="bottom" justify="start">
-                                <CommonValidationSelect name={`layoutJSON.product.${index}.componentId`} label="component" options={THEME_SUPPORTED_PAGE_OPTIONS} col={{ xs: 24, md: 8, xl: 8 }} />
-                                <CommonValidationTextField type="number" name={`layoutJSON.product.${index}.order`} label="order" col={{ xs: 24, md: 7, xl: 7, xxl: 8 }} />
-                                <CommonValidationTextField type="text" name={`layoutJSON.product.${index}.config`} label="config" col={{ xs: 13, sm: 18, md: 5 }} />
-                                {(values?.layoutJSON?.product?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
-                                <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ componentId: "", order: "", config: "" })} />
-                              </Row>
-                            ))
-                          }
-                        </FieldArray>
-                      </CommonFormSection>
+                              {index < (values?.layoutJSON?.length || 0) - 1 && <Divider className="my-3!" />}
+                            </div>
+                          ))
+                        }
+                      </FieldArray>
                     </Col>
                   </CommonFormSection>
                 )}
-                {type === "media" && (
-                  <CommonFormSection title="Media" row={{ gutter: [10, 10] }}>
-                    <CommonFormImageBox name="previewImage" label="Preview Image" type="image" col={{ flex: "auto" }} />
-                    <CommonValidationTextField name="demoUrl" label="Demo URL" placeholder="Enter demo URL" col={{ xs: 24, md: 12 }} />
+                {type === "draftLayoutJSON" && (
+                  <CommonFormSection title="Draft Layout" row={{ gutter: [10, 10] }}>
+                    <Col xs={24}>
+                      <FieldArray name="draftLayoutJSON">
+                        {({ push, remove }) =>
+                          values?.draftLayoutJSON?.map((_, index) => (
+                            <div key={index}>
+                              <Row gutter={[10, 10]} align="bottom" justify="start">
+                                <CommonValidationTextField name={`draftLayoutJSON.${index}.page`} label="Page" placeholder="e.g. home" col={{ flex: "auto" }} />
+                                {(values?.draftLayoutJSON?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
+                                <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ page: "", sections: [{ componentId: "", order: index + 2, config: [{ key: "", value: "", type: "", label: "", group: "" }] }] })} />
+                                <Col xs={24}>
+                                  <CommonFormSection title="Sections">
+                                    <FieldArray name={`draftLayoutJSON.${index}.sections`}>
+                                      {({ push, remove }) =>
+                                        values?.draftLayoutJSON?.[index]?.sections?.map((_, idx) => (
+                                          <div key={idx}>
+                                            <Row gutter={[10, 10]} align="bottom" justify="start">
+                                              <CommonValidationTextField name={`draftLayoutJSON.${index}.sections.${idx}.componentId`} label="Section ID" placeholder="e.g. section-1" col={{ flex: "auto" }} />
+                                              <CommonValidationTextField name={`draftLayoutJSON.${index}.sections.${idx}.order`} label="Order" type="number" placeholder="e.g. 1" col={{ xs: 13, sm: 18, md: 8 }} />
+                                              {(values?.draftLayoutJSON?.[index]?.sections?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(idx)} />}
+                                              <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ componentId: "", order: 1, config: [{ key: "", value: "", type: "", label: "", group: "" }] })} />
+                                              <Col xs={24}>
+                                                <CommonFormSection title="Config">
+                                                  <FieldArray name={`draftLayoutJSON.${index}.sections.${idx}.config`}>
+                                                    {({ push, remove }) =>
+                                                      values?.draftLayoutJSON?.[index]?.sections?.[idx]?.config?.map((_, id) => (
+                                                        <div key={id}>
+                                                          <Row gutter={[10, 10]} align="bottom" justify="start">
+                                                            <CommonValidationTextField name={`draftLayoutJSON.${index}.sections.${idx}.config.${id}.key`} label="Key" placeholder="e.g. title" col={{ xs: 24, md: 8 }} />
+                                                            <CommonValidationTextField name={`draftLayoutJSON.${index}.sections.${idx}.config.${id}.value`} label="Value" placeholder="e.g. Welcome to our Store" isColorPicker={THEME_SETTING_TYPE.COLOR === values?.draftLayoutJSON?.[index].sections?.[idx].config?.[id].type} col={{ xs: 24, md: 8 }} />
+                                                            <CommonValidationSelect name={`draftLayoutJSON.${index}.sections.${idx}.config.${id}.type`} label="Type" placeholder="e.g. text, background, color" options={THEME_SETTING_TYPE_OPTIONS} col={{ xs: 24, md: 8 }} />
+                                                            <CommonValidationTextField name={`draftLayoutJSON.${index}.sections.${idx}.config.${id}.label`} label="Label" placeholder="e.g. Hero Section Title" col={{ xs: 24, md: 12 }} />
+                                                            <CommonValidationSelect name={`draftLayoutJSON.${index}.sections.${idx}.config.${id}.group`} label="Group" placeholder="e.g. General" options={THEME_SETTING_GROUP_OPTIONS} col={{ flex: "auto" }} />
+                                                            {(values?.draftLayoutJSON?.[index]?.sections?.[idx]?.config?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(id)} />}
+                                                            <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ key: "", value: "", type: "", label: "", group: "" })} />
+                                                          </Row>
+                                                          {id < (values?.draftLayoutJSON?.[index]?.sections?.[idx]?.config?.length || 0) - 1 && <Divider className="my-3!" />}
+                                                        </div>
+                                                      ))
+                                                    }
+                                                  </FieldArray>
+                                                </CommonFormSection>
+                                              </Col>
+                                            </Row>
+                                            {idx < (values?.draftLayoutJSON?.[index]?.sections?.length || 0) - 1 && <Divider className="my-3!" />}
+                                          </div>
+                                        ))
+                                      }
+                                    </FieldArray>
+                                  </CommonFormSection>
+                                </Col>
+                              </Row>
+                              {index < (values?.draftLayoutJSON?.length || 0) - 1 && <Divider className="my-3!" />}
+                            </div>
+                          ))
+                        }
+                      </FieldArray>
+                    </Col>
+                  </CommonFormSection>
+                )}
+                {type === "componentSchema" && (
+                  <CommonFormSection title="component Schema" row={{ gutter: [10, 10] }}>
+                    <Col xs={24}>
+                      <FieldArray name="componentSchema">
+                        {({ push, remove }) =>
+                          values?.componentSchema?.map((_, index) => (
+                            <div key={index}>
+                              <Row key={index} gutter={[10, 10]} align="bottom" justify="start">
+                                <CommonValidationTextField name={`componentSchema.${index}.key`} label="Key" placeholder="Enter key" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationTextField name={`componentSchema.${index}.label`} label="Label" placeholder="Enter label" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationTextField name={`componentSchema.${index}.placeholder`} label="Place holder" placeholder="Enter place holder" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationSelect name={`componentSchema.${index}.options`} label="options" placeholder="Enter options" options={[]} mode="tags" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationSelect name={`componentSchema.${index}.type`} label="Type" placeholder="Enter type" options={THEME_SETTING_TYPE_OPTIONS} col={{ xs: 24, md: 8 }} />
+                                <CommonValidationSelect name={`componentSchema.${index}.group`} label="Group" placeholder="Enter group" options={THEME_SETTING_GROUP_OPTIONS} col={{ flex: "auto" }} />
+                                {(values?.componentSchema?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
+                                <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ key: "", value: "", type: "", label: "", group: "" })} />
+                              </Row>
+                              {index < (values?.componentSchema?.length || 0) - 1 && <Divider className="my-3!" />}
+                            </div>
+                          ))
+                        }
+                      </FieldArray>
+                    </Col>
+                  </CommonFormSection>
+                )}
+                {type === "settingsSchema" && (
+                  <CommonFormSection title="settings Schema" row={{ gutter: [10, 10] }}>
+                    <Col xs={24}>
+                      <FieldArray name="settingsSchema">
+                        {({ push, remove }) =>
+                          values?.settingsSchema?.map((_, index) => (
+                            <div key={index}>
+                              <Row key={index} gutter={[10, 10]} align="bottom" justify="start">
+                                <CommonValidationTextField name={`settingsSchema.${index}.key`} label="Key" placeholder="Enter key" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationTextField name={`settingsSchema.${index}.label`} label="Label" placeholder="Enter label" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationTextField name={`settingsSchema.${index}.placeholder`} label="Place holder" placeholder="Enter place holder" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationSelect name={`settingsSchema.${index}.options`} label="options" placeholder="Enter options" options={[]} mode="tags" col={{ xs: 24, md: 8 }} />
+                                <CommonValidationSelect name={`settingsSchema.${index}.type`} label="Type" placeholder="Enter type" options={THEME_SETTING_TYPE_OPTIONS} col={{ xs: 24, md: 8 }} />
+                                <CommonValidationSelect name={`settingsSchema.${index}.group`} label="Group" placeholder="Enter group" options={THEME_SETTING_GROUP_OPTIONS} col={{ flex: "auto" }} />
+                                {(values?.settingsSchema?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
+                                <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ key: "", value: "", type: "", label: "", group: "" })} />
+                              </Row>
+                              {index < (values?.settingsSchema?.length || 0) - 1 && <Divider className="my-3!" />}
+                            </div>
+                          ))
+                        }
+                      </FieldArray>
+                    </Col>
                   </CommonFormSection>
                 )}
                 {type === "features" && (
-                  <CommonFormSection title="Features" row={{ gutter: [10, 10] }}>
-                    <CommonValidationSwitch name="isGlobal" label="Global Theme" col={{ xs: 24, md: 8 }} />
-                    <CommonValidationSwitch name="isPremium" label="Premium" col={{ xs: 24, md: 8 }} />
-                    <CommonValidationSwitch name="isActive" label="Active" col={{ xs: 24, md: 8 }} />
-                    <CommonValidationSwitch name="isResponsive" label="Responsive" col={{ xs: 24, md: 8 }} />
-                    <CommonValidationSwitch name="seoFriendly" label="SEO Friendly" col={{ xs: 24, md: 8 }} />
-                    <CommonValidationSwitch name="lazyLoadEnabled" label="Lazy Load Enabled" col={{ xs: 24, md: 8 }} />
-                  </CommonFormSection>
+                  <>
+                    <CommonFormSection title="Media" row={{ gutter: [10, 10] }}>
+                      <CommonFormImageBox name="previewImage" label="Preview Image" type="image" col={{ flex: "auto" }} />
+                      <CommonValidationTextField name="demoUrl" label="Demo URL" placeholder="Enter demo URL" col={{ xs: 24, md: 12 }} />
+                    </CommonFormSection>
+                    <CommonFormSection title="Features" row={{ gutter: [10, 10] }}>
+                      <CommonValidationSwitch name="isGlobal" label="Global Theme" col={{ xs: 24, md: 8 }} />
+                      <CommonValidationSwitch name="isPremium" label="Premium" col={{ xs: 24, md: 8 }} />
+                      <CommonValidationSwitch name="isActive" label="Active" col={{ xs: 24, md: 8 }} />
+                      <CommonValidationSwitch name="isResponsive" label="Responsive" col={{ xs: 24, md: 8 }} />
+                      <CommonValidationSwitch name="seoFriendly" label="SEO Friendly" col={{ xs: 24, md: 8 }} />
+                      <CommonValidationSwitch name="lazyLoadEnabled" label="Lazy Load Enabled" col={{ xs: 24, md: 8 }} />
+                    </CommonFormSection>
+                  </>
                 )}
                 <CommonBottomActionBar save isLoading={isAddLoading || isEditLoading} />
               </Form>

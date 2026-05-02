@@ -57,6 +57,12 @@ export const PlanSchema = Yup.object({
   isActive: Validation("boolean", "Status"),
 });
 
+/* ========================== Theme ========================== */
+export const ThemeSchema = Yup.object({
+  name: Validation("string", "Theme Name"),
+  slug: Validation("string", "Slug", { extraRules: (s) => s.matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug can only contain lowercase letters, numbers, and hyphens") }),
+});
+
 /* ========================== Store ========================== */
 export const StoreSchema = Yup.object({
   name: Validation("string", "Store Name"),
@@ -127,14 +133,16 @@ export const PaymentSettingSchema = Yup.object({
 export const ShippingSettingSchema = Yup.object({
   zoneName: Validation("string", "Zone Name", { required: true }),
   countries: Validation("array", "Countries", { required: false }),
-  rates: Yup.array().of(
-    Yup.object({
-      name: Validation("string", "Rate Name", { required: true }),
-      price: Validation("number", "Price", { required: true, extraRules: (s) => s.min(0, "Price cannot be negative") }),
-      minOrderValue: Validation("number", "Min Order Value", { required: false, extraRules: (s) => s.min(0, "Cannot be negative") }),
-      maxOrderValue: Validation("number", "Max Order Value", { required: false, extraRules: (s) => s.min(0, "Cannot be negative") }),
-    })
-  ).min(1, "At least one rate is required"),
+  rates: Yup.array()
+    .of(
+      Yup.object({
+        name: Validation("string", "Rate Name", { required: true }),
+        price: Validation("number", "Price", { required: true, extraRules: (s) => s.min(0, "Price cannot be negative") }),
+        minOrderValue: Validation("number", "Min Order Value", { required: false, extraRules: (s) => s.min(0, "Cannot be negative") }),
+        maxOrderValue: Validation("number", "Max Order Value", { required: false, extraRules: (s) => s.min(0, "Cannot be negative") }),
+      }),
+    )
+    .min(1, "At least one rate is required"),
   isActive: Validation("boolean", "Status", { required: false }),
 });
 
@@ -226,16 +234,20 @@ export const VisualSettingSchema = Yup.object({
 
 export const ThemeSettingSchema = Yup.object({
   themeId: Validation("string", "Theme", { required: true }),
-  customStyles: Yup.array().of(
-    Yup.object({
-      key: Yup.string().required(),
-      value: Yup.mixed().required(),
-    })
-  ).optional(),
-  customSettings: Yup.array().of(
-    Yup.object({
-      key: Yup.string().required(),
-      value: Yup.mixed().required(),
-    })
-  ).optional(),
+  customStyles: Yup.array()
+    .of(
+      Yup.object({
+        key: Yup.string().required(),
+        value: Yup.mixed().required(),
+      }),
+    )
+    .optional(),
+  customSettings: Yup.array()
+    .of(
+      Yup.object({
+        key: Yup.string().required(),
+        value: Yup.mixed().required(),
+      }),
+    )
+    .optional(),
 });

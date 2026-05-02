@@ -92,6 +92,19 @@ export const THEME_SETTING_TYPE = {
   JSON: "json",
 } as const;
 
+export const THEME_SETTING_TYPE_OPTIONS = [
+  { label: "Text", value: THEME_SETTING_TYPE.TEXT },
+  { label: "Number", value: THEME_SETTING_TYPE.NUMBER },
+  { label: "Boolean", value: THEME_SETTING_TYPE.BOOLEAN },
+  { label: "Color", value: THEME_SETTING_TYPE.COLOR },
+  { label: "Image", value: THEME_SETTING_TYPE.IMAGE },
+  { label: "Select", value: THEME_SETTING_TYPE.SELECT },
+  { label: "Slider", value: THEME_SETTING_TYPE.SLIDER },
+  { label: "Font", value: THEME_SETTING_TYPE.FONT },
+  { label: "Textarea", value: THEME_SETTING_TYPE.TEXTAREA },
+  { label: "Json", value: THEME_SETTING_TYPE.JSON },
+];
+
 export const THEME_SETTING_GROUP = {
   GENERAL: "general",
   COLORS: "colors",
@@ -101,6 +114,16 @@ export const THEME_SETTING_GROUP = {
   FOOTER: "footer",
   ADVANCED: "advanced",
 } as const;
+
+export const THEME_SETTING_GROUP_OPTIONS = [
+  { label: "General", value: THEME_SETTING_GROUP.GENERAL },
+  { label: "Colors", value: THEME_SETTING_GROUP.COLORS },
+  { label: "Typography", value: THEME_SETTING_GROUP.TYPOGRAPHY },
+  { label: "Layout", value: THEME_SETTING_GROUP.LAYOUT },
+  { label: "Header", value: THEME_SETTING_GROUP.HEADER },
+  { label: "Footer", value: THEME_SETTING_GROUP.FOOTER },
+  { label: "Advanced", value: THEME_SETTING_GROUP.ADVANCED },
+];
 
 export const THEME_TYPE = {
   FREE: "free",
@@ -132,4 +155,18 @@ export const THEME_SUPPORTED_PAGE_OPTIONS = [
   { label: "Checkout", value: THEME_SUPPORTED_PAGE.CHECKOUT },
   { label: "Custom", value: THEME_SUPPORTED_PAGE.CUSTOM },
   { label: "Collection", value: THEME_SUPPORTED_PAGE.COLLECTION },
+];
+
+export const THEME_EDIT_MODE_OPTIONS = [
+  { label: "Basic", value: "basic" },
+  { label: "Supported", value: "supported" },
+  { label: "Versioning", value: "versioning" },
+  { label: "Breakpoints", value: "breakpoints" },
+  { label: "Styles", value: "styles" },
+  { label: "Default Config", value: "defaultConfig" },
+  { label: "Layout", value: "layout" },
+  { label: "Draft Layout", value: "draftLayoutJSON" },
+  { label: "Component Schema", value: "componentSchema" },
+  { label: "Settings Schema", value: "settingsSchema" },
+  { label: "Features", value: "features" },
 ];

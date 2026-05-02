@@ -16,13 +16,11 @@ export interface ThemeSchemaItem {
   key: string;
   type: ThemeSettingType | string;
   label?: string;
-  default?: any;
   options?: any[];
   group?: ThemeSettingGroup | string;
   placeholder?: string;
   validation?: any;
 }
-
 
 export interface PageLayoutItem {
   componentId: string;
@@ -63,7 +61,7 @@ export interface ThemeFormValues {
   draftLayoutJSON?: ThemeLayoutJSON;
   defaultConfig?: ThemeSettingItem[];
   breakpoints?: ThemeSettingItem[];
-  
+
   componentSchema?: ThemeSchemaItem[];
   settingsSchema?: ThemeSchemaItem[];
 
@@ -71,11 +69,7 @@ export interface ThemeFormValues {
   supportedPages?: string[];
 
   version?: string;
-<<<<<<< HEAD
-  changelog?: { version?: string; changes?: string; date?: Date }[];
-=======
   changelog?: Partial<Record<"version" | "changes" | "date", string>>[];
->>>>>>> f07f116f5d6e68e230d840a6222ff7cc34476a6c
   authorName?: string;
 }
 
@@ -95,4 +89,3 @@ export interface ThemeApiResponse extends MessageStatus {
 export interface ThemeByIdApiResponse extends MessageStatus {
   data: ThemeBase;
 }
-
