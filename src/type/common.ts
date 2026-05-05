@@ -102,7 +102,6 @@ export interface CommonValidationDatePickerProps {
   rangePickerProps?: RangePickerProps;
 }
 
-
 /* ========================== Form ========================== */
 
 export interface CommonFormSectionProps {
@@ -180,6 +179,14 @@ export type FieldTypeMap = {
   number: Yup.NumberSchema<number | null | undefined>;
   boolean: Yup.BooleanSchema<boolean | null | undefined>;
   array: Yup.ArraySchema<unknown[], Yup.AnyObject>;
+};
+
+export type FieldConfig = {
+  name: string;
+  type: "string" | "array";
+  label?: string;
+  required?: boolean;
+  extraRules?: (schema: any) => any;
 };
 
 export interface FieldOptions<T> {

@@ -73,4 +73,10 @@ export const KEYS = {
     EDIT: "edit-component",
     DELETE: "delete-component",
   },
+  CATEGORY: {
+    BASE: "category",
+    ADD: "add-category",
+    EDIT: "edit-category",
+    DELETE: "delete-category",
+  },
 };

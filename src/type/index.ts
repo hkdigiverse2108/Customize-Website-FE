@@ -6,3 +6,4 @@ export * from "./plan";
 export * from "./store";
 export * from "./theme";
 export * from "./component";
+export * from "./category";

@@ -9,7 +9,7 @@ export const CommonValidationSelect: FC<CommonValidationSelectProps> = ({ name, 
 
   // ✅ Normalize value
   const value = mode === "multiple" || mode === "tags" ? (Array.isArray(field.value) ? field.value : []) : field.value || undefined;
-  const filteredOptions = options.filter((opt) => (mode === "multiple" || mode === "tags" ? !value.includes(opt.value) : opt.value !== value));
+  const filteredOptions = options?.filter((opt) => (mode === "multiple" || mode === "tags" ? !value.includes(opt.value) : options));
 
   const handleChange = (val: any) => {
     if (mode === "multiple" || mode === "tags") {
@@ -17,8 +17,8 @@ export const CommonValidationSelect: FC<CommonValidationSelectProps> = ({ name, 
       if (syncFieldName) setFieldValue(syncFieldName, val || []);
       onChange?.(val || []);
     } else {
-      helpers.setValue(val || "");
-      if (syncFieldName) setFieldValue(syncFieldName, val || "");
+      helpers.setValue(val || null);
+      if (syncFieldName) setFieldValue(syncFieldName, val || null);
       onChange?.(val ? [val] : []);
     }
   };

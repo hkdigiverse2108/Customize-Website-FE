@@ -170,3 +170,40 @@ export const THEME_EDIT_MODE_OPTIONS = [
   { label: "Settings Schema", value: "settingsSchema" },
   { label: "Features", value: "features" },
 ];
+
+export const COMPONENT_EDIT_MODE_OPTIONS = [
+  { label: "Basic", value: "basic" },
+  { label: "Config JSON", value: "configJSON" },
+  { label: "Default Config", value: "defaultConfig" },
+  { label: "Config Schema", value: "configSchema" },
+  { label: "Supported", value: "supported" },
+  { label: "Features", value: "features" },
+];
+
+export const COMPONENT_TYPE = {
+  HEADER: "header",
+  FOOTER: "footer",
+  BANNER: "banner",
+  PRODUCT_GRID: "productGrid",
+  CUSTOM: "custom",
+} as const;
+
+export const COMPONENT_TYPE_OPTIONS = [
+  { label: "Header", value: COMPONENT_TYPE.HEADER },
+  { label: "Footer", value: COMPONENT_TYPE.FOOTER },
+  { label: "Banner", value: COMPONENT_TYPE.BANNER },
+  { label: "Product Grid", value: COMPONENT_TYPE.PRODUCT_GRID },
+  { label: "Custom", value: COMPONENT_TYPE.CUSTOM },
+];
+
+export const COMPONENT_CATEGORY = {
+  LAYOUT: "layout",
+  MARKETING: "marketing",
+  ECOMMERCE: "ecommerce",
+} as const;
+
+export const COMPONENT_CATEGORY_OPTIONS = [
+  { label: "Layout", value: COMPONENT_CATEGORY.LAYOUT },
+  { label: "Marketing", value: COMPONENT_CATEGORY.MARKETING },
+  { label: "Ecommerce", value: COMPONENT_CATEGORY.ECOMMERCE },
+];

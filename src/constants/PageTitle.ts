@@ -47,4 +47,9 @@ export const PAGE_TITLE = {
     ADD: "Add Component",
     EDIT: "Edit Component",
   },
+  CATEGORY: {
+    BASE: "Category",
+    ADD: "Add Category",
+    EDIT: "Edit Category",
+  },
 } as const;

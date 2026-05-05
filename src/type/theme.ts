@@ -1,6 +1,12 @@
 import { THEME_SETTING_GROUP, THEME_SETTING_TYPE } from "@/data/enm";
 import { CommonDataType, MessageStatus, PageStatus } from "./common";
 
+export type ThemeSectionProps = {
+  title: string;
+  name: "breakpoints" | "styles" | "defaultConfig" | "layoutJSON" | "draftLayoutJSON" | "componentSchema" | "settingsSchema" | "configJSON" | "configSchema";
+  values: any;
+};
+
 export type ThemeSettingType = (typeof THEME_SETTING_TYPE)[keyof typeof THEME_SETTING_TYPE];
 export type ThemeSettingGroup = (typeof THEME_SETTING_GROUP)[keyof typeof THEME_SETTING_GROUP];
 

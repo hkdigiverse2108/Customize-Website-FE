@@ -138,9 +138,9 @@ input:-webkit-autofill {
   @apply bg-brand-50 text-brand-700!;
 }
 
-.ant-select .ant-select-content {
+/* .ant-select .ant-select-content {
   @apply capitalize!;
-}
+} */
 
 .ant-table-title {
   @apply p-0! pb-2!;

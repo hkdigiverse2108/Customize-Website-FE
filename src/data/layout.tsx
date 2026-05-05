@@ -1,22 +1,23 @@
 import { PAGE_TITLE, ROUTES } from "@/constants";
 import { NavItem } from "@/type";
-import { FaWindowRestore } from "react-icons/fa";
-import { GrPlan } from "react-icons/gr";
-import { HiOutlineColorSwatch } from "react-icons/hi";
-import { LuComponent } from "react-icons/lu";
-import { RxDashboard } from "react-icons/rx";
-import { IoSettingsOutline, IoStorefrontOutline, IoColorPaletteOutline } from "react-icons/io5";
-import { MdOutlineLanguage, MdOutlinePayment, MdOutlineLocalShipping, MdOutlineEmail, MdOutlineManageSearch, MdOutlineRemoveRedEye } from "react-icons/md";
-import { HiOutlineReceiptTax } from "react-icons/hi";
-import { FiBell, FiMapPin } from "react-icons/fi";
+import { BiCategory } from "react-icons/bi";
 import { BsCartCheck } from "react-icons/bs";
+import { FiBell, FiMapPin } from "react-icons/fi";
+import { GrPlan } from "react-icons/gr";
+import { HiOutlineColorSwatch, HiOutlineReceiptTax } from "react-icons/hi";
+import { IoColorPaletteOutline, IoSettingsOutline, IoStorefrontOutline } from "react-icons/io5";
+import { LiaStoreSolid } from "react-icons/lia";
+import { LuComponent } from "react-icons/lu";
+import { MdOutlineEmail, MdOutlineLanguage, MdOutlineLocalShipping, MdOutlineManageSearch, MdOutlinePayment, MdOutlineRemoveRedEye } from "react-icons/md";
+import { RxDashboard } from "react-icons/rx";
 
 export const AdminNavItems: NavItem[] = [
   { icon: <RxDashboard />, name: PAGE_TITLE.DASHBOARD, path: ROUTES.ADMIN.DASHBOARD },
   { icon: <GrPlan />, name: PAGE_TITLE.PLAN.BASE, path: ROUTES.ADMIN.PLAN.BASE },
-  { icon: <FaWindowRestore />, name: PAGE_TITLE.STORES.BASE, path: ROUTES.ADMIN.STORES.BASE },
+  { icon: <LiaStoreSolid />, name: PAGE_TITLE.STORES.BASE, path: ROUTES.ADMIN.STORES.BASE },
   { icon: <HiOutlineColorSwatch />, name: PAGE_TITLE.THEME.BASE, path: ROUTES.ADMIN.THEME.BASE },
   { icon: <LuComponent />, name: PAGE_TITLE.COMPONENT.BASE, path: ROUTES.ADMIN.COMPONENT.BASE },
+  { icon: <BiCategory />, name: PAGE_TITLE.CATEGORY.BASE, path: ROUTES.ADMIN.CATEGORY.BASE },
   // {
   //   name: PAGE_TITLE.PLAN.BASE,
   //   icon: <FaWindowRestore />,

@@ -1,4 +1,5 @@
 import { CommonDataType, MessageStatus, PageStatus } from "./common";
+import { ThemeSchemaItem, ThemeSettingItem } from "./theme";
 
 export interface ComponentFormValues {
   storeId?: string;
@@ -9,9 +10,9 @@ export interface ComponentFormValues {
   label?: string;
   icon?: string;
   previewImage?: string;
-  configJSON?: string;
-  defaultConfig?: string;
-  configSchema?: string;
+  configJSON?: ThemeSettingItem[];
+  defaultConfig?: ThemeSettingItem[];
+  configSchema?: ThemeSchemaItem[];
   isReusable?: boolean;
   isGlobal?: boolean;
   supportedPages?: string[];

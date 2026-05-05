@@ -67,3 +67,12 @@ export const FormatCountryCode = (code?: string) => {
   if (!code) return "";
   return code.startsWith("+") ? code : `+${code}`;
 };
+
+export const MapConfig = (data?: any[], defaultObj?: any) => {
+  return data?.length
+    ? data.map((item) => ({
+        ...defaultObj,
+        ...item,
+      }))
+    : [defaultObj];
+};

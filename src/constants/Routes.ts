@@ -48,5 +48,10 @@ export const ROUTES = {
       ADD: "/admin/component/add",
       EDIT: "/admin/component/edit",
     },
+    CATEGORY: {
+      BASE: "/admin/category",
+      ADD: "/admin/category/add",
+      EDIT: "/admin/category/edit",
+    },
   },
 } as const;

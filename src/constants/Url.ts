@@ -44,4 +44,7 @@ export const URL_KEYS = {
   COMPONENT: {
     BASE: "/component",
   },
+  CATEGORY: {
+    BASE: "/category",
+  },
 } as const;

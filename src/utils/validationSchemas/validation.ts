@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import type { FieldOptions, FieldSchemaArgs, FieldTypeMap, FieldType, RequiredWhenOptions } from "@/type";
+import type { FieldOptions, FieldSchemaArgs, FieldTypeMap, FieldType, RequiredWhenOptions, FieldConfig } from "@/type";
 
 export function Validation<K extends keyof FieldTypeMap>(...args: FieldSchemaArgs<K>): FieldTypeMap[K] {
   let type: K;
@@ -87,4 +87,56 @@ export const RequiredWhen = <T extends Yup.AnySchema = Yup.AnySchema>(dependentF
     then: (s: Yup.AnySchema) => s.required(`${label} is required`),
     otherwise: (s: Yup.AnySchema) => s.notRequired(),
   });
+};
+
+export const CreateConditionalSchema = (fields: FieldConfig[]) => {
+  const shape: Record<string, any> = {};
+
+  fields.forEach((f) => {
+    let baseSchema = f.type === "array" ? Yup.array() : Yup.string();
+
+    // 🔥 apply extra rules (regex etc.)
+    if (f.extraRules) {
+      baseSchema = f.extraRules(baseSchema);
+    }
+
+    // 🔥 apply required (independent)
+    if (f.required) {
+      baseSchema = baseSchema.required(`${f.label || f.name} is required`);
+    }
+
+    shape[f.name] = baseSchema;
+  });
+
+  return Yup.object()
+    .shape(shape)
+    .test("all-or-none", "", function (value) {
+      if (!value) return true;
+
+      const keys = fields.map((f) => f.name) as (keyof typeof value)[];
+
+      const anyFilled = keys.some((k) => {
+        const v = value[k];
+        return Array.isArray(v) ? v.length > 0 : v !== "" && v !== null && v !== undefined;
+      });
+
+      if (!anyFilled) return true;
+
+      for (const field of fields) {
+        const k = field.name as keyof typeof value;
+        const v = value[k];
+
+        const isEmpty = Array.isArray(v) ? v.length === 0 : v === "" || v === null || v === undefined;
+
+        // 🔥 Skip required:false fields if needed
+        if (isEmpty) {
+          return this.createError({
+            path: `${this.path}.${String(k)}`,
+            message: `${field.label || field.name} is required`,
+          });
+        }
+      }
+
+      return true;
+    });
 };

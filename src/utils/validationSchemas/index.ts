@@ -1,6 +1,6 @@
 import { KYC_DOCUMENT_TYPE } from "@/data";
 import * as Yup from "yup";
-import { RequiredWhen, Validation } from "./validation";
+import { CreateConditionalSchema, RequiredWhen, Validation } from "./validation";
 
 /* ========================== Reusable helpers ========================== */
 export const PhoneValidation = (label = "Phone No", options?: { requiredCountryCode?: boolean; requiredNumber?: boolean }) =>
@@ -60,6 +60,48 @@ export const PlanSchema = Yup.object({
 /* ========================== Theme ========================== */
 export const ThemeSchema = Yup.object({
   name: Validation("string", "Theme Name"),
+  slug: Validation("string", "Slug", { extraRules: (s) => s.matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug can only contain lowercase letters, numbers, and hyphens") }),
+});
+
+/* ========================== Component ========================== */
+
+export const ComponentSchema = Yup.object({
+  name: Validation("string", "Component Name"),
+  type: Validation("string", "Component Type"),
+  configJSON: Yup.array().of(
+    CreateConditionalSchema([
+      { name: "key", type: "string" },
+      { name: "value", type: "string" },
+      { name: "type", type: "string" },
+      { name: "label", type: "string" },
+      { name: "group", type: "string" },
+    ]),
+  ),
+  defaultConfig: Yup.array().of(
+    CreateConditionalSchema([
+      { name: "key", type: "string" },
+      { name: "value", type: "string" },
+      { name: "type", type: "string" },
+      { name: "label", type: "string" },
+      { name: "group", type: "string" },
+    ]),
+  ),
+  configSchema: Yup.array().of(
+    CreateConditionalSchema([
+      { name: "key", type: "string" },
+      { name: "label", type: "string" },
+      { name: "placeholder", type: "string" },
+      { name: "options", type: "array" },
+      { name: "type", type: "string" },
+      { name: "group", type: "string" },
+    ]),
+  ),
+});
+
+/* ========================== Category ========================== */
+
+export const CategorySchema = Yup.object({
+  name: Validation("string", "Category Name"),
   slug: Validation("string", "Slug", { extraRules: (s) => s.matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug can only contain lowercase letters, numbers, and hyphens") }),
 });
 
