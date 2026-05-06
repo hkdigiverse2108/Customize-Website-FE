@@ -79,4 +79,16 @@ export const KEYS = {
     EDIT: "edit-category",
     DELETE: "delete-category",
   },
+  PAGE: {
+    BASE: "page",
+    ADD: "add-page",
+    EDIT: "edit-page",
+    DELETE: "delete-page",
+  },
+  COLLECTION: {
+    BASE: "collection",
+    ADD: "add-collection",
+    EDIT: "edit-collection",
+    DELETE: "delete-collection",
+  },
 };

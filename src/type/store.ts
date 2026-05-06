@@ -273,4 +273,3 @@ export interface ThemeSettingFormValues {
 export interface ThemeSettingResponse extends CommonDataType, ThemeSettingFormValues {
   storeId: string;
 }
-

@@ -54,6 +54,7 @@ export interface CommonValidationSwitchProps {
   disabled?: boolean;
   required?: boolean;
   syncFieldName?: string;
+  syncOppositeFieldName?: string;
   onChange?: (checked: boolean) => void;
   col?: ColProps;
   loading?: boolean;
@@ -219,7 +220,7 @@ export interface CommonTableProps<T> extends TableProps<T> {
   onActive?: { value: boolean; onChange: (value: boolean) => void };
 }
 
-export type ColumnFormatType = "default" | "phone" | "date" | "datetime" | "format" | "status" | "createdBy";
+export type ColumnFormatType = "default" | "phone" | "date" | "datetime" | "format" | "status" | "createdBy" | "boolean";
 
 export interface CommonObjectNameColumnOptions {
   title?: string;

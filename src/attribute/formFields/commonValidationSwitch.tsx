@@ -3,7 +3,7 @@ import { Col, Switch } from "antd";
 import { useField, useFormikContext } from "formik";
 import { FC } from "react";
 
-export const CommonValidationSwitch: FC<CommonValidationSwitchProps> = ({ name, label, disabled, required, syncFieldName, onChange, col, loading }) => {
+export const CommonValidationSwitch: FC<CommonValidationSwitchProps> = ({ name, label, disabled, required, syncFieldName, syncOppositeFieldName, onChange, col, loading }) => {
   const [field, meta, helpers] = useField<boolean>({ name });
   const { setFieldValue } = useFormikContext();
 
@@ -13,11 +13,24 @@ export const CommonValidationSwitch: FC<CommonValidationSwitchProps> = ({ name, 
   const handleChange = (val: boolean) => {
     helpers.setValue(val);
     if (syncFieldName) setFieldValue(syncFieldName, val);
+    if (syncOppositeFieldName) setFieldValue(syncOppositeFieldName, !val);
     onChange?.(val);
+  };
+  const handleWrapperClick = () => {
+    if (disabled || loading) return;
+
+    const newValue = !checked;
+
+    helpers.setValue(newValue);
+
+    if (syncFieldName) setFieldValue(syncFieldName, newValue);
+    if (syncOppositeFieldName) setFieldValue(syncOppositeFieldName, !newValue);
+
+    onChange?.(newValue);
   };
 
   const SwitchComponent = (
-    <div className="flex items-center justify-between px-3 py-2 rounded-lg border border-black/20 hover:border-brand-500 transition-all duration-200">
+    <div onClick={handleWrapperClick} className="flex cursor-pointer items-center justify-between px-3 py-2 rounded-lg border border-black/20 hover:border-brand-500 transition-all duration-200">
       {label && (
         <label className="block text-sm font-semibold text-gray-700 capitalize cursor-pointer" htmlFor={name}>
           {label} {required && <span className="text-red-500">*</span>}

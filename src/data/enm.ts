@@ -207,3 +207,115 @@ export const COMPONENT_CATEGORY_OPTIONS = [
   { label: "Marketing", value: COMPONENT_CATEGORY.MARKETING },
   { label: "Ecommerce", value: COMPONENT_CATEGORY.ECOMMERCE },
 ];
+
+export const PAGE_TYPE = {
+  HOME: "home",
+  PRODUCT: "product",
+  CATEGORY: "category",
+  CUSTOM: "custom",
+} as const;
+
+export const PAGE_TYPE_OPTIONS = [
+  { label: "Home", value: PAGE_TYPE.HOME },
+  { label: "Product", value: PAGE_TYPE.PRODUCT },
+  { label: "Category", value: PAGE_TYPE.CATEGORY },
+  { label: "Custom", value: PAGE_TYPE.CUSTOM },
+];
+
+export const PAGE_VISIBILITY = {
+  PUBLIC: "public",
+  PRIVATE: "private",
+  PASSWORD: "password",
+} as const;
+
+export const PAGE_VISIBILITY_OPTIONS = [
+  { label: "Public", value: PAGE_VISIBILITY.PUBLIC },
+  { label: "Private", value: PAGE_VISIBILITY.PRIVATE },
+  { label: "Password", value: PAGE_VISIBILITY.PASSWORD },
+];
+
+export const COLLECTION_TYPE = {
+  MANUAL: "manual",
+  SMART: "smart",
+} as const;
+
+export const COLLECTION_TYPE_OPTIONS = [
+  { label: "Manual", value: COLLECTION_TYPE.MANUAL },
+  { label: "Smart", value: COLLECTION_TYPE.SMART },
+];
+
+export const COLLECTION_STATUS = {
+  DRAFT: "draft",
+  ACTIVE: "active",
+  ARCHIVED: "archived",
+} as const;
+
+export const COLLECTION_STATUS_OPTIONS = [
+  { label: "Draft", value: COLLECTION_STATUS.DRAFT },
+  { label: "Active", value: COLLECTION_STATUS.ACTIVE },
+  { label: "Archived", value: COLLECTION_STATUS.ARCHIVED },
+];
+
+export const COLLECTION_RULE_CONDITION = {
+  AND: "AND",
+  OR: "OR",
+} as const;
+
+export const COLLECTION_RULE_CONDITION_OPTIONS = [
+  { label: "And", value: COLLECTION_RULE_CONDITION.AND },
+  { label: "Or", value: COLLECTION_RULE_CONDITION.OR },
+];
+
+export const COLLECTION_SORT_ORDER = {
+  MANUAL: "manual",
+  BEST_SELLING: "best-selling",
+  PRICE_ASCENDING: "price-ascending",
+  PRICE_DESCENDING: "price-descending",
+  TITLE_ASCENDING: "title-ascending",
+  TITLE_DESCENDING: "title-descending",
+  CREATED_DESC: "created-desc",
+  CREATED_ASC: "created-asc",
+};
+
+export const COLLECTION_SORT_ORDER_OPTIONS = [
+  { label: "Manual", value: COLLECTION_SORT_ORDER.MANUAL },
+  { label: "Best Selling", value: COLLECTION_SORT_ORDER.BEST_SELLING },
+  { label: "Price Ascending", value: COLLECTION_SORT_ORDER.PRICE_ASCENDING },
+  { label: "Price Descending", value: COLLECTION_SORT_ORDER.PRICE_DESCENDING },
+  { label: "Title Ascending", value: COLLECTION_SORT_ORDER.TITLE_ASCENDING },
+  { label: "Title Descending", value: COLLECTION_SORT_ORDER.TITLE_DESCENDING },
+  { label: "Created Desc", value: COLLECTION_SORT_ORDER.CREATED_DESC },
+  { label: "Created Asc", value: COLLECTION_SORT_ORDER.CREATED_ASC },
+];
+
+export const COLLECTION_RULE_FIELD = {
+  PRICE: "price",
+  TAG: "tag",
+  TITLE: "title",
+  VENDOR: "vendor",
+  PRODUCT_TYPE: "productType",
+};
+
+export const COLLECTION_RULE_FIELD_OPTIONS = [
+  { label: "Price", value: COLLECTION_RULE_FIELD.PRICE },
+  { label: "Tag", value: COLLECTION_RULE_FIELD.TAG },
+  { label: "Title", value: COLLECTION_RULE_FIELD.TITLE },
+  { label: "Vendor", value: COLLECTION_RULE_FIELD.VENDOR },
+  { label: "Product Type", value: COLLECTION_RULE_FIELD.PRODUCT_TYPE },
+];
+
+export const COLLECTION_OPERATOR = {
+  EQUALS: "equals",
+  NOT_EQUALS: "not_equals",
+  CONTAINS: "contains",
+  GREATER_THAN: "greater_than",
+  LESS_THAN: "less_than",
+} as const;
+
+export const COLLECTION_OPERATOR_OPTIONS = [
+  { label: "Equals", value: COLLECTION_OPERATOR.EQUALS },
+  { label: "Not Equals", value: COLLECTION_OPERATOR.NOT_EQUALS },
+  { label: "Contains", value: COLLECTION_OPERATOR.CONTAINS },
+  { label: "Greater Than", value: COLLECTION_OPERATOR.GREATER_THAN },
+  { label: "Less Than", value: COLLECTION_OPERATOR.LESS_THAN },
+];

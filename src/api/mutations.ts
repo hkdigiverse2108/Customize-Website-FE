@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload, AddStorePayload, EditStorePayload, UploadResponse, AddThemePayload, EditThemePayload, AddComponentPayload, EditComponentPayload, AddCategoryPayload, EditCategoryPayload } from "@/type";
+import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload, AddStorePayload, EditStorePayload, UploadResponse, AddThemePayload, EditThemePayload, AddComponentPayload, EditComponentPayload, AddCategoryPayload, EditCategoryPayload, AddPagePayload, EditPagePayload, AddCollectionPayload, EditCollectionPayload } from "@/type";
 import { Delete, Post, Put } from "./methods";
 import { useMutations } from "./reactQuery";
 
@@ -64,4 +64,14 @@ export const Mutations = {
   useAddCategory: () => useMutations<AddCategoryPayload, void>([KEYS.CATEGORY.ADD, KEYS.CATEGORY.BASE], (input) => Post(URL_KEYS.CATEGORY.BASE, input)),
   useEditCategory: () => useMutations<EditCategoryPayload, void>([KEYS.CATEGORY.EDIT, KEYS.CATEGORY.BASE], (input) => Put(URL_KEYS.CATEGORY.BASE, input)),
   useDeleteCategory: () => useMutations<string, void>([KEYS.CATEGORY.DELETE, KEYS.CATEGORY.BASE], (id) => Delete(`${URL_KEYS.CATEGORY.BASE}/${id}`)),
+
+  /* ========================== Page ========================== */
+  useAddPage: () => useMutations<AddPagePayload, void>([KEYS.PAGE.ADD, KEYS.PAGE.BASE], (input) => Post(URL_KEYS.PAGE.BASE, input)),
+  useEditPage: () => useMutations<EditPagePayload, void>([KEYS.PAGE.EDIT, KEYS.PAGE.BASE], (input) => Put(URL_KEYS.PAGE.BASE, input)),
+  useDeletePage: () => useMutations<string, void>([KEYS.PAGE.DELETE, KEYS.PAGE.BASE], (id) => Delete(`${URL_KEYS.PAGE.BASE}/${id}`)),
+
+  /* ========================== Collection ========================== */
+  useAddCollection: () => useMutations<AddCollectionPayload, void>([KEYS.COLLECTION.ADD, KEYS.COLLECTION.BASE], (input) => Post(URL_KEYS.COLLECTION.BASE, input)),
+  useEditCollection: () => useMutations<EditCollectionPayload, void>([KEYS.COLLECTION.EDIT, KEYS.COLLECTION.BASE], (input) => Put(URL_KEYS.COLLECTION.BASE, input)),
+  useDeleteCollection: () => useMutations<string, void>([KEYS.COLLECTION.DELETE, KEYS.COLLECTION.BASE], (id) => Delete(`${URL_KEYS.COLLECTION.BASE}/${id}`)),
 };

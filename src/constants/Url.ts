@@ -47,4 +47,10 @@ export const URL_KEYS = {
   CATEGORY: {
     BASE: "/category",
   },
+  PAGE: {
+    BASE: "/page",
+  },
+  COLLECTION: {
+    BASE: "/collection",
+  },
 } as const;

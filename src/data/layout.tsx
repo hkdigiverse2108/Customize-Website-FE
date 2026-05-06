@@ -1,6 +1,6 @@
 import { PAGE_TITLE, ROUTES } from "@/constants";
 import { NavItem } from "@/type";
-import { BiCategory } from "react-icons/bi";
+import { BiCategory, BiCollection } from "react-icons/bi";
 import { BsCartCheck } from "react-icons/bs";
 import { FiBell, FiMapPin } from "react-icons/fi";
 import { GrPlan } from "react-icons/gr";
@@ -9,6 +9,7 @@ import { IoColorPaletteOutline, IoSettingsOutline, IoStorefrontOutline } from "r
 import { LiaStoreSolid } from "react-icons/lia";
 import { LuComponent } from "react-icons/lu";
 import { MdOutlineEmail, MdOutlineLanguage, MdOutlineLocalShipping, MdOutlineManageSearch, MdOutlinePayment, MdOutlineRemoveRedEye } from "react-icons/md";
+import { RiPagesLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
 
 export const AdminNavItems: NavItem[] = [
@@ -18,6 +19,8 @@ export const AdminNavItems: NavItem[] = [
   { icon: <HiOutlineColorSwatch />, name: PAGE_TITLE.THEME.BASE, path: ROUTES.ADMIN.THEME.BASE },
   { icon: <LuComponent />, name: PAGE_TITLE.COMPONENT.BASE, path: ROUTES.ADMIN.COMPONENT.BASE },
   { icon: <BiCategory />, name: PAGE_TITLE.CATEGORY.BASE, path: ROUTES.ADMIN.CATEGORY.BASE },
+  { icon: <RiPagesLine />, name: PAGE_TITLE.PAGE.BASE, path: ROUTES.ADMIN.PAGE.BASE },
+  { icon: <BiCollection />, name: PAGE_TITLE.COLLECTION.BASE, path: ROUTES.ADMIN.COLLECTION.BASE },
   // {
   //   name: PAGE_TITLE.PLAN.BASE,
   //   icon: <FaWindowRestore />,

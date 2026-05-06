@@ -56,7 +56,6 @@ const AddEditCategoryPage = () => {
         <div className="text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.075em] text-brand-600">Admin {PAGE_TITLE.CATEGORY.BASE} editor</p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">{pageTitle}</h1>
-          <p className="mt-0 text-sm leading-6 text-slate-500">Manage store details, business information, domain settings, and customer-facing content from a single structured admin interface.</p>{" "}
         </div>
       </div>
       <CommonCard cardProps={{ title: `${PAGE_TITLE.CATEGORY.BASE} Details`, loading: isDataLoading, style: { borderRadius: 10, overflow: "hidden" } }}>

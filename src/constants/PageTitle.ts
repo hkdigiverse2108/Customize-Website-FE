@@ -52,4 +52,14 @@ export const PAGE_TITLE = {
     ADD: "Add Category",
     EDIT: "Edit Category",
   },
+  PAGE: {
+    BASE: "Page",
+    ADD: "Add Page",
+    EDIT: "Edit Page",
+  },
+  COLLECTION: {
+    BASE: "Collection",
+    ADD: "Add Collection",
+    EDIT: "Edit Collection",
+  },
 } as const;

@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { AppQueryOptions, CategoryApiResponse, CategoryByIdApiResponse, ComponentApiResponse, ComponentByIdApiResponse, Params, PlanApiResponse, PlanByIdApiResponse, StoreApiResponse, StoreByIdApiResponse, ThemeApiResponse, ThemeByIdApiResponse, UploadResponse } from "@/type";
+import { AppQueryOptions, CategoryApiResponse, CategoryByIdApiResponse, CollectionApiResponse, CollectionByIdApiResponse, ComponentApiResponse, ComponentByIdApiResponse, PageApiResponse, PageByIdApiResponse, Params, PlanApiResponse, PlanByIdApiResponse, StoreApiResponse, StoreByIdApiResponse, ThemeApiResponse, ThemeByIdApiResponse, UploadResponse } from "@/type";
 import { Get } from "./methods";
 import { useQueries } from "./reactQuery";
 
@@ -41,4 +41,12 @@ export const Queries = {
   /* ========================== Category ========================== */
   useGetCategory: (params?: Params, enabled?: boolean) => useQueries<CategoryApiResponse>([KEYS.CATEGORY.BASE, params], () => Get(URL_KEYS.CATEGORY.BASE, params), { enabled: enabled }),
   useGetCategoryById: (id?: string, enabled?: boolean) => useQueries<CategoryByIdApiResponse>([KEYS.CATEGORY.BASE, id], () => Get(`${URL_KEYS.CATEGORY.BASE}/${id}`), { enabled: enabled }),
+
+  /* ========================== Page ========================== */
+  useGetPage: (params?: Params, enabled?: boolean) => useQueries<PageApiResponse>([KEYS.PAGE.BASE, params], () => Get(URL_KEYS.PAGE.BASE, params), { enabled: enabled }),
+  useGetPageById: (id?: string, enabled?: boolean) => useQueries<PageByIdApiResponse>([KEYS.PAGE.BASE, id], () => Get(`${URL_KEYS.PAGE.BASE}/${id}`), { enabled: enabled }),
+
+  /* ========================== Collection ========================== */
+  useGetCollection: (params?: Params, enabled?: boolean) => useQueries<CollectionApiResponse>([KEYS.COLLECTION.BASE, params], () => Get(URL_KEYS.COLLECTION.BASE, params), { enabled: enabled }),
+  useGetCollectionById: (id?: string, enabled?: boolean) => useQueries<CollectionByIdApiResponse>([KEYS.COLLECTION.BASE, id], () => Get(`${URL_KEYS.COLLECTION.BASE}/${id}`), { enabled: enabled }),
 };

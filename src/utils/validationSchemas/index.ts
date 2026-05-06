@@ -105,6 +105,21 @@ export const CategorySchema = Yup.object({
   slug: Validation("string", "Slug", { extraRules: (s) => s.matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug can only contain lowercase letters, numbers, and hyphens") }),
 });
 
+/* ========================== Page ========================== */
+
+export const PageSchema = Yup.object({
+  storeId: Validation("string", "Store"),
+  title: Validation("string", "Page title"),
+  slug: Validation("string", "Slug", { extraRules: (s) => s.matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug can only contain lowercase letters, numbers, and hyphens") }),
+});
+
+/* ========================== Collection ========================== */
+
+export const CollectionSchema = Yup.object({
+  storeId: Validation("string", "Store"),
+  title: Validation("string", "Collection title"),
+});
+
 /* ========================== Store ========================== */
 export const StoreSchema = Yup.object({
   name: Validation("string", "Store Name"),

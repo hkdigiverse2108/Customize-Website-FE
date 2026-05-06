@@ -16,7 +16,6 @@ const CommonValidationSelect = dynamic(() => import("@/attribute").then((mod) =>
 const CommonValidationSwitch = dynamic(() => import("@/attribute").then((mod) => mod.CommonValidationSwitch), { ssr: false });
 const CommonValidationTextField = dynamic(() => import("@/attribute").then((mod) => mod.CommonValidationTextField), { ssr: false });
 
-
 const AddEditPlanPage = () => {
   const router = useRouter();
 
@@ -62,7 +61,6 @@ const AddEditPlanPage = () => {
         <div className="max-w-2xl text-left">
           <p className="text-xs font-semibold uppercase tracking-[0.075em] text-brand-600">Admin plan editor</p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">{pageTitle}</h1>
-          <p className="mt-3 text-sm leading-6 text-slate-500">Define pricing, usage limits, feature access, and domain support in one structured admin form.</p>
         </div>
       </div>
 

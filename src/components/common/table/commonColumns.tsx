@@ -8,7 +8,7 @@ const getNestedValue = (obj: any, path: string) => {
 };
 
 // ✅ Formatter
-const formatValues = (values: (string | number)[], type?: ColumnFormatType): string => {
+const formatValues = (values: (string | number | boolean)[], type?: ColumnFormatType): string => {
   if (!values.length) return "-";
 
   const value = values[0];
@@ -31,6 +31,9 @@ const formatValues = (values: (string | number)[], type?: ColumnFormatType): str
 
     case "status":
       return value ? value.toString() : "-";
+
+    case "boolean":
+      return Boolean(value) ? "Yes" : "No";
 
     case "createdBy": {
       const [fullName, userType] = values;
@@ -59,14 +62,14 @@ export const CommonObjectPropertyColumn = <T extends object>(dataIndex: string, 
     const obj = getNestedValue(record, sourceField);
 
     // ✅ direct value
-    if (typeof obj === "string" || typeof obj === "number") {
+    if (typeof obj === "string" || typeof obj === "number" || typeof obj === "boolean") {
       const formatted = formatValues([obj], options?.type);
       return renderByType(formatted, options?.type);
     }
 
     if (typeof obj !== "object" || obj === null) return "-";
 
-    const values = properties.map((prop) => obj?.[prop]).filter((val) => typeof val === "string" || typeof val === "number");
+    const values = properties.map((prop) => obj?.[prop]).filter((val) => typeof val === "string" || typeof val === "number" || typeof val === "boolean");
 
     const formatted = formatValues(values, options?.type);
 
