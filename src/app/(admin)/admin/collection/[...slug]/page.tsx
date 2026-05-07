@@ -31,6 +31,7 @@ const AddEditCollectionsPage = () => {
 
   const { data, isLoading: isDataLoading } = Queries.useGetCollectionById(id, !!id);
   const { data: storesData, isLoading: isStoresLoading } = Queries.useGetStore({});
+  const { data: productsData, isLoading: isProductsLoading } = Queries.useGetProduct({});
 
   const Data = data?.data;
   const pageTitle = PAGE_TITLE.COLLECTION[pageMode];
@@ -91,7 +92,7 @@ const AddEditCollectionsPage = () => {
                   <CommonValidationSelect name="type" label="Type" placeholder="Enter collection type" col={{ xs: 24, md: 12 }} options={COLLECTION_TYPE_OPTIONS} />
                   <CommonValidationSelect name="status" label="status" placeholder="Enter status" col={{ xs: 24, md: 12 }} options={COLLECTION_STATUS_OPTIONS} />
                   <CommonValidationDatePicker name="publishedAt" label="Published Date" col={{ xs: 24, md: 12 }} />
-                  <CommonValidationSelect name="productIds" label="Products" placeholder="Select products" options={[]} loading={isStoresLoading} col={{ xs: 24, md: 12 }} />
+                  <CommonValidationSelect name="productIds" label="Products" placeholder="Select products" options={GenerateOptions(productsData?.data?.products)} loading={isProductsLoading} col={{ xs: 24, md: 12 }} />
                   <CommonValidationSelect name="sortOrder" label="Sort Order" placeholder="Enter sort order" col={{ xs: 24, md: 12 }} options={COLLECTION_SORT_ORDER_OPTIONS} />
                   <CommonValidationSelect name="tags" label="Tags" placeholder="Enter tags" options={[]} mode="tags" col={{ xs: 24 }} />
                   <CommonValidationTextField name="description" label="Description" placeholder="Enter description" col={{ xs: 24 }} multiline />

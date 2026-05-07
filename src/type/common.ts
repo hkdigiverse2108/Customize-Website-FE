@@ -184,7 +184,7 @@ export type FieldTypeMap = {
 
 export type FieldConfig = {
   name: string;
-  type: "string" | "array";
+  type: "string" | "number" | "boolean" | "array";
   label?: string;
   required?: boolean;
   extraRules?: (schema: any) => any;

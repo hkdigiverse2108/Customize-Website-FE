@@ -127,6 +127,27 @@ export const CollectionSchema = Yup.object({
   ),
 });
 
+/* ========================== Product ========================== */
+
+export const ProductSchema = Yup.object({
+  storeId: Validation("string", "Store"),
+  title: Validation("string", "Collection title"),
+  options: Yup.array().of(
+    CreateConditionalSchema([
+      { name: "name", type: "string" },
+      { name: "values", type: "array" },
+    ]),
+  ),
+  media: Yup.array().of(
+    CreateConditionalSchema([
+      { name: "url", type: "string" },
+      { name: "alt", type: "string" },
+      { name: "type", type: "string" },
+      { name: "position", type: "number" },
+    ]),
+  ),
+});
+
 /* ========================== Store ========================== */
 export const StoreSchema = Yup.object({
   name: Validation("string", "Store Name"),

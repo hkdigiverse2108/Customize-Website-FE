@@ -91,4 +91,10 @@ export const KEYS = {
     EDIT: "edit-collection",
     DELETE: "delete-collection",
   },
+  PRODUCT: {
+    BASE: "product",
+    ADD: "add-product",
+    EDIT: "edit-product",
+    DELETE: "delete-product",
+  },
 };

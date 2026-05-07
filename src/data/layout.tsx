@@ -1,5 +1,6 @@
 import { PAGE_TITLE, ROUTES } from "@/constants";
 import { NavItem } from "@/type";
+import { AiOutlineProduct } from "react-icons/ai";
 import { BiCategory, BiCollection } from "react-icons/bi";
 import { BsCartCheck } from "react-icons/bs";
 import { FiBell, FiMapPin } from "react-icons/fi";
@@ -21,6 +22,7 @@ export const AdminNavItems: NavItem[] = [
   { icon: <BiCategory />, name: PAGE_TITLE.CATEGORY.BASE, path: ROUTES.ADMIN.CATEGORY.BASE },
   { icon: <RiPagesLine />, name: PAGE_TITLE.PAGE.BASE, path: ROUTES.ADMIN.PAGE.BASE },
   { icon: <BiCollection />, name: PAGE_TITLE.COLLECTION.BASE, path: ROUTES.ADMIN.COLLECTION.BASE },
+  { icon: <AiOutlineProduct />, name: PAGE_TITLE.PRODUCT.BASE, path: ROUTES.ADMIN.PRODUCT.BASE },
   // {
   //   name: PAGE_TITLE.PLAN.BASE,
   //   icon: <FaWindowRestore />,

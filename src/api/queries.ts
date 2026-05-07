@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { AppQueryOptions, CategoryApiResponse, CategoryByIdApiResponse, CollectionApiResponse, CollectionByIdApiResponse, ComponentApiResponse, ComponentByIdApiResponse, PageApiResponse, PageByIdApiResponse, Params, PlanApiResponse, PlanByIdApiResponse, StoreApiResponse, StoreByIdApiResponse, ThemeApiResponse, ThemeByIdApiResponse, UploadResponse } from "@/type";
+import { AppQueryOptions, CategoryApiResponse, CategoryByIdApiResponse, CollectionApiResponse, CollectionByIdApiResponse, ComponentApiResponse, ComponentByIdApiResponse, PageApiResponse, PageByIdApiResponse, Params, PlanApiResponse, PlanByIdApiResponse, ProductApiResponse, ProductByIdApiResponse, StoreApiResponse, StoreByIdApiResponse, ThemeApiResponse, ThemeByIdApiResponse, UploadResponse } from "@/type";
 import { Get } from "./methods";
 import { useQueries } from "./reactQuery";
 
@@ -49,4 +49,8 @@ export const Queries = {
   /* ========================== Collection ========================== */
   useGetCollection: (params?: Params, enabled?: boolean) => useQueries<CollectionApiResponse>([KEYS.COLLECTION.BASE, params], () => Get(URL_KEYS.COLLECTION.BASE, params), { enabled: enabled }),
   useGetCollectionById: (id?: string, enabled?: boolean) => useQueries<CollectionByIdApiResponse>([KEYS.COLLECTION.BASE, id], () => Get(`${URL_KEYS.COLLECTION.BASE}/${id}`), { enabled: enabled }),
+
+  /* ========================== Product ========================== */
+  useGetProduct: (params?: Params, enabled?: boolean) => useQueries<ProductApiResponse>([KEYS.PRODUCT.BASE, params], () => Get(URL_KEYS.PRODUCT.BASE, params), { enabled: enabled }),
+  useGetProductById: (id?: string, enabled?: boolean) => useQueries<ProductByIdApiResponse>([KEYS.PRODUCT.BASE, id], () => Get(`${URL_KEYS.PRODUCT.BASE}/${id}`), { enabled: enabled }),
 };

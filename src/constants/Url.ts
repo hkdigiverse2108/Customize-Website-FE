@@ -53,4 +53,7 @@ export const URL_KEYS = {
   COLLECTION: {
     BASE: "/collection",
   },
+  PRODUCT: {
+    BASE: "/product",
+  },
 } as const;

@@ -319,3 +319,34 @@ export const COLLECTION_OPERATOR_OPTIONS = [
   { label: "Greater Than", value: COLLECTION_OPERATOR.GREATER_THAN },
   { label: "Less Than", value: COLLECTION_OPERATOR.LESS_THAN },
 ];
+
+export const PRODUCT_EDIT_MODE_OPTIONS = [
+  { label: "Basic", value: "basic" },
+  { label: "Options", value: "options" },
+  { label: "Variants", value: "variants" },
+  { label: "SEO", value: "seo" },
+  { label: "Media", value: "media" },
+  { label: "Features", value: "features" },
+];
+
+export const PRODUCT_STATUS = {
+  DRAFT: "draft",
+  ACTIVE: "active",
+  ARCHIVED: "archived",
+} as const;
+
+export const PRODUCT_STATUS_OPTIONS = [
+  { label: "Draft", value: PRODUCT_STATUS.DRAFT },
+  { label: "Active", value: PRODUCT_STATUS.ACTIVE },
+  { label: "Archived", value: PRODUCT_STATUS.ARCHIVED },
+];
+
+export const PRODUCT_MEDIA_TYPE = {
+  IMAGE: "image",
+  VIDEO: "video",
+} as const;
+
+export const PRODUCT_MEDIA_TYPE_OPTIONS = [
+  { label: "Image", value: PRODUCT_MEDIA_TYPE.IMAGE },
+  { label: "Video", value: PRODUCT_MEDIA_TYPE.VIDEO },
+];
