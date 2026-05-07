@@ -118,6 +118,13 @@ export const PageSchema = Yup.object({
 export const CollectionSchema = Yup.object({
   storeId: Validation("string", "Store"),
   title: Validation("string", "Collection title"),
+  rules: Yup.array().of(
+    CreateConditionalSchema([
+      { name: "field", type: "string" },
+      { name: "operator", type: "string" },
+      { name: "value", type: "string" },
+    ]),
+  ),
 });
 
 /* ========================== Store ========================== */

@@ -25,13 +25,11 @@ const CollectionPage = () => {
   const columns: ColumnsType<CollectionBase> = [
     CommonObjectPropertyColumn("storeId", "storeId", ["name"], { title: "Store" }),
     CommonObjectPropertyColumn("title", "title", [], { title: "Title" }),
-    CommonObjectPropertyColumn("slug", "slug", [], { title: "Slug" }),
+    CommonObjectPropertyColumn("handle", "handle", [], { title: "Handle" }),
     CommonObjectPropertyColumn("type", "type", [], { title: "Type", type: "format" }),
-    CommonObjectPropertyColumn("visibility", "visibility", [], { title: "Visibility", type: "format" }),
-    CommonObjectPropertyColumn("password", "password", [], { title: "Password" }),
+    CommonObjectPropertyColumn("status", "status", [], { title: "status", type: "format" }),
+    CommonObjectPropertyColumn("publishedAt", "publishedAt", [], { title: "Published at", type: "date" }),
     CommonObjectPropertyColumn("isPublished", "isPublished", [], { title: "Published", type: "boolean" }),
-    CommonObjectPropertyColumn("isHomePage", "isHomePage", [], { title: "Home Page", type: "boolean" }),
-    CommonObjectPropertyColumn("isDraft", "isDraft", [], { title: "Draft", type: "boolean" }),
     CommonActionColumn<CollectionBase>({
       onActive: { onHandle: (row) => editData({ id: row._id, isActive: !row.isActive }) },
       onEdit: { onHandle: (row) => router.push(`${ROUTES.ADMIN.COLLECTION.EDIT}/${row._id}`) },

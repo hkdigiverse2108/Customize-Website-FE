@@ -57,20 +57,29 @@ export const GetChangedFields = (newVal: Record<string, any>, oldVal: Record<str
     const newValue = newVal[key];
     const oldValue = oldVal[key];
 
-    // ❌ both empty → skip
+    // both empty
     if (isEmpty(newValue) && isEmpty(oldValue)) return;
 
-    // ✅ ARRAY → clean + always send [] if empty
+    // ARRAY
     if (Array.isArray(newValue)) {
-      const cleanedArray = newValue.filter((item) => item && typeof item === "object" && !isObjectEmpty(item));
-      if (!isEqual(cleanedArray, oldValue)) {
-        changed[key] = cleanedArray; // ✅ [] allowed
+      const cleanedArray = newValue.filter((item) => {
+        // object item
+        if (typeof item === "object" && item !== null) {
+          return !isObjectEmpty(item);
+        }
+
+        // primitive item (string, number, boolean)
+        return !isEmpty(item);
+      });
+
+      if (!isEqual(cleanedArray, oldValue || [])) {
+        changed[key] = cleanedArray;
       }
       return;
     }
 
-    // ✅ OBJECT → check nested changes
-    if (typeof newValue === "object" && newValue !== null) {
+    // OBJECT
+    if (typeof newValue === "object" && newValue !== null && !Array.isArray(newValue)) {
       const nestedChanged = GetChangedFields(newValue, oldValue ?? {});
 
       if (Object.keys(nestedChanged).length > 0) {
@@ -79,7 +88,7 @@ export const GetChangedFields = (newVal: Record<string, any>, oldVal: Record<str
       return;
     }
 
-    // ✅ PRIMITIVE
+    // PRIMITIVE
     if (!isEqual(newValue, oldValue)) {
       changed[key] = newValue;
     }

@@ -7,7 +7,7 @@ import { CommonBottomActionBar, CommonCard, CommonFormSection } from "@/componen
 import { PAGE_TITLE } from "@/constants";
 import { COLLECTION_OPERATOR_OPTIONS, COLLECTION_RULE_CONDITION_OPTIONS, COLLECTION_RULE_FIELD_OPTIONS, COLLECTION_SORT_ORDER_OPTIONS, COLLECTION_STATUS_OPTIONS, COLLECTION_TYPE_OPTIONS } from "@/data";
 import { CollectionFormValues } from "@/type";
-import { CollectionSchema, GenerateOptions, GetChangedFields, MapConfig, PageSchema, RemoveEmptyFields, useDynamicSlug } from "@/utils";
+import { CollectionSchema, GenerateOptions, GetChangedFields, MapConfig, RemoveEmptyFields, useDynamicSlug } from "@/utils";
 import { Col, Divider, Row } from "antd";
 import { FieldArray, Form, Formik, FormikHelpers } from "formik";
 import dynamic from "next/dynamic";
@@ -92,13 +92,13 @@ const AddEditCollectionsPage = () => {
                   <CommonValidationSelect name="status" label="status" placeholder="Enter status" col={{ xs: 24, md: 12 }} options={COLLECTION_STATUS_OPTIONS} />
                   <CommonValidationDatePicker name="publishedAt" label="Published Date" col={{ xs: 24, md: 12 }} />
                   <CommonValidationSelect name="productIds" label="Products" placeholder="Select products" options={[]} loading={isStoresLoading} col={{ xs: 24, md: 12 }} />
-                  <CommonValidationSelect name="tags" label="Tags" placeholder="Enter tags" options={[]} mode="tags" col={{ xs: 24, md: 12 }} />
+                  <CommonValidationSelect name="sortOrder" label="Sort Order" placeholder="Enter sort order" col={{ xs: 24, md: 12 }} options={COLLECTION_SORT_ORDER_OPTIONS} />
+                  <CommonValidationSelect name="tags" label="Tags" placeholder="Enter tags" options={[]} mode="tags" col={{ xs: 24 }} />
                   <CommonValidationTextField name="description" label="Description" placeholder="Enter description" col={{ xs: 24 }} multiline />
                 </CommonFormSection>
 
                 <CommonFormSection title={"Rules"} row={{ gutter: [10, 10] }}>
-                  <CommonValidationSelect name="ruleCondition" label="Rule Condition" placeholder="Enter rule condition" col={{ xs: 24, md: 12 }} options={COLLECTION_RULE_CONDITION_OPTIONS} />
-                  <CommonValidationSelect name="sortOrder" label="Sort Order" placeholder="Enter sort order" col={{ xs: 24, md: 12 }} options={COLLECTION_SORT_ORDER_OPTIONS} />
+                  <CommonValidationSelect name="ruleCondition" label="Rule Condition" placeholder="Enter rule condition" col={{ xs: 24 }} options={COLLECTION_RULE_CONDITION_OPTIONS} />
                   <Col xs={24}>
                     <FieldArray name={"rules"}>
                       {({ push, remove }) =>
@@ -109,7 +109,7 @@ const AddEditCollectionsPage = () => {
                               <CommonValidationSelect name={`rules.${index}.operator`} label="Operator" placeholder="Enter value" options={COLLECTION_OPERATOR_OPTIONS} col={{ xs: 24, md: 8 }} />
                               <CommonValidationTextField name={`rules.${index}.value`} label="Value" placeholder="Enter value" col={{ flex: "auto" }} />
                               {(values?.rules?.length || 0) > 1 && <CommonButton variant="dashed" color="danger" size="large" icon={<GrClose />} col={{ flex: "none" }} onClick={() => remove(index)} />}
-                              <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ key: "", value: "" })} />
+                              <CommonButton variant="dashed" color="primary" size="large" icon={<GrAdd />} col={{ flex: "none" }} onClick={() => push({ field: "", operator: "", value: "" })} />
                             </Row>
                             {index < (values?.rules?.length || 0) - 1 && <Divider className="my-3!" />}
                           </div>
