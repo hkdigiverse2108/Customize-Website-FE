@@ -67,4 +67,9 @@ export const PAGE_TITLE = {
     ADD: "Add Product",
     EDIT: "Edit Product",
   },
+  BLOG: {
+    BASE: "Blog",
+    ADD: "Add Blog",
+    EDIT: "Edit Blog",
+  },
 } as const;

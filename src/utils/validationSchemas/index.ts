@@ -127,6 +127,18 @@ export const CollectionSchema = Yup.object({
   ),
 });
 
+/* ========================== Blog ========================== */
+
+export const BlogSchema = Yup.object({
+  storeId: Validation("string", "Store"),
+  title: Validation("string", "Blog title"),
+  seo: Yup.object({
+    title: Validation("string", "Seo Title"),
+    description: Validation("string", "Seo Description"),
+    slug: Validation("string", "Seo slug"),
+  }),
+});
+
 /* ========================== Product ========================== */
 
 export const ProductSchema = Yup.object({

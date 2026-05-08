@@ -55,7 +55,7 @@ export const CommonObjectPropertyColumn = <T extends object>(dataIndex: string, 
   title: options?.title ?? dataIndex,
   dataIndex,
   key: dataIndex,
-  width: options?.width,
+  ...(options?.width ? { width: options.width } : {}),
   // ellipsis: options?.ellipsis ?? true,
 
   render: (_, record) => {

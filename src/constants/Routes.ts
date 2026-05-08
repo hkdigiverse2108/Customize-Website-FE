@@ -68,5 +68,10 @@ export const ROUTES = {
       ADD: "/admin/product/add",
       EDIT: "/admin/product/edit",
     },
+    BLOG: {
+      BASE: "/admin/blog",
+      ADD: "/admin/blog/add",
+      EDIT: "/admin/blog/edit",
+    },
   },
 } as const;

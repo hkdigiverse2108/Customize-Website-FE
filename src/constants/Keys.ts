@@ -97,4 +97,10 @@ export const KEYS = {
     EDIT: "edit-product",
     DELETE: "delete-product",
   },
+  BLOG: {
+    BASE: "blog",
+    ADD: "add-blog",
+    EDIT: "edit-blog",
+    DELETE: "delete-blog",
+  },
 };

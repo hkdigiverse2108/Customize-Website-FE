@@ -350,3 +350,13 @@ export const PRODUCT_MEDIA_TYPE_OPTIONS = [
   { label: "Image", value: PRODUCT_MEDIA_TYPE.IMAGE },
   { label: "Video", value: PRODUCT_MEDIA_TYPE.VIDEO },
 ];
+
+export const BLOG_STATUS = {
+  VISIBLE: "visible",
+  HIDDEN: "hidden",
+} as const;
+
+export const BLOG_STATUS_OPTIONS = [
+  { label: "Visible", value: BLOG_STATUS.VISIBLE },
+  { label: "Hidden", value: BLOG_STATUS.HIDDEN },
+];

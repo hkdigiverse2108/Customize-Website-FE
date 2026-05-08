@@ -5,7 +5,7 @@ import { BiCategory, BiCollection } from "react-icons/bi";
 import { BsCartCheck } from "react-icons/bs";
 import { FiBell, FiMapPin } from "react-icons/fi";
 import { GrPlan } from "react-icons/gr";
-import { HiOutlineColorSwatch, HiOutlineReceiptTax } from "react-icons/hi";
+import { HiOutlineColorSwatch, HiOutlineNewspaper, HiOutlineReceiptTax } from "react-icons/hi";
 import { IoColorPaletteOutline, IoSettingsOutline, IoStorefrontOutline } from "react-icons/io5";
 import { LiaStoreSolid } from "react-icons/lia";
 import { LuComponent } from "react-icons/lu";
@@ -23,6 +23,7 @@ export const AdminNavItems: NavItem[] = [
   { icon: <RiPagesLine />, name: PAGE_TITLE.PAGE.BASE, path: ROUTES.ADMIN.PAGE.BASE },
   { icon: <BiCollection />, name: PAGE_TITLE.COLLECTION.BASE, path: ROUTES.ADMIN.COLLECTION.BASE },
   { icon: <AiOutlineProduct />, name: PAGE_TITLE.PRODUCT.BASE, path: ROUTES.ADMIN.PRODUCT.BASE },
+  { icon: <HiOutlineNewspaper />, name: PAGE_TITLE.BLOG.BASE, path: ROUTES.ADMIN.BLOG.BASE },
   // {
   //   name: PAGE_TITLE.PLAN.BASE,
   //   icon: <FaWindowRestore />,

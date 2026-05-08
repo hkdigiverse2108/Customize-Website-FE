@@ -9,7 +9,7 @@ const CommonActionColumn = <T,>({ onActive, onEdit, onDelete }: CommonActionColu
   title: "Option",
   key: "actionIcons",
   width: 120,
-  fixed: "end" as const,
+  // fixed: "end" as const,
   render: (_: T, record: T & { isActive?: boolean }) => (
     <Flex gap="small" justify="center">
       {!!onActive && (onActive?.isPermission?.(record) ?? true) && (

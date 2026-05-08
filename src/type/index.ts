@@ -10,3 +10,4 @@ export * from "./category";
 export * from "./page";
 export * from "./collection";
 export * from "./product";
+export * from "./blog";

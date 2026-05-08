@@ -1,5 +1,5 @@
 import { KEYS, URL_KEYS } from "@/constants";
-import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload, AddStorePayload, EditStorePayload, UploadResponse, AddThemePayload, EditThemePayload, AddComponentPayload, EditComponentPayload, AddCategoryPayload, EditCategoryPayload, AddPagePayload, EditPagePayload, AddCollectionPayload, EditCollectionPayload, AddProductPayload, EditProductPayload } from "@/type";
+import { LoginPayload, ResendOtpPayload, SignupPayload, LoginResponse, VerifyOtpPayload, ForgotPasswordPayload, ResetPasswordPayload, SignupGooglePayload, AddPlanPayload, EditPlanPayload, AddStorePayload, EditStorePayload, UploadResponse, AddThemePayload, EditThemePayload, AddComponentPayload, EditComponentPayload, AddCategoryPayload, EditCategoryPayload, AddPagePayload, EditPagePayload, AddCollectionPayload, EditCollectionPayload, AddProductPayload, EditProductPayload, AddBlogPayload, EditBlogPayload } from "@/type";
 import { Delete, Post, Put } from "./methods";
 import { useMutations } from "./reactQuery";
 
@@ -79,4 +79,9 @@ export const Mutations = {
   useAddProduct: () => useMutations<AddProductPayload, void>([KEYS.PRODUCT.ADD, KEYS.PRODUCT.BASE], (input) => Post(URL_KEYS.PRODUCT.BASE, input)),
   useEditProduct: () => useMutations<EditProductPayload, void>([KEYS.PRODUCT.EDIT, KEYS.PRODUCT.BASE], (input) => Put(URL_KEYS.PRODUCT.BASE, input)),
   useDeleteProduct: () => useMutations<string, void>([KEYS.PRODUCT.DELETE, KEYS.PRODUCT.BASE], (id) => Delete(`${URL_KEYS.PRODUCT.BASE}/${id}`)),
+
+  /* ========================== Blog ========================== */
+  useAddBlog: () => useMutations<AddBlogPayload, void>([KEYS.BLOG.ADD, KEYS.BLOG.BASE], (input) => Post(URL_KEYS.BLOG.BASE, input)),
+  useEditBlog: () => useMutations<EditBlogPayload, void>([KEYS.BLOG.EDIT, KEYS.BLOG.BASE], (input) => Put(URL_KEYS.BLOG.BASE, input)),
+  useDeleteBlog: () => useMutations<string, void>([KEYS.BLOG.DELETE, KEYS.BLOG.BASE], (id) => Delete(`${URL_KEYS.BLOG.BASE}/${id}`)),
 };
